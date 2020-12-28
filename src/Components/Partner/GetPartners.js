@@ -1,5 +1,7 @@
 import React from "react";
 import { Table, Button, Form } from "react-bootstrap";
+import DeletePartner from "./DeletePartner";
+import UpdatePartner from "./UpdatePartner";
 
 function GetPartners({ data }) {
   return (
@@ -7,10 +9,11 @@ function GetPartners({ data }) {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Phone </th>
+            {/* <th>Id</th> */}
+            <th>Անուն</th>
+            <th>Նկարագրություն</th>
+            <th>Հեռախոսահամար</th>
+            <th>Գործողություն</th>
           </tr>
         </thead>
         <tbody>
@@ -18,10 +21,14 @@ function GetPartners({ data }) {
             data.map((partner, index) => {
               return (
                 <tr key={index}>
-                  <td>{partner.id}</td>
+                  {/* <td>{partner.id}</td> */}
                   <td>{partner.name}</td>
                   <td>{partner.description}</td>
                   <td>{partner.phone}</td>
+                  <td>
+                    <UpdatePartner data={partner} />
+                    <DeletePartner />
+                  </td>
                 </tr>
               );
             })

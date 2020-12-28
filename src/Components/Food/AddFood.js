@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { FoodContext } from "../../Pages/Foods";
+import { toast } from "react-toastify";
 
-function AddFish() {
+function AddFood() {
   // name, height, width, maxweight
+  const food = useContext(FoodContext);
 
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
@@ -15,7 +18,7 @@ function AddFish() {
   const handleShow = () => setShow(true);
 
   const handleSubmit = (evt) => {
-    evt.preventDefault();
+    // evt.preventDefault();
     console.log(name, number, weight, coefficient);
     axios
       .post(`/info/food/addFood`, {
@@ -26,21 +29,22 @@ function AddFish() {
       })
       .then((response) => {
         console.log(response);
+        const food1 = {
+          name: name,
+          number: number,
+          weight: weight,
+          coefficient: coefficient,
+        };
+        food.addFood(food1);
+        toast("foody avelacav");
       });
+    // window.location.reload(false);
   };
 
   return (
-    <div
-      style={{
-        // width: "18rem",
-        marginLeft: "10px",
-        marginTop: "30px",
-        bottom: "30px",
-        marginBottom: "30px",
-      }}
-    >
+    <div>
       <Button variant="primary" onClick={handleShow}>
-        Ավելացնել կեր
+        Ավելացնել
       </Button>
 
       <Modal show={show} onHide={handleClose} animation={false}>
@@ -85,8 +89,10 @@ function AddFish() {
           </Button>
           <Button
             variant="primary"
-            onClick={handleSubmit}
-            // onClick={handleClose}
+            onClick={() => {
+              handleSubmit();
+              handleClose();
+            }}
           >
             Հաստատել
           </Button>
@@ -96,4 +102,4 @@ function AddFish() {
   );
 }
 
-export default AddFish;
+export default AddFood;

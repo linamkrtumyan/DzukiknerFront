@@ -1,85 +1,82 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
-import { toast } from "react-toastify";
-import { PoolContext } from "../../Pages/PoolPage";
 
-function AddPool() {
-  // name, height, width, maxweight
-  const pool = useContext(PoolContext);
-
+function UpdateFood({ data }) {
+  //   console.log(data);
   const [show, setShow] = useState(false);
-  const [name, setName] = useState("");
-  const [height, setHeight] = useState("");
-  const [width, setWidth] = useState("");
-  const [maxweight, setMaxweight] = useState("");
+  const [id, setId] = useState(data.id);
+  const [name, setName] = useState(data.name);
+  const [number, setNumber] = useState(data.number);
+  const [weight, setWeight] = useState(data.weight);
+  const [coefficient, setCoefficient] = useState(data.coefficient);
+
+  console.log(id, name, number, weight, coefficient);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const handleSubmit = (evt) => {
-    // evt.preventDefault();
-    console.log(name, height, width, maxweight);
+    evt.preventDefault();
+    console.log(id, name, number, weight, coefficient);
+    // { id, name, description, phone }
     axios
-      .post(`/pools/addPool`, {
+      .post(`/info/food/updateFood`, {
+        id,
         name,
-        height,
-        width,
-        maxweight,
+        number,
+        weight,
+        coefficient,
       })
       .then((response) => {
         console.log(response);
-        const newPool = {
-          name: name,
-          height: height,
-          width: width,
-          maxweight: maxweight,
-        };
-        pool.addNewPool(newPool);
-        toast("pooly avelacvac e");
       });
-    // window.location.reload(false);
+    window.location.reload(false);
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
   return (
-    <div>
+    <>
       <Button variant="primary" onClick={handleShow}>
-        Ավելացնել
+        Խմբագրել
       </Button>
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Ավելացնել ավազան</Modal.Title>
+          <Modal.Title>Խմբագրել</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
-            <Form.Label>Ավազան</Form.Label>
+            <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
               placeholder=""
+              value={name}
+              id="fishCount"
               onChange={(e) => setName(e.target.value)}
             />
             <br />
-            <Form.Label>Բարձրություն</Form.Label>
+            <Form.Label>Number</Form.Label>
             <Form.Control
-              type="number"
+              type="text"
               placeholder=""
-              onChange={(e) => setHeight(e.target.value)}
+              value={number}
+              onChange={(e) => setNumber(e.target.value)}
             />
             <br />
-            <Form.Label>Լայնություն</Form.Label>
+            <Form.Label>Weight</Form.Label>
             <Form.Control
-              type="number"
+              type="text"
               placeholder=""
-              onChange={(e) => setWidth(e.target.value)}
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
             />
             <br />
-            <Form.Label>Առավելագույն Քաշ</Form.Label>
+            <Form.Label>Coefficient</Form.Label>
             <Form.Control
-              type="number"
+              type="text"
               placeholder=""
-              onChange={(e) => setMaxweight(e.target.value)}
+              value={coefficient}
+              onChange={(e) => setCoefficient(e.target.value)}
             />
           </Form.Group>
         </Modal.Body>
@@ -89,19 +86,17 @@ function AddPool() {
           </Button>
           <Button
             variant="primary"
-            // onClick={handleSubmit}
             onClick={() => {
               handleSubmit();
               handleClose();
             }}
-            // onClick={handleClose}
           >
             Հաստատել
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 }
 
-export default AddPool;
+export default UpdateFood;

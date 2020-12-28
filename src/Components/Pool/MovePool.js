@@ -31,7 +31,6 @@ function MovePool({ data }) {
   }, []);
 
   const handleSubmit = (evt) => {
-    evt.preventDefault();
     console.log(id, quantity, weight, avgWeight, partnerId, description);
     axios
       .post(`/pools/movement`, {
@@ -45,6 +44,7 @@ function MovePool({ data }) {
       .then((response) => {
         console.log(response);
       });
+    window.location.reload(false);
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
@@ -118,8 +118,10 @@ function MovePool({ data }) {
           </Button>
           <Button
             variant="primary"
-            onClick={handleSubmit}
-            //  onClick={handleClose}
+            onClick={() => {
+              handleSubmit();
+              handleClose();
+            }}
           >
             Հաստատել
           </Button>

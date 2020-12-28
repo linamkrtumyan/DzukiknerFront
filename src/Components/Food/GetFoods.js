@@ -1,5 +1,6 @@
 import React from "react";
 import { Table, Button, Form } from "react-bootstrap";
+import UpdateFood from "./UpdateFood";
 
 function GetFoods({ data }) {
   return (
@@ -7,11 +8,12 @@ function GetFoods({ data }) {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Number </th>
-            <th>Weight </th>
-            <th>Coefficcient </th>
+            {/* <th>Id</th> */}
+            <th>Անուն</th>
+            <th>Համար</th>
+            <th>Քաշ </th>
+            <th>Գործակից </th>
+            <th>Գործողություն</th>
           </tr>
         </thead>
         <tbody>
@@ -19,11 +21,14 @@ function GetFoods({ data }) {
             data.map((food, index) => {
               return (
                 <tr key={index}>
-                  <td>{food.id}</td>
+                  {/* <td>{food.id}</td> */}
                   <td>{food.name}</td>
                   <td>{food.number}</td>
                   <td>{food.weight}</td>
                   <td>{food.coefficient}</td>
+                  <td>
+                    <UpdateFood data={food} />
+                  </td>
                 </tr>
               );
             })

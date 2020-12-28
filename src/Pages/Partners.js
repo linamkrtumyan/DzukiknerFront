@@ -1,11 +1,17 @@
-import { React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Button, Form } from "react-bootstrap";
 import GetPartners from "../Components/Partner/GetPartners";
 import axios from "axios";
 import AddPartner from "../Components/Partner/AddPartner";
 
+export const DzukContext = React.createContext();
 function Partners() {
   const [data, setData] = useState([]);
+
+  const addDzuk = (dzuk) => {
+    data.push(dzuk);
+    setData([...data]);
+  };
 
   console.log(data);
 
@@ -26,11 +32,21 @@ function Partners() {
   }, []);
   return (
     <div style={{ marginTop: "30px", marginLeft: "160px" }}>
-      <div style={{ padding: "10px", fontSize: "25px", fontWeight: "700" }}>
+      <div
+        style={{
+          padding: "10px",
+          fontSize: "25px",
+          fontWeight: "700",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         Գործընկերներ
+        <DzukContext.Provider value={{ data, setData, addDzuk }}>
+          <AddPartner />
+        </DzukContext.Provider>
       </div>
 
-      <AddPartner />
       <GetPartners data={data} />
     </div>
   );

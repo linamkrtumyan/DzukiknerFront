@@ -53,7 +53,7 @@ function PoolCard({ data, data1 }) {
             </Dropdown>
           </div>
           <Card.Text>
-            <div>Ավազան{data1.name}</div>
+            <div>{data1.name}</div>
             <div>Տեսակ{data1.fishType}</div>
             <div>Քանակ{data1.fishQuantity}</div>
             <div>Քաշ{data1.fishWeight}</div>

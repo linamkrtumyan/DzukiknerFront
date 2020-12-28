@@ -13,10 +13,10 @@ function UpdateModal({ data1 }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (evt) => {
-    evt.preventDefault();
+    // evt.preventDefault();
     console.log(id, name, height, width, maxweight);
     axios
-      .put(`/pools/updatePool`, {
+      .post(`/pools/updatePool`, {
         id,
         name,
         height,
@@ -26,6 +26,7 @@ function UpdateModal({ data1 }) {
       .then((response) => {
         console.log(response);
       });
+    window.location.reload(false);
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
@@ -41,7 +42,7 @@ function UpdateModal({ data1 }) {
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
-            <Form.Label>Ավազան</Form.Label>
+            <Form.Label>Անուն</Form.Label>
             <Form.Control
               type="text"
               placeholder=""
@@ -49,7 +50,7 @@ function UpdateModal({ data1 }) {
               onChange={(e) => setName(e.target.value)}
             />
             <br />
-            <Form.Label>Տեսակ</Form.Label>
+            <Form.Label>Բարձրություն</Form.Label>
             <Form.Control
               type="text"
               placeholder=""
@@ -58,7 +59,7 @@ function UpdateModal({ data1 }) {
               onChange={(e) => setfishQuantity(e.target.value)}
             />
             <br />
-            <Form.Label>Քանակ</Form.Label>
+            <Form.Label>Լայնություն</Form.Label>
             <Form.Control
               type="text"
               placeholder=""
@@ -66,7 +67,7 @@ function UpdateModal({ data1 }) {
               onChange={(e) => setfishWeight(e.target.value)}
             />
             <br />
-            <Form.Label>Քաշ</Form.Label>
+            <Form.Label>Առավելագույն քաշ</Form.Label>
             <Form.Control
               type="text"
               placeholder=""
@@ -81,8 +82,10 @@ function UpdateModal({ data1 }) {
           </Button>
           <Button
             variant="primary"
-            onClick={handleSubmit}
-            //  onClick={handleClose}
+            onClick={() => {
+              handleSubmit();
+              handleClose();
+            }}
           >
             Հաստատել
           </Button>

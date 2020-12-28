@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 
-function DeletePool({ data }) {
+function DeletePartner({ data }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -11,6 +11,7 @@ function DeletePool({ data }) {
   //   console.log(data);
 
   const handleSubmit = (evt) => {
+    evt.preventDefault();
     axios
       .post(`/pools/inPool`, {})
       .then((response) => {
@@ -19,17 +20,19 @@ function DeletePool({ data }) {
       .catch((e) => {
         console.log("error");
       });
-    window.location.reload(false);
+    //   window.location.reload(false);
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
   return (
     <>
-      <div onClick={handleShow}>Ջնջել</div>
+      <Button style={{ marginLeft: "5px" }} onClick={handleShow}>
+        Ջնջել
+      </Button>
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Ջնջել Ավազանը</Modal.Title>
+          <Modal.Title>Ջնջել գործընկերոջը</Modal.Title>
         </Modal.Header>
         <Modal.Body>Համոզված եք</Modal.Body>
         <Modal.Footer>
@@ -51,4 +54,4 @@ function DeletePool({ data }) {
   );
 }
 
-export default DeletePool;
+export default DeletePartner;

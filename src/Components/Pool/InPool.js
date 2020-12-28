@@ -37,7 +37,6 @@ function InPool({ data }) {
   }, []);
 
   const handleSubmit = (evt) => {
-    evt.preventDefault();
     console.log(toPoolid, quantity, weight, avgWeight, partnerId, description);
     axios
       .post(`/pools/inPool`, {
@@ -54,6 +53,7 @@ function InPool({ data }) {
       .catch((e) => {
         console.log("error");
       });
+    window.location.reload(false);
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
@@ -135,8 +135,10 @@ function InPool({ data }) {
           </Button>
           <Button
             variant="primary"
-            onClick={handleSubmit}
-            //  onClick={handleClose}
+            onClick={() => {
+              handleSubmit();
+              handleClose();
+            }}
           >
             Հաստատել
           </Button>

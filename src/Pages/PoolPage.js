@@ -6,9 +6,15 @@ import axios from "axios";
 import Cards from "../Components/Pool/Cards";
 import AddPool from "../Components/Pool/AddPool";
 
-const PoolPage = () => {
+export const PoolContext = React.createContext();
+
+function PoolPage() {
   const [data, setData] = useState([]);
 
+  const addNewPool = (pool) => {
+    data.push(pool);
+    setData([...data]);
+  };
   //   console.log(data);
 
   useEffect(() => {
@@ -29,15 +35,26 @@ const PoolPage = () => {
 
   return (
     <div style={{ marginLeft: "160px" }}>
-      <div style={{ padding: "10px", fontSize: "25px", fontWeight: "700" }}>
+      <div
+        style={{
+          padding: "10px",
+          fontSize: "25px",
+          fontWeight: "700",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         Ավազաններ
+        <PoolContext.Provider value={{ data, setData, addNewPool }}>
+          {" "}
+          <AddPool />
+        </PoolContext.Provider>
       </div>
 
-      <AddPool />
       <Cards data={data} />
       {/* <Cards /> */}
     </div>
   );
-};
+}
 
 export default PoolPage;

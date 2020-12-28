@@ -35,7 +35,6 @@ function SalePool({ data }) {
   }, []);
 
   const handleSubmit = (evt) => {
-    evt.preventDefault();
     console.log(toPoolid, quantity, weight, avgWeight, partnerId, description);
     axios
       .put(`/pools/`, {
@@ -49,6 +48,7 @@ function SalePool({ data }) {
       .then((response) => {
         console.log(response);
       });
+    window.location.reload(false);
   };
 
   return (
@@ -117,7 +117,13 @@ function SalePool({ data }) {
           <Button variant="secondary" onClick={handleClose}>
             Չեղարկել
           </Button>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              handleSubmit();
+              handleClose();
+            }}
+          >
             Հաստատել
           </Button>
         </Modal.Footer>

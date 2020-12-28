@@ -1,10 +1,15 @@
-import React, { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import { Modal, Button, Form, Alert } from "react-bootstrap";
 import axios from "axios";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { DzukContext } from "../../Pages/Partners";
+toast.configure();
 
 function AddPartner() {
   // name, height, width, maxweight
-
+  const dzukik = useContext(DzukContext);
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
   const [description, setHeight] = useState("");
@@ -13,8 +18,12 @@ function AddPartner() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  // function notify() {
+  //   toast("Wow so easy !");
+  // }
+
   const handleSubmit = (evt) => {
-    evt.preventDefault();
+    // evt.preventDefault();
     console.log(name, description, phone);
     axios
       .post(`/info/partner/addPartner`, {
@@ -23,25 +32,32 @@ function AddPartner() {
         phone,
       })
       .then((response) => {
-        console.log(response);
+        console.log(response.data.success);
+        // toast.error("avelacav");
+        // window.location.reload(false);
+        if (response.data.success) {
+          const dzuk = {
+            name: name,
+            description: description,
+            phone: phone,
+          };
+          dzukik.addDzuk(dzuk);
+          toast.success("Գործընկերն ավելացված է");
+        } else {
+          toast.error("Գործընկերն ավելացված չէ");
+        }
       });
+
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
   return (
-    <div
-      style={{
-        // width: "18rem",
-        marginLeft: "10px",
-        marginTop: "30px",
-        bottom: "30px",
-        marginBottom: "30px",
-      }}
-    >
+    <div>
+      {/* <button onClick={notify}>Notify !</button> */}
+      <ToastContainer />
       <Button variant="primary" onClick={handleShow}>
-        Ավելացնել գործընկեր
+        Ավելացնել
       </Button>
-
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Ավելացնել գործընկեր</Modal.Title>
@@ -76,8 +92,10 @@ function AddPartner() {
           </Button>
           <Button
             variant="primary"
-            onClick={handleSubmit}
-            // onClick={handleClose}
+            onClick={() => {
+              handleSubmit();
+              handleClose();
+            }}
           >
             Հաստատել
           </Button>
