@@ -40,7 +40,7 @@ function InPool({ data }) {
     evt.preventDefault();
     console.log(toPoolid, quantity, weight, avgWeight, partnerId, description);
     axios
-      .post(`/pools/entrance`, {
+      .post(`/pools/inPool`, {
         toPoolid,
         quantity,
         weight,

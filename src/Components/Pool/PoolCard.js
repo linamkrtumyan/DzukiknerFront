@@ -6,6 +6,7 @@ import SalePool from "./SalePool";
 import "./style.css";
 import MovePool from "./MovePool";
 import AddPool from "./AddPool";
+import DeletePool from "./DeletePool";
 
 function PoolCard({ data, data1 }) {
   return (
@@ -40,12 +41,14 @@ function PoolCard({ data, data1 }) {
                   <InPool data={data} />
                 </Dropdown.Item>
                 <Dropdown.Item>
-                  <SalePool />
+                  <SalePool data={data} />
                 </Dropdown.Item>
                 <Dropdown.Item>
-                  <MovePool />
+                  <MovePool data={data} />
                 </Dropdown.Item>
-                <Dropdown.Item>Ջնջել</Dropdown.Item>
+                <Dropdown.Item>
+                  <DeletePool />
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>

@@ -2,27 +2,23 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 
-function AddPool() {
+function AddFish() {
   // name, height, width, maxweight
 
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
-  const [height, setHeight] = useState("");
-  const [width, setWidth] = useState("");
-  const [maxweight, setMaxweight] = useState("");
+  const [description, setHeight] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log(name, height, width, maxweight);
+    console.log(name, description);
     axios
-      .post(`/pools/addPool`, {
+      .post(`/info/fish/addFish`, {
         name,
-        height,
-        width,
-        maxweight,
+        description,
       })
       .then((response) => {
         console.log(response);
@@ -37,45 +33,33 @@ function AddPool() {
         marginLeft: "10px",
         marginTop: "30px",
         bottom: "30px",
+        marginBottom: "30px",
       }}
     >
       <Button variant="primary" onClick={handleShow}>
-        Ստեղծել նոր քարտ
+        Ավելացնել ձուկիկ
       </Button>
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Ստեղծել նոր քարտ</Modal.Title>
+          <Modal.Title>Ավելացնել ձուկիկ</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
-            <Form.Label>Ավազան</Form.Label>
+            <Form.Label>Անուն</Form.Label>
             <Form.Control
               type="text"
               placeholder=""
               onChange={(e) => setName(e.target.value)}
             />
             <br />
-            <Form.Label>Բարձրություն</Form.Label>
+            <Form.Label>Նկարագրություն</Form.Label>
             <Form.Control
-              type="number"
+              //   type="number"
               placeholder=""
               onChange={(e) => setHeight(e.target.value)}
             />
             <br />
-            <Form.Label>Լայնություն</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder=""
-              onChange={(e) => setWidth(e.target.value)}
-            />
-            <br />
-            <Form.Label>Առավելագույն Քաշ</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder=""
-              onChange={(e) => setMaxweight(e.target.value)}
-            />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
@@ -95,4 +79,4 @@ function AddPool() {
   );
 }
 
-export default AddPool;
+export default AddFish;

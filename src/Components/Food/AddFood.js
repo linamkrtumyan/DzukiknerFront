@@ -2,32 +2,31 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 
-function AddPool() {
+function AddFish() {
   // name, height, width, maxweight
 
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
-  const [height, setHeight] = useState("");
-  const [width, setWidth] = useState("");
-  const [maxweight, setMaxweight] = useState("");
+  const [number, setNumber] = useState("");
+  const [weight, setWeight] = useState("");
+  const [coefficient, setCoefficient] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log(name, height, width, maxweight);
+    console.log(name, number, weight, coefficient);
     axios
-      .post(`/pools/addPool`, {
+      .post(`/info/food/addFood`, {
         name,
-        height,
-        width,
-        maxweight,
+        number,
+        weight,
+        coefficient,
       })
       .then((response) => {
         console.log(response);
       });
-    // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
   return (
@@ -37,45 +36,47 @@ function AddPool() {
         marginLeft: "10px",
         marginTop: "30px",
         bottom: "30px",
+        marginBottom: "30px",
       }}
     >
       <Button variant="primary" onClick={handleShow}>
-        Ստեղծել նոր քարտ
+        Ավելացնել կեր
       </Button>
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Ստեղծել նոր քարտ</Modal.Title>
+          <Modal.Title>Ավելացնել կեր</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
-            <Form.Label>Ավազան</Form.Label>
+            <Form.Label>Անուն</Form.Label>
             <Form.Control
               type="text"
               placeholder=""
               onChange={(e) => setName(e.target.value)}
             />
             <br />
-            <Form.Label>Բարձրություն</Form.Label>
+            <Form.Label>Համար</Form.Label>
             <Form.Control
-              type="number"
+              //   type="number"
               placeholder=""
-              onChange={(e) => setHeight(e.target.value)}
+              onChange={(e) => setNumber(e.target.value)}
             />
             <br />
-            <Form.Label>Լայնություն</Form.Label>
+            <Form.Label>Քաշ</Form.Label>
             <Form.Control
-              type="number"
+              //   type="number"
               placeholder=""
-              onChange={(e) => setWidth(e.target.value)}
+              onChange={(e) => setWeight(e.target.value)}
             />
             <br />
-            <Form.Label>Առավելագույն Քաշ</Form.Label>
+            <Form.Label>Գործակից</Form.Label>
             <Form.Control
-              type="number"
+              //   type="number"
               placeholder=""
-              onChange={(e) => setMaxweight(e.target.value)}
+              onChange={(e) => setCoefficient(e.target.value)}
             />
+            <br />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
@@ -95,4 +96,4 @@ function AddPool() {
   );
 }
 
-export default AddPool;
+export default AddFish;

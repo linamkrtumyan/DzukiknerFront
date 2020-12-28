@@ -28,12 +28,15 @@ const PoolPage = () => {
   }, []);
 
   return (
-    <>
+    <div style={{ marginLeft: "160px" }}>
+      <div style={{ padding: "10px", fontSize: "25px", fontWeight: "700" }}>
+        Ավազաններ
+      </div>
+
       <AddPool />
       <Cards data={data} />
-
       {/* <Cards /> */}
-    </>
+    </div>
   );
 };
 

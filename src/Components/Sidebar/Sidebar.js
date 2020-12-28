@@ -7,9 +7,9 @@ function Sidebar() {
     <div>
       <div className="sidenav">
         <Link to="/pools">Ավազաններ</Link>
-        <a href="#services">Services</a>
-        <a href="#clients">Clients</a>
-        <a href="#contact">Contact</a>
+        <Link to="/partners">Գործընկերներ</Link>
+        <Link to="/fishes">Ձկներ</Link>
+        <Link to="/foods">Կերեր</Link>
       </div>
     </div>
   );

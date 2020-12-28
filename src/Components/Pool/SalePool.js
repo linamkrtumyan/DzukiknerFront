@@ -19,57 +19,59 @@ function SalePool({ data }) {
   const [partnerId, setPartnerId] = useState("");
   const [description, setDescription] = useState("");
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const result = await axios("/info/fish/getFishes");
-  //     const partners = await axios("/info/partner/getPartners");
-  //     console.log(result.data.allFishes);
-  //     console.log(partners.data.allFoods);
-  //     setFishType(result.data.allFishes);
-  //     setPartners(partners.data.allFoods);
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      // const result = await axios("/info/fish/getFishes");
+      const partners = await axios("/info/partner/getPartners");
+      console.log(partners.data.allPartners);
+      if (partners.data.allPartners) {
+        // console.log(partners.data.allPartners);
+        // setFishType(result.data.allFishes);
+        setPartners(partners.data.allPartners);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
   const handleSubmit = (evt) => {
-    // evt.preventDefault();
-    // console.log(toPoolid, quantity, weight, avgWeight, partnerId, description);
-    // axios
-    //   .put(`/pools/`, {
-    //     toPoolid,
-    //     quantity,
-    //     weight,
-    //     avgWeight,
-    //     partnerId,
-    //     description,
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //   });
+    evt.preventDefault();
+    console.log(toPoolid, quantity, weight, avgWeight, partnerId, description);
+    axios
+      .put(`/pools/`, {
+        toPoolid,
+        quantity,
+        weight,
+        avgWeight,
+        partnerId,
+        description,
+      })
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   return (
     <>
-      {/* <div onClick={handleShow}>Մուտք</div>
+      <div onClick={handleShow}>Վաճառք</div>
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Մուտք</Modal.Title>
+          <Modal.Title>Վաճառք</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
             <Form.Label>Ավազանի համար</Form.Label>
             <Form.Control
               as="select"
-              onChange={(e) => setToPoolId(e.target.value)}
+              // onChange={(e) => setToPoolId(e.target.value)}
             >
               {data.map((data1) => (
                 <option value={data1.id}>{data1.name}</option>
               ))}
             </Form.Control>
             <br />
-            
+
             <br />
             <Form.Label>Քանակ</Form.Label>
             <Form.Control
@@ -115,15 +117,11 @@ function SalePool({ data }) {
           <Button variant="secondary" onClick={handleClose}>
             Չեղարկել
           </Button>
-          <Button
-            variant="primary"
-            onClick={handleSubmit}
-            
-          >
+          <Button variant="primary" onClick={handleSubmit}>
             Հաստատել
           </Button>
         </Modal.Footer>
-      </Modal> */}
+      </Modal>
     </>
   );
 }
