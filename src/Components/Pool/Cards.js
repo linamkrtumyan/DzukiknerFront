@@ -8,7 +8,7 @@ function Cards({ data }) {
     <>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {data.map((data1) => (
-          <PoolCard key={data1.id} data1={data1} data={data} />
+          <PoolCard id={data1.id} data1={data1} data={data} />
         ))}
       </div>
 

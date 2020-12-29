@@ -43,7 +43,7 @@ function AddPool() {
   };
 
   return (
-    <div>
+    <>
       <Button variant="primary" onClick={handleShow}>
         Ավելացնել
       </Button>
@@ -100,7 +100,7 @@ function AddPool() {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 }
 

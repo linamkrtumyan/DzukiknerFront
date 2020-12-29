@@ -35,28 +35,61 @@ function PoolCard({ data, data1 }) {
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item>
-                  <UpdateModal data1={data1} />
+                  <UpdateModal key={1} data1={data1} />
                 </Dropdown.Item>
                 <Dropdown.Item>
-                  <InPool data={data} />
+                  <InPool key={2} data={data} data1={data1} />
                 </Dropdown.Item>
                 <Dropdown.Item>
-                  <SalePool data={data} />
+                  <SalePool key={3} data={data} />
                 </Dropdown.Item>
                 <Dropdown.Item>
-                  <MovePool data={data} />
+                  <MovePool key={4} data={data} />
                 </Dropdown.Item>
                 <Dropdown.Item>
-                  <DeletePool />
+                  <DeletePool key={5} />
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>
           <Card.Text>
-            <div>{data1.name}</div>
-            <div>Տեսակ{data1.fishType}</div>
-            <div>Քանակ{data1.fishQuantity}</div>
-            <div>Քաշ{data1.fishWeight}</div>
+            <div>
+              <div
+                className="pool_card_title"
+                style={{ float: "left", fontWeight: "700" }}
+              >
+                Ավազան
+              </div>
+              {data1.name}
+            </div>
+            <div>
+              <div
+                className="pool_card_title"
+                style={{ float: "left", fontWeight: "700" }}
+              >
+                {" "}
+                Տեսակ
+              </div>
+              {data1.fishType}
+            </div>
+            <div>
+              <div
+                className="pool_card_title"
+                style={{ float: "left", fontWeight: "700" }}
+              >
+                Քանակ
+              </div>
+              {data1.fishQuantity}
+            </div>
+            <div>
+              <div
+                className="pool_card_title"
+                style={{ float: "left", fontWeight: "700" }}
+              >
+                Քաշ
+              </div>
+              {data1.fishWeight}
+            </div>
           </Card.Text>
         </Card.Body>
       </Card>

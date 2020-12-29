@@ -25,8 +25,9 @@ function UpdateModal({ data1 }) {
       })
       .then((response) => {
         console.log(response);
+        data1.name = name;
       });
-    window.location.reload(false);
+    // window.location.reload(false);
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 

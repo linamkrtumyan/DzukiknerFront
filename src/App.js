@@ -14,7 +14,7 @@ import Login from "./Pages/Login";
 
 function App() {
   return (
-    <div>
+    <>
       {/* <Route path="/login" component={Login} exact /> */}
       <Header />
 
@@ -31,7 +31,7 @@ function App() {
         {/* <Route path="/shop" component={Shop} /> */}
       </Switch>
       {/* <PoolCard /> */}
-    </div>
+    </>
   );
 }
 
