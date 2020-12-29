@@ -41,10 +41,10 @@ function PoolCard({ data, data1 }) {
                   <InPool key={2} data={data} data1={data1} />
                 </Dropdown.Item>
                 <Dropdown.Item>
-                  <SalePool key={3} data={data} />
+                  <SalePool key={3} data={data} data1={data1} />
                 </Dropdown.Item>
                 <Dropdown.Item>
-                  <MovePool key={4} data={data} />
+                  <MovePool key={4} data={data} data1={data1} />
                 </Dropdown.Item>
                 <Dropdown.Item>
                   <DeletePool key={5} />
@@ -73,22 +73,12 @@ function PoolCard({ data, data1 }) {
               {data1.fishType}
             </div>
             <div>
-              <div
-                className="pool_card_title"
-                style={{ float: "left", fontWeight: "700" }}
-              >
-                Քանակ
-              </div>
               {data1.fishQuantity}
+              <span style={{ fontWeight: "700" }}>Հատ</span>
             </div>
             <div>
-              <div
-                className="pool_card_title"
-                style={{ float: "left", fontWeight: "700" }}
-              >
-                Քաշ
-              </div>
               {data1.fishWeight}
+              <span style={{ fontWeight: "700" }}>Կգ</span>
             </div>
           </Card.Text>
         </Card.Body>

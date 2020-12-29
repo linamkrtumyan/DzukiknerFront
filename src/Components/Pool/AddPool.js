@@ -36,7 +36,11 @@ function AddPool() {
           maxweight: maxweight,
         };
         pool.addNewPool(newPool);
-        toast("pooly avelacvac e");
+        if (response.data.success) {
+          toast("Կատարված է");
+        } else {
+          toast(response.data.errorMessage);
+        }
       });
     // window.location.reload(false);
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function UpdateModal({ data1 }) {
   const [show, setShow] = useState(false);
@@ -25,7 +26,18 @@ function UpdateModal({ data1 }) {
       })
       .then((response) => {
         console.log(response);
-        data1.name = name;
+        if (response.data.success) {
+          toast("Կատարված է");
+        } else {
+          toast(response.data.errorMessage);
+        }
+
+        // const newPool{
+        //    name:name,
+        // height:height,
+        // width:width,
+        // maxweight:maxweight,
+        // }
       });
     // window.location.reload(false);
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });
@@ -53,7 +65,7 @@ function UpdateModal({ data1 }) {
             <br />
             <Form.Label>Բարձրություն</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
               placeholder=""
               value={height}
               id="fishCount"
@@ -62,7 +74,7 @@ function UpdateModal({ data1 }) {
             <br />
             <Form.Label>Լայնություն</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
               placeholder=""
               value={width}
               onChange={(e) => setfishWeight(e.target.value)}
@@ -70,7 +82,7 @@ function UpdateModal({ data1 }) {
             <br />
             <Form.Label>Առավելագույն քաշ</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
               placeholder=""
               value={maxweight}
               onChange={(e) => setfishType(e.target.value)}

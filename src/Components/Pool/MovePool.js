@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
+import { toast } from "react-toastify";
 
-function MovePool({ data }) {
+function MovePool({ data, data1 }) {
   const [show, setShow] = useState(false);
+
   const [partners, setPartners] = useState([]);
-  const [id, setId] = useState([]);
-  const [quantity, setQuantity] = useState([]);
-  const [weight, setWeight] = useState([]);
-  const [avgWeight, setAvgWeight] = useState([]);
-  const [partnerId, setPartnersId] = useState([]);
-  const [description, setDescription] = useState([]);
+
+  // const [id, setId] = useState();
+  const [fromPoolid, setFromPoolId] = useState(data1.id);
+  const [toPoolid, settoPoolid] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [weight, setWeight] = useState("");
+  const [avgWeight, setAvgWeight] = useState("");
+  const [partnerId, setPartnerId] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -31,10 +36,19 @@ function MovePool({ data }) {
   }, []);
 
   const handleSubmit = (evt) => {
-    console.log(id, quantity, weight, avgWeight, partnerId, description);
+    console.log(
+      fromPoolid,
+      toPoolid,
+      quantity,
+      weight,
+      avgWeight,
+      partnerId,
+      description
+    );
     axios
       .post(`/pools/movement`, {
-        id,
+        fromPoolid,
+        toPoolid,
         quantity,
         weight,
         avgWeight,
@@ -43,8 +57,13 @@ function MovePool({ data }) {
       })
       .then((response) => {
         console.log(response);
+        if (response.data.success) {
+          toast("Կատարված է");
+        } else {
+          toast(response.data.errorMessage);
+        }
       });
-    window.location.reload(false);
+    // window.location.reload(false);
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
@@ -60,8 +79,16 @@ function MovePool({ data }) {
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
-            <Form.Label>Ավազանի համար</Form.Label>
-            <Form.Control as="select" onChange={(e) => setId(e.target.value)}>
+            <Form.Label>Դեպի ուր</Form.Label>
+            {/* onChange={(e) => setId(e.target.value)} */}
+            <Form.Control
+              as="select"
+              placeholder="Ընտրեք ավազանը"
+              onChange={(e) => settoPoolid(e.target.value)}
+            >
+              <option hidden value="">
+                Ընտրեք ավազանը
+              </option>
               {data.map((data1) => (
                 <option value={data1.id}>{data1.name}</option>
               ))}
@@ -83,7 +110,10 @@ function MovePool({ data }) {
             <Form.Control
               type="number"
               placeholder=""
-              onChange={(e) => setWeight(e.target.value)}
+              onChange={(e) => {
+                setAvgWeight(weight / quantity);
+                setWeight(e.target.value);
+              }}
             />
 
             <br />
@@ -91,17 +121,25 @@ function MovePool({ data }) {
             <Form.Control
               type="number"
               placeholder=""
+              value={weight / quantity}
               onChange={(e) => setAvgWeight(e.target.value)}
             />
             <br />
             <Form.Label>Գործընկեր</Form.Label>
             <Form.Control
               as="select"
-              onChange={(e) => setPartnersId(e.target.value)}
+              placeholder="Ընտրեք գործընկերոջը"
+              onChange={(e) => setPartnerId(e.target.value)}
             >
+              {/* <option disabled={true} value="">
+                Ընտրեք գործընկերոջը
+              </option> */}
+              <option hidden value="">
+                Ընտրեք գործընկերոջը
+              </option>
               {partners.map((partner) => (
                 <option value={partner.id}>{partner.name}</option>
-              ))}{" "}
+              ))}
             </Form.Control>
             <br />
             <Form.Label>Նշումներ</Form.Label>

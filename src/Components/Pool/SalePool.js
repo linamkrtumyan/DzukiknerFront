@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
+import { toast } from "react-toastify";
 
-function SalePool({ data }) {
+function SalePool({ data, data1 }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -11,8 +12,8 @@ function SalePool({ data }) {
   const [fishType, setFishType] = useState([]);
   const [partners, setPartners] = useState([]);
 
-  const [toPoolid, setToPoolId] = useState("");
-
+  const [fromPoolid, setFromPoolId] = useState(data1.id);
+  // const [toPoolid, settoPoolid] = useState("");
   const [quantity, setQuantity] = useState("");
   const [weight, setWeight] = useState("");
   const [avgWeight, setAvgWeight] = useState("");
@@ -35,10 +36,17 @@ function SalePool({ data }) {
   }, []);
 
   const handleSubmit = (evt) => {
-    console.log(toPoolid, quantity, weight, avgWeight, partnerId, description);
+    console.log(
+      fromPoolid,
+      quantity,
+      weight,
+      avgWeight,
+      partnerId,
+      description
+    );
     axios
-      .put(`/pools/`, {
-        toPoolid,
+      .post(`/pools/sales`, {
+        fromPoolid,
         quantity,
         weight,
         avgWeight,
@@ -47,8 +55,13 @@ function SalePool({ data }) {
       })
       .then((response) => {
         console.log(response);
+        if (response.data.success) {
+          toast("Կատարված է");
+        } else {
+          toast(response.data.errorMessage);
+        }
       });
-    window.location.reload(false);
+    // window.location.reload(false);
   };
 
   return (
@@ -61,18 +74,6 @@ function SalePool({ data }) {
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
-            <Form.Label>Ավազանի համար</Form.Label>
-            <Form.Control
-              as="select"
-              // onChange={(e) => setToPoolId(e.target.value)}
-            >
-              {data.map((data1) => (
-                <option value={data1.id}>{data1.name}</option>
-              ))}
-            </Form.Control>
-            <br />
-
-            <br />
             <Form.Label>Քանակ</Form.Label>
             <Form.Control
               type="number"
@@ -84,7 +85,10 @@ function SalePool({ data }) {
             <Form.Control
               type="number"
               placeholder=""
-              onChange={(e) => setWeight(e.target.value)}
+              onChange={(e) => {
+                setAvgWeight(weight / quantity);
+                setWeight(e.target.value);
+              }}
             />
 
             <br />
@@ -92,14 +96,22 @@ function SalePool({ data }) {
             <Form.Control
               type="number"
               placeholder=""
+              value={weight / quantity}
               onChange={(e) => setAvgWeight(e.target.value)}
             />
             <br />
             <Form.Label>Գործընկեր</Form.Label>
             <Form.Control
               as="select"
+              placeholder="Ընտրեք գործընկերոջը"
               onChange={(e) => setPartnerId(e.target.value)}
             >
+              {/* <option disabled={true} value="">
+                Ընտրեք գործընկերոջը
+              </option> */}
+              <option hidden value="">
+                Ընտրեք գործընկերոջը
+              </option>
               {partners.map((partner) => (
                 <option value={partner.id}>{partner.name}</option>
               ))}

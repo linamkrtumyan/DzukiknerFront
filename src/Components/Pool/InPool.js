@@ -40,6 +40,7 @@ function InPool({ data, data1 }) {
 
   const handleSubmit = (evt) => {
     console.log(toPoolid, quantity, weight, avgWeight, partnerId, description);
+    // if(toPoolid=="" || quantity =="", weight == "" , partnerId=="" )
     axios
       .post(`/pools/inPool`, {
         toPoolid,
@@ -53,6 +54,8 @@ function InPool({ data, data1 }) {
         console.log(response);
         if (response.data.success) {
           toast("Կատարված է");
+        } else {
+          toast(response.data.errorMessage);
         }
         // toast("lya");
       })
@@ -82,7 +85,7 @@ function InPool({ data, data1 }) {
                 <option value={data1.id}>{data1.name}</option>
               ))}
             </Form.Control> */}
-            <br />
+            {/* <br /> */}
             {/* <Form.Label>Տեսակ</Form.Label>
             <Form.Control
               as="select"
@@ -94,7 +97,7 @@ function InPool({ data, data1 }) {
 
             
             </Form.Control> */}
-            <br />
+            {/* <br /> */}
             <Form.Label>Քանակ</Form.Label>
             <Form.Control
               type="number"
