@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
+import { PoolContext } from "../../Pages/PoolPage";
 
 function DeletePool({ data1 }) {
   // console.log(data1);
+  const pool = useContext(PoolContext);
 
   const [show, setShow] = useState(false);
   const [id, setId] = useState(data1.id);
@@ -19,6 +21,8 @@ function DeletePool({ data1 }) {
       .then((response) => {
         // console.log("resp");
         console.log(response);
+
+        pool.deletePool(id);
       })
       .catch((e) => {
         console.log("error");

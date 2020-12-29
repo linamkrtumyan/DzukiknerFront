@@ -15,6 +15,17 @@ function PoolPage() {
     data.push(pool);
     setData([...data]);
   };
+
+  const deletePool = (pool) => {
+    data.map((id1) => {
+      if (id1.id == pool) {
+        const index = data.indexOf(id1);
+        data.splice(index, 1);
+        console.log(id1);
+        setData([...data]);
+      }
+    });
+  };
   //   console.log(data);
 
   useEffect(() => {
@@ -50,8 +61,10 @@ function PoolPage() {
           <AddPool />
         </PoolContext.Provider>
       </div>
+      <PoolContext.Provider value={{ data, setData, deletePool }}>
+        <Cards data={data} />
+      </PoolContext.Provider>
 
-      <Cards data={data} />
       {/* <Cards /> */}
     </div>
   );
