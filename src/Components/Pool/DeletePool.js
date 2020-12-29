@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 import { PoolContext } from "../../Pages/PoolPage";
+import { toast } from "react-toastify";
 
 function DeletePool({ data1 }) {
   // console.log(data1);
@@ -21,11 +22,16 @@ function DeletePool({ data1 }) {
       .then((response) => {
         // console.log("resp");
         console.log(response);
-
-        pool.deletePool(id);
+        if (response.data.success) {
+          pool.deletePool(id);
+          toast.success("Կատարված է");
+        } else {
+          toast.error("Կատարված չէ");
+        }
       })
       .catch((e) => {
         console.log("error");
+        toast.error("Կատարված չէ");
       });
     // console.log("object");
     // window.location.reload(false);

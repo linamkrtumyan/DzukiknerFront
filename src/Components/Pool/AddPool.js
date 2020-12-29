@@ -29,18 +29,23 @@ function AddPool() {
       })
       .then((response) => {
         console.log(response);
-        const newPool = {
-          name: name,
-          height: height,
-          width: width,
-          maxweight: maxweight,
-        };
-        pool.addNewPool(newPool);
+
         if (response.data.success) {
-          toast("Կատարված է");
+          const newPool = {
+            name: name,
+            height: height,
+            width: width,
+            maxweight: maxweight,
+          };
+          pool.addNewPool(newPool);
+          toast.success("Կատարված է");
         } else {
-          toast(response.data.errorMessage);
+          toast.error(response.data.errorMessage);
         }
+      })
+      .catch((e) => {
+        console.log("error");
+        toast.error("Կատարված չէ");
       });
     // window.location.reload(false);
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });

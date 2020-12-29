@@ -53,14 +53,15 @@ function InPool({ data, data1 }) {
       .then((response) => {
         console.log(response);
         if (response.data.success) {
-          toast("Կատարված է");
+          toast.success("Կատարված է");
         } else {
-          toast(response.data.errorMessage);
+          toast.error(response.data.errorMessage);
         }
         // toast("lya");
       })
       .catch((e) => {
         console.log("error");
+        toast.error("Կատարված չէ");
       });
     // window.location.reload(false);
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });

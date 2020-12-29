@@ -27,9 +27,9 @@ function UpdateModal({ data1 }) {
       .then((response) => {
         console.log(response);
         if (response.data.success) {
-          toast("Կատարված է");
+          toast.success("Կատարված է");
         } else {
-          toast(response.data.errorMessage);
+          toast.error(response.data.errorMessage);
         }
 
         // const newPool{
