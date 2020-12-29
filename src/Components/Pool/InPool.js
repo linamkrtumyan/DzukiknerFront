@@ -144,6 +144,7 @@ function InPool({ data, data1 }) {
             <Form.Label>Նշումներ</Form.Label>
             <Form.Control
               type="text"
+              as="textarea"
               placeholder=""
               onChange={(e) => setDescription(e.target.value)}
             />

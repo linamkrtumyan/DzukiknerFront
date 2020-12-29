@@ -47,7 +47,7 @@ function PoolCard({ data, data1 }) {
                   <MovePool key={4} data={data} data1={data1} />
                 </Dropdown.Item>
                 <Dropdown.Item>
-                  <DeletePool key={5} />
+                  <DeletePool key={5} data1={data1} />
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -58,7 +58,7 @@ function PoolCard({ data, data1 }) {
                 className="pool_card_title"
                 style={{ float: "left", fontWeight: "700" }}
               >
-                Ավազան
+                {/* Ավազան */}
               </div>
               {data1.name}
             </div>
@@ -68,7 +68,7 @@ function PoolCard({ data, data1 }) {
                 style={{ float: "left", fontWeight: "700" }}
               >
                 {" "}
-                Տեսակ
+                {/* Տեսակ */}
               </div>
               {data1.fishType}
             </div>

@@ -2,24 +2,29 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 
-function DeletePool({ data }) {
-  const [show, setShow] = useState(false);
+function DeletePool({ data1 }) {
+  // console.log(data1);
 
+  const [show, setShow] = useState(false);
+  const [id, setId] = useState(data1.id);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   //   console.log(data);
 
   const handleSubmit = (evt) => {
+    console.log(id);
     axios
-      .post(`/pools/inPool`, {})
+      .post(`/pools/deletePool`, { id })
       .then((response) => {
+        // console.log("resp");
         console.log(response);
       })
       .catch((e) => {
         console.log("error");
       });
-    window.location.reload(false);
+    // console.log("object");
+    // window.location.reload(false);
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 

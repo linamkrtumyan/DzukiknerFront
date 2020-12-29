@@ -7,12 +7,13 @@ function Header() {
       <Navbar
         style={{
           marginLeft: "160px",
+          height: "60px",
           //   backgroundImage: "linear-gradient(to right,#b6edec, #3973b8)",
           backgroundColor: "#F1F1F1",
         }}
         variant="light"
       >
-        <Navbar.Brand href="#home">Ձուկիկներ</Navbar.Brand>
+        <Navbar.Brand className="header_head" href="#home"></Navbar.Brand>
         <Nav className="mr-auto">
           {/* <Nav.Link href="#home">Home</Nav.Link>
           <Nav.Link href="#features">Features</Nav.Link>
