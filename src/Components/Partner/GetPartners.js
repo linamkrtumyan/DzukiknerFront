@@ -27,7 +27,7 @@ function GetPartners({ data }) {
                   <td>{partner.phone}</td>
                   <td>
                     <UpdatePartner data={partner} />
-                    <DeletePartner />
+                    <DeletePartner data={partner} />
                   </td>
                 </tr>
               );

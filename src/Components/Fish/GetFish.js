@@ -1,6 +1,7 @@
 import React from "react";
 import { Table, Button, Form } from "react-bootstrap";
 import UpdateFish from "./UpdateFish";
+import DeleteFish from "./DeleteFish";
 
 function GetFish({ data }) {
   return (
@@ -8,7 +9,6 @@ function GetFish({ data }) {
       <Table striped bordered hover>
         <thead>
           <tr>
-            {/* <th>Id</th> */}
             <th>Անուն</th>
             <th>Նկարագրություն </th>
             <th>Գործողություն</th>
@@ -19,11 +19,11 @@ function GetFish({ data }) {
             data.map((fish, index) => {
               return (
                 <tr key={index}>
-                  {/* <td>{fish.id}</td> */}
                   <td>{fish.name}</td>
                   <td>{fish.description}</td>
                   <td>
                     <UpdateFish data={fish} />
+                    <DeleteFish data={fish} />
                   </td>
                 </tr>
               );

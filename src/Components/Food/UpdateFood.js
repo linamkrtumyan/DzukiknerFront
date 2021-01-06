@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { FoodContext } from "../../Pages/Foods";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function UpdateFood({ data }) {
+  const foods = useContext(FoodContext);
   //   console.log(data);
   const [show, setShow] = useState(false);
   const [id, setId] = useState(data.id);
@@ -11,12 +15,11 @@ function UpdateFood({ data }) {
   const [weight, setWeight] = useState(data.weight);
   const [coefficient, setCoefficient] = useState(data.coefficient);
 
-  console.log(id, name, number, weight, coefficient);
+  // console.log(id, name, number, weight, coefficient);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (evt) => {
-    evt.preventDefault();
     console.log(id, name, number, weight, coefficient);
     // { id, name, description, phone }
     axios
@@ -29,15 +32,30 @@ function UpdateFood({ data }) {
       })
       .then((response) => {
         console.log(response);
+        if (response.data.success) {
+          const food = {
+            id: id,
+            name: name,
+            number: number,
+            weight: weight,
+            coefficient: coefficient,
+          };
+          foods.updateFood(food);
+          toast.success("Կատարված է");
+        } else {
+          toast.error(response.data.errorMessage);
+        }
+      })
+      .catch((e) => {
+        console.log("error");
+        toast.error("Կատարված չէ");
       });
-    window.location.reload(false);
-    // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Խմբագրել
+        ✎
       </Button>
 
       <Modal show={show} onHide={handleClose} animation={false}>

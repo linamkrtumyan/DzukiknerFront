@@ -3,6 +3,7 @@ import { Table, Button, Form } from "react-bootstrap";
 import GetFish from "../Components/Fish/GetFish";
 import axios from "axios";
 import AddFish from "../Components/Fish/AddFish";
+import DeleteFish from "../Components/Fish/DeleteFish";
 
 export const FishContext = React.createContext();
 function Fishes() {
@@ -11,6 +12,28 @@ function Fishes() {
   const addFish = (fish) => {
     data.push(fish);
     setData([...data]);
+  };
+  const updateFish = (fish) => {
+    data.map((id1) => {
+      if (id1.id == fish.id) {
+        console.log("updateFish");
+        id1.name = fish.name;
+        id1.description = fish.description;
+
+        setData([...data]);
+      }
+    });
+  };
+
+  const deleteFish = (fish) => {
+    data.map((id1) => {
+      if (id1.id == fish) {
+        const index = data.indexOf(id1);
+        data.splice(index, 1);
+        console.log(id1);
+        setData([...data]);
+      }
+    });
   };
 
   console.log(data);
@@ -42,7 +65,9 @@ function Fishes() {
         </FishContext.Provider>
       </div>
 
-      <GetFish data={data} />
+      <FishContext.Provider value={{ data, setData, updateFish, deleteFish }}>
+        <GetFish data={data} />
+      </FishContext.Provider>
     </div>
   );
 }

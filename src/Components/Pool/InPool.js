@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { PoolContext } from "../../Pages/PoolPage";
 
 function InPool({ data, data1 }) {
+  const pool = useContext(PoolContext);
+
   // console.log(data1);
   const [show, setShow] = useState(false);
 
@@ -18,8 +21,8 @@ function InPool({ data, data1 }) {
   const [quantity, setQuantity] = useState("");
   const [weight, setWeight] = useState("");
   const [avgWeight, setAvgWeight] = useState("");
-  const [partnerId, setPartnerId] = useState("");
-  const [description, setDescription] = useState("");
+  const [partnerId, setPartnerId] = useState(null);
+  const [description, setDescription] = useState(null);
 
   //   console.log(data);
 
@@ -53,6 +56,15 @@ function InPool({ data, data1 }) {
       .then((response) => {
         console.log(response);
         if (response.data.success) {
+          const inPool = {
+            id: toPoolid,
+            quantity: quantity,
+            weight: weight,
+            // height: height,
+            // width: width,
+            // maxweight: maxweight,
+          };
+          pool.inPool(inPool);
           toast.success("Կատարված է");
         } else {
           toast.error(response.data.errorMessage);

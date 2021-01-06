@@ -3,20 +3,20 @@ import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { FishContext } from "../../Pages/Fishes";
 import { toast } from "react-toastify";
-
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 function AddFish() {
   // name, height, width, maxweight
   const fish = useContext(FishContext);
 
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
-  const [description, setHeight] = useState("");
+  const [description, setHeight] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSubmit = (evt) => {
-    // evt.preventDefault();
     console.log(name, description);
     axios
       .post(`/info/fish/addFish`, {
@@ -25,15 +25,22 @@ function AddFish() {
       })
       .then((response) => {
         console.log(response);
-        const fish1 = {
-          name: name,
-          description: description,
-        };
-        fish.addFish(fish1);
-        toast("fishy avelacav");
+        if (response.data.success) {
+          const fish1 = {
+            id: response.data.id,
+            name: name,
+            description: description,
+          };
+          fish.addFish(fish1);
+          toast.success("Կատարված է");
+        } else {
+          toast.error(response.data.errorMessage);
+        }
+      })
+      .catch((e) => {
+        console.log("error");
+        toast.error("Կատարված չէ");
       });
-    // window.location.reload(false);
-    // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
   return (

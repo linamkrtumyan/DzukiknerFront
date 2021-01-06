@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { PoolContext } from "../../Pages/PoolPage";
 
 function SalePool({ data, data1 }) {
+  const pool = useContext(PoolContext);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -17,8 +19,8 @@ function SalePool({ data, data1 }) {
   const [quantity, setQuantity] = useState("");
   const [weight, setWeight] = useState("");
   const [avgWeight, setAvgWeight] = useState("");
-  const [partnerId, setPartnerId] = useState("");
-  const [description, setDescription] = useState("");
+  const [partnerId, setPartnerId] = useState(null);
+  const [description, setDescription] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,6 +58,12 @@ function SalePool({ data, data1 }) {
       .then((response) => {
         console.log(response);
         if (response.data.success) {
+          const salePool = {
+            id: fromPoolid,
+            quantity: quantity,
+            weight: weight,
+          };
+          pool.salePool(salePool);
           toast.success("Կատարված է");
         } else {
           toast.error(response.data.errorMessage);
@@ -82,6 +90,7 @@ function SalePool({ data, data1 }) {
             <Form.Control
               type="number"
               placeholder=""
+              maxLength="10"
               onChange={(e) => setQuantity(e.target.value)}
             />
             <br />

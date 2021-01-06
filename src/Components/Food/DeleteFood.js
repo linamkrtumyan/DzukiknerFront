@@ -3,10 +3,10 @@ import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { DzukContext } from "../../Pages/Partners";
+import { FoodContext } from "../../Pages/Foods";
 
-function DeletePartner({ data }) {
-  const dzukik = useContext(DzukContext);
+function DeleteFood({ data }) {
+  const foods = useContext(FoodContext);
   const [show, setShow] = useState(false);
   const [id, setData] = useState(data.id);
 
@@ -18,11 +18,11 @@ function DeletePartner({ data }) {
   const handleSubmit = (evt) => {
     // evt.preventDefault();
     axios
-      .post(`/info/partner/deletePartner`, { id })
+      .post(`/info/food/deleteFood`, { id })
       .then((response) => {
         console.log(response);
         if (response.data.success) {
-          dzukik.deletePartner(id);
+          foods.deleteFood(id);
           toast.success("Կատարված է");
         } else {
           toast.error(response.data.errorMessage);
@@ -31,8 +31,6 @@ function DeletePartner({ data }) {
       .catch((e) => {
         console.log("error");
       });
-    //   window.location.reload(false);
-    // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
   return (
@@ -43,7 +41,7 @@ function DeletePartner({ data }) {
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Ջնջել գործընկերոջը</Modal.Title>
+          <Modal.Title>Ջնջել ձուկ</Modal.Title>
         </Modal.Header>
         <Modal.Body>Համոզված եք</Modal.Body>
         <Modal.Footer>
@@ -65,4 +63,4 @@ function DeletePartner({ data }) {
   );
 }
 
-export default DeletePartner;
+export default DeleteFood;

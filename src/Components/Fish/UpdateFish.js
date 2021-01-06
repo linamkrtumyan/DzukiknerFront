@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { FishContext } from "../../Pages/Fishes";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function UpdateFish({ data }) {
+  const fishes = useContext(FishContext);
   //   console.log(data);
   const [show, setShow] = useState(false);
   const [id, setId] = useState(data.id);
@@ -14,7 +18,7 @@ function UpdateFish({ data }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (evt) => {
-    evt.preventDefault();
+    // evt.preventDefault();
     console.log(id, name, description);
     // { id, name, description, phone }
     axios
@@ -25,15 +29,29 @@ function UpdateFish({ data }) {
       })
       .then((response) => {
         console.log(response);
+        if (response.data.success) {
+          const fish = {
+            id: id,
+            name: name,
+            description: description,
+          };
+          fishes.updateFish(fish);
+          toast.success("Կատարված է");
+        } else {
+          toast.error(response.data.errorMessage);
+        }
+      })
+      .catch((e) => {
+        console.log("error");
+        toast.error("Կատարված չէ");
       });
-    window.location.reload(false);
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Խմբագրել
+        ✎
       </Button>
 
       <Modal show={show} onHide={handleClose} animation={false}>

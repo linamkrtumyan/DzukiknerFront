@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { PoolContext } from "../../Pages/PoolPage";
 
 function UpdateModal({ data1 }) {
+  const pool = useContext(PoolContext);
+
   const [show, setShow] = useState(false);
   const [id, setId] = useState(data1.id);
   const [name, setName] = useState(data1.name);
@@ -27,6 +30,14 @@ function UpdateModal({ data1 }) {
       .then((response) => {
         console.log(response);
         if (response.data.success) {
+          const updPool = {
+            id: id,
+            name: name,
+            // height: height,
+            // width: width,
+            // maxweight: maxweight,
+          };
+          pool.updatePool(updPool);
           toast.success("Կատարված է");
         } else {
           toast.error(response.data.errorMessage);

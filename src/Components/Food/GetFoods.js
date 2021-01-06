@@ -1,5 +1,6 @@
 import React from "react";
 import { Table, Button, Form } from "react-bootstrap";
+import DeleteFood from "./DeleteFood";
 import UpdateFood from "./UpdateFood";
 
 function GetFoods({ data }) {
@@ -28,6 +29,7 @@ function GetFoods({ data }) {
                   <td>{food.coefficient}</td>
                   <td>
                     <UpdateFood data={food} />
+                    <DeleteFood data={food} />
                   </td>
                 </tr>
               );

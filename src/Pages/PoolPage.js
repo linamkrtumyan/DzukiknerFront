@@ -10,6 +10,7 @@ export const PoolContext = React.createContext();
 
 function PoolPage() {
   const [data, setData] = useState([]);
+  console.log(data, "data");
 
   const addNewPool = (pool) => {
     data.push(pool);
@@ -22,6 +23,54 @@ function PoolPage() {
         const index = data.indexOf(id1);
         data.splice(index, 1);
         console.log(id1);
+        setData([...data]);
+      }
+    });
+  };
+  const updatePool = (pool) => {
+    data.map((id1) => {
+      if (id1.id == pool.id) {
+        console.log("updatePool");
+        id1.name = pool.name;
+        setData([...data]);
+      }
+    });
+  };
+
+  const inPool = (pool) => {
+    data.map((id1) => {
+      if (id1.id == pool.id) {
+        console.log("inPool");
+        id1.fishQuantity = parseInt(id1.fishQuantity) + parseInt(pool.quantity);
+        id1.fishWeight = parseInt(id1.fishWeight) + parseInt(pool.weight);
+        setData([...data]);
+      }
+    });
+  };
+  const salePool = (pool) => {
+    data.map((id1) => {
+      if (id1.id == pool.id) {
+        console.log("salePool");
+        id1.fishQuantity = parseInt(id1.fishQuantity) - parseInt(pool.quantity);
+        id1.fishWeight = parseInt(id1.fishWeight) - parseInt(pool.weight);
+        setData([...data]);
+      }
+    });
+  };
+  const movePool = (pool) => {
+    data.map((id1) => {
+      if (id1.id == pool.fromPoolid) {
+        console.log("movePool");
+        id1.fishQuantity = parseInt(id1.fishQuantity) - parseInt(pool.quantity);
+        id1.fishWeight = parseInt(id1.fishWeight) - parseInt(pool.weight);
+        setData([...data]);
+      }
+    });
+    data.map((id1) => {
+      if (id1.id == pool.toPoolid) {
+        console.log("movePool");
+        id1.fishQuantity = parseInt(id1.fishQuantity) + parseInt(pool.quantity);
+        id1.fishWeight = parseInt(id1.fishWeight) + parseInt(pool.weight);
         setData([...data]);
       }
     });
@@ -61,7 +110,17 @@ function PoolPage() {
           <AddPool />
         </PoolContext.Provider>
       </div>
-      <PoolContext.Provider value={{ data, setData, deletePool }}>
+      <PoolContext.Provider
+        value={{
+          data,
+          setData,
+          deletePool,
+          updatePool,
+          inPool,
+          salePool,
+          movePool,
+        }}
+      >
         <Cards data={data} />
       </PoolContext.Provider>
 

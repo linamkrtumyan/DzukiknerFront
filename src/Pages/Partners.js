@@ -7,10 +7,32 @@ import AddPartner from "../Components/Partner/AddPartner";
 export const DzukContext = React.createContext();
 function Partners() {
   const [data, setData] = useState([]);
-
+  console.log(data);
   const addDzuk = (dzuk) => {
     data.push(dzuk);
     setData([...data]);
+  };
+  const updatePartner = (partner) => {
+    data.map((id1) => {
+      if (id1.id == partner.id) {
+        console.log("updatePartner");
+        id1.name = partner.name;
+        id1.description = partner.description;
+        id1.phone = partner.phone;
+        setData([...data]);
+      }
+    });
+  };
+
+  const deletePartner = (partner) => {
+    data.map((id1) => {
+      if (id1.id == partner) {
+        const index = data.indexOf(id1);
+        data.splice(index, 1);
+        console.log(id1);
+        setData([...data]);
+      }
+    });
   };
 
   console.log(data);
@@ -46,8 +68,11 @@ function Partners() {
           <AddPartner />
         </DzukContext.Provider>
       </div>
-
-      <GetPartners data={data} />
+      <DzukContext.Provider
+        value={{ data, setData, updatePartner, deletePartner }}
+      >
+        <GetPartners data={data} />
+      </DzukContext.Provider>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DzukContext } from "../../Pages/Partners";
+import "./partner.css";
 toast.configure();
 
 function AddPartner() {
@@ -12,18 +13,13 @@ function AddPartner() {
   const dzukik = useContext(DzukContext);
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
-  const [description, setHeight] = useState("");
-  const [phone, setWidth] = useState("");
+  const [description, setHeight] = useState(null);
+  const [phone, setWidth] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // function notify() {
-  //   toast("Wow so easy !");
-  // }
-
   const handleSubmit = (evt) => {
-    // evt.preventDefault();
     console.log(name, description, phone);
     axios
       .post(`/info/partner/addPartner`, {
@@ -32,11 +28,12 @@ function AddPartner() {
         phone,
       })
       .then((response) => {
-        console.log(response.data.success);
+        console.log(response);
         // toast.error("avelacav");
         // window.location.reload(false);
         if (response.data.success) {
           const dzuk = {
+            id: response.data.id,
             name: name,
             description: description,
             phone: phone,
@@ -44,8 +41,12 @@ function AddPartner() {
           dzukik.addDzuk(dzuk);
           toast.success("Գործընկերն ավելացված է");
         } else {
-          toast.error("Գործընկերն ավելացված չէ");
+          toast.error(response.data.errorMessage);
         }
+      })
+      .catch((e) => {
+        console.log("error");
+        toast.error("Կատարված չէ");
       });
 
     // const res = await axios.put('/pools/updatePool', { hello: 'world' });

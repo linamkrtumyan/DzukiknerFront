@@ -7,9 +7,34 @@ import AddFood from "../Components/Food/AddFood";
 export const FoodContext = React.createContext();
 function Foods() {
   const [data, setData] = useState([]);
+  console.log(data);
   const addFood = (food) => {
     data.push(food);
     setData([...data]);
+  };
+  const updateFood = (food) => {
+    data.map((id1) => {
+      if (id1.id == food.id) {
+        console.log("updateFood");
+        id1.name = food.name;
+        id1.number = food.number;
+        id1.weight = food.weight;
+        id1.coefficient = food.coefficient;
+
+        setData([...data]);
+      }
+    });
+  };
+
+  const deleteFood = (fish) => {
+    data.map((id1) => {
+      if (id1.id == fish) {
+        const index = data.indexOf(id1);
+        data.splice(index, 1);
+        console.log(id1);
+        setData([...data]);
+      }
+    });
   };
 
   console.log(data);
@@ -40,8 +65,9 @@ function Foods() {
           <AddFood />
         </FoodContext.Provider>
       </div>
-
-      <GetFoods data={data} />
+      <FoodContext.Provider value={{ data, setData, updateFood, deleteFood }}>
+        <GetFoods data={data} />
+      </FoodContext.Provider>
     </div>
   );
 }

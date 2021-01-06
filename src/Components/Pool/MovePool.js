@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { PoolContext } from "../../Pages/PoolPage";
 
 function MovePool({ data, data1 }) {
+  const pool = useContext(PoolContext);
   const [show, setShow] = useState(false);
 
   const [partners, setPartners] = useState([]);
@@ -58,6 +60,13 @@ function MovePool({ data, data1 }) {
       .then((response) => {
         console.log(response);
         if (response.data.success) {
+          const move = {
+            fromPoolid: fromPoolid,
+            toPoolid: toPoolid,
+            quantity: quantity,
+            weight: weight,
+          };
+          pool.movePool(move);
           toast.success("Կատարված է");
         } else {
           toast.error(response.data.errorMessage);

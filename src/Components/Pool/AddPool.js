@@ -7,12 +7,12 @@ import { PoolContext } from "../../Pages/PoolPage";
 function AddPool() {
   // name, height, width, maxweight
   const pool = useContext(PoolContext);
-
+  const [id, setId] = useState("");
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
-  const [height, setHeight] = useState("");
-  const [width, setWidth] = useState("");
-  const [maxweight, setMaxweight] = useState("");
+  const [height, setHeight] = useState(null);
+  const [width, setWidth] = useState(null);
+  const [maxweight, setMaxweight] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -32,6 +32,7 @@ function AddPool() {
 
         if (response.data.success) {
           const newPool = {
+            id: response.data.id,
             name: name,
             height: height,
             width: width,

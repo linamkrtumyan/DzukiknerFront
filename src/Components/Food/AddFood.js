@@ -29,16 +29,23 @@ function AddFood() {
       })
       .then((response) => {
         console.log(response);
-        const food1 = {
-          name: name,
-          number: number,
-          weight: weight,
-          coefficient: coefficient,
-        };
-        food.addFood(food1);
-        toast("foody avelacav");
+        if (response.data.success) {
+          const food1 = {
+            name: name,
+            number: number,
+            weight: weight,
+            coefficient: coefficient,
+          };
+          food.addFood(food1);
+          toast.success("foody avelacav");
+        } else {
+          toast.error(response.data.errorMessage);
+        }
+      })
+      .catch((e) => {
+        console.log("error");
+        toast.error("Կատարված չէ");
       });
-    // window.location.reload(false);
   };
 
   return (
