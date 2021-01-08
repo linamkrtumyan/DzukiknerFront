@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -9,14 +9,22 @@ function UpdatePartner({ data }) {
   const dzukik = useContext(DzukContext);
   //   console.log(data);
   const [show, setShow] = useState(false);
-  const [id, setId] = useState(data.id);
-  const [name, setName] = useState(data.name);
-  const [description, setDescription] = useState(data.description);
-  const [phone, setPhone] = useState(data.phone);
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [phone, setPhone] = useState("");
   //   console.log(id, name, description, phone);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    setId(data.id);
+    setName(data.name);
+    setDescription(data.description);
+    setPhone(data.phone);
+  });
+
   const handleSubmit = (evt) => {
     // evt.preventDefault();
     console.log(id, name, description, phone);

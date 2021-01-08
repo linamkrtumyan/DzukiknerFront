@@ -1,0 +1,15 @@
+/* body { */
+/* background-image: url("https://thehealthyfish.com/wp-content/uploads/2016/11/swimming-school-fish-aquaculture-wild.jpeg");
+    background-repeat: no-repeat, repeat;  */
+/* background-color: #ccdcff; */
+/* } */
+
+.login {
+  width: 25%;
+  padding-top: 50px;
+  margin: auto;
+}
+
+#chackbox {
+  width: 15px;
+}

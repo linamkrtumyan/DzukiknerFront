@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { FishContext } from "../../Pages/Fishes";
@@ -9,10 +9,15 @@ function UpdateFish({ data }) {
   const fishes = useContext(FishContext);
   //   console.log(data);
   const [show, setShow] = useState(false);
-  const [id, setId] = useState(data.id);
-  const [name, setName] = useState(data.name);
-  const [description, setDescription] = useState(data.description);
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
+  useEffect(() => {
+    setId(data.id);
+    setName(data.name);
+    setDescription(data.description);
+  });
   //   console.log(id, name, description, phone);
 
   const handleClose = () => setShow(false);

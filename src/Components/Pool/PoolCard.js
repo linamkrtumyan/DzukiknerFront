@@ -47,7 +47,7 @@ function PoolCard({ data, data1 }) {
                   <MovePool key={4} data={data} data1={data1} />
                 </Dropdown.Item>
                 <Dropdown.Item>
-                  <DeletePool key={5} data1={data1} />
+                  <DeletePool key={5} data1={data1} data={data} />
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>

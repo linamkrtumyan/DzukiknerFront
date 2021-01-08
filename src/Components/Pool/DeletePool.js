@@ -4,7 +4,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { PoolContext } from "../../Pages/PoolPage";
 import { toast } from "react-toastify";
 
-function DeletePool({ data1 }) {
+function DeletePool({ data1, data }) {
   // console.log(data1);
   const pool = useContext(PoolContext);
 
@@ -12,17 +12,22 @@ function DeletePool({ data1 }) {
   const [id, setId] = useState(data1.id);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  useEffect(() => {
+    setId(data1.id);
+  });
 
-  //   console.log(data);
+  console.log(data1.id);
 
   const handleSubmit = (evt) => {
-    console.log(id);
+    console.log(id, "bar");
+    console.log(data1, "data1y deleteic");
+    console.log(data, "datan deleteic");
     axios
       .post(`/pools/deletePool`, { id })
       .then((response) => {
         // console.log("resp");
-        console.log(response);
-        if (response.data.success) {
+        console.log(response.data.success);
+        if (response.data.success == 1) {
           pool.deletePool(id);
           toast.success("Կատարված է");
         } else {

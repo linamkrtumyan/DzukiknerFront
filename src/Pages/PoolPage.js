@@ -11,6 +11,7 @@ export const PoolContext = React.createContext();
 function PoolPage() {
   const [data, setData] = useState([]);
   console.log(data, "data");
+  const [changeData, setChangeData] = useState([]);
 
   const addNewPool = (pool) => {
     data.push(pool);
@@ -22,8 +23,10 @@ function PoolPage() {
       if (id1.id == pool) {
         const index = data.indexOf(id1);
         data.splice(index, 1);
-        console.log(id1);
+        // console.log(id1);
         setData([...data]);
+        console.log(data, "jnjeluc heto arrayy");
+        // setChangeData(data.filter((id1) => id1.id != pool));
       }
     });
   };
@@ -75,22 +78,15 @@ function PoolPage() {
       }
     });
   };
-  //   console.log(data);
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("/pools/getPoolsAndDetails");
-      //   console.log(result.data.allPools);
 
       setData(result.data.allPools);
-      //   console.log(result.data.allPools);
-      // console.log(data, '222');
-
-      // console.log(data.hits);
     };
 
     fetchData();
-    // console.log(data.hits);
   }, []);
 
   return (
@@ -114,6 +110,7 @@ function PoolPage() {
         value={{
           data,
           setData,
+          addNewPool,
           deletePool,
           updatePool,
           inPool,

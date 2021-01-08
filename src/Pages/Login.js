@@ -1,49 +1,103 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Button, Form, FormGroup } from "react-bootstrap";
+import { Route } from "react-router-dom";
+import PoolPage from "./PoolPage";
+import "./style.css";
 
-export default class Login extends Component {
-  render() {
-    return (
-      <form>
-        <h3>Log in</h3>
+const secretKey = "6LecLQoaAAAAAD5uQQ37dD5n-xh76rhIU4HFwlMR";
 
-        <div className="form-group">
-          <label>Email</label>
-          <input
-            type="email"
-            className="form-control"
-            placeholder="Enter email"
-          />
-        </div>
+function Login() {
+  const [mail, setMail] = useState("");
+  const [password, setPassword] = useState("");
+  const [captcha, setCaptcha] = useState({});
 
-        <div className="form-group">
-          <label>Password</label>
-          <input
-            type="password"
-            className="form-control"
-            placeholder="Enter password"
-          />
-        </div>
+  useEffect(() => {
+    createToken();
+  }, []);
 
-        <div className="form-group">
-          <div className="custom-control custom-checkbox">
-            <input
-              type="checkbox"
-              className="custom-control-input"
-              id="customCheck1"
-            />
-            <label className="custom-control-label" htmlFor="customCheck1">
-              Remember me
-            </label>
-          </div>
-        </div>
+  const createToken = () => {
+    window.grecaptcha.ready(() => {
+      window.grecaptcha
+        .execute(secretKey, {
+          action: "submit",
+        })
+        .then((captcha) => {
+          setCaptcha(captcha);
+        });
+    });
+  };
 
-        <button type="submit" className="btn btn-dark btn-lg btn-block">
-          Sign in
-        </button>
-        <p className="forgot-password text-right">
-          Forgot <a href="#">password?</a>
-        </p>
-      </form>
-    );
-  }
+  const handleSubmit = (event) => {
+    console.log(mail);
+    console.log(password);
+    console.log(captcha);
+    event.preventDefault();
+
+    axios
+      .post(`/user/login`, { mail, password, captcha })
+      .then((res) => {
+        console.log(res.data.success);
+        if (res.data.success) {
+          console.log("true a");
+          toast.error(res.data);
+          window.location = "/pools";
+        } else {
+          console.log(res.data);
+
+          toast.error(res.data);
+        }
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  return (
+    <Form className="login">
+      <FormGroup>
+        <Form.Label>Email address</Form.Label>
+        <Form.Control
+          value={mail}
+          id="email"
+          onChange={(e) => {
+            setMail(e.target.value);
+          }}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+          value={password}
+          id="password"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
+      </FormGroup>
+
+      <FormGroup check>
+        <Form.Label check>
+          <Form.Control type="checkbox" id="chackbox" />
+          {"Հիշիր ինձ"}
+        </Form.Label>
+      </FormGroup>
+      <FormGroup></FormGroup>
+
+      <hr />
+
+      <Button
+        onClick={handleSubmit}
+        size="lg"
+        className="bg-gradient-theme-left border-0"
+        block
+      >
+        {"Մուտք"}
+      </Button>
+    </Form>
+  );
 }
+
+export default Login;

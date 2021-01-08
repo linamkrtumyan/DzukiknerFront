@@ -8,10 +8,14 @@ import { DzukContext } from "../../Pages/Partners";
 function DeletePartner({ data }) {
   const dzukik = useContext(DzukContext);
   const [show, setShow] = useState(false);
-  const [id, setData] = useState(data.id);
+  const [id, setId] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    setId(data.id);
+  });
 
   //   console.log(data);
 

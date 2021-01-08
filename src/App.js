@@ -15,7 +15,7 @@ import Login from "./Pages/Login";
 function App() {
   return (
     <>
-      {/* <Route path="/login" component={Login} exact /> */}
+      <Route path="/login" component={Login} exact />
       <Header />
 
       <Sidebar />

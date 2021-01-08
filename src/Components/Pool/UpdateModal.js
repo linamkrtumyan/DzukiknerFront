@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -6,23 +6,47 @@ import { PoolContext } from "../../Pages/PoolPage";
 
 function UpdateModal({ data1 }) {
   const pool = useContext(PoolContext);
+  const [data, setData] = useState("");
 
   const [show, setShow] = useState(false);
-  const [id, setId] = useState(data1.id);
-  const [name, setName] = useState(data1.name);
-  const [height, setfishQuantity] = useState(data1.height);
-  const [width, setfishWeight] = useState(data1.width);
-  const [maxweight, setfishType] = useState(data1.maxweight);
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [height, setfishQuantity] = useState("");
+  const [width, setfishWeight] = useState("");
+  const [maxweight, setfishType] = useState("");
+
+  const [newName, setNewName] = useState(name);
+  // setNewName(name)
+  // console.log(name, "name");
+  console.log(newName, "newname");
+
+  // useEffect(() => {
+  //   setData(data1);
+  //   console.log("apdatei useeffect");
+  //   console.log(data.name, "useeffecti data name");
+  // }, []);
+
+  // console.log(data, "updatei data");
+  // console.log(data.name, "datayi name");
+  // console.log(name, "name");
+
+  useEffect(() => {
+    setId(data1.id);
+    setName(data1.name);
+    setfishQuantity(data1.height);
+    setfishWeight(data1.width);
+    setfishType(data1.maxweight);
+  });
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (evt) => {
     // evt.preventDefault();
-    console.log(id, name, height, width, maxweight);
+    console.log(id, newName, height, width, maxweight);
     axios
       .post(`/pools/updatePool`, {
         id,
-        name,
+        newName,
         height,
         width,
         maxweight,
@@ -32,7 +56,7 @@ function UpdateModal({ data1 }) {
         if (response.data.success) {
           const updPool = {
             id: id,
-            name: name,
+            name: newName,
             // height: height,
             // width: width,
             // maxweight: maxweight,
@@ -70,8 +94,8 @@ function UpdateModal({ data1 }) {
             <Form.Control
               type="text"
               placeholder=""
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
             />
             <br />
             <Form.Label>Բարձրություն</Form.Label>

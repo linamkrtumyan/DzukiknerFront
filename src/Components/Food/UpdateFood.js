@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { FoodContext } from "../../Pages/Foods";
@@ -9,13 +9,20 @@ function UpdateFood({ data }) {
   const foods = useContext(FoodContext);
   //   console.log(data);
   const [show, setShow] = useState(false);
-  const [id, setId] = useState(data.id);
-  const [name, setName] = useState(data.name);
-  const [number, setNumber] = useState(data.number);
-  const [weight, setWeight] = useState(data.weight);
-  const [coefficient, setCoefficient] = useState(data.coefficient);
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const [weight, setWeight] = useState("");
+  const [coefficient, setCoefficient] = useState("");
 
   // console.log(id, name, number, weight, coefficient);
+  useEffect(() => {
+    setId(data.id);
+    setName(data.name);
+    setNumber(data.number);
+    setWeight(data.weight);
+    setCoefficient(data.coefficient);
+  });
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
