@@ -4,9 +4,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { PoolContext } from "../../Pages/PoolPage";
 
-function UpdateModal({ data1 }) {
+function UpdateModal({ data1, data }, props) {
+  // console.log(data1, "data 1 from update comp");
   const pool = useContext(PoolContext);
-  const [data, setData] = useState("");
+  // const [data, setData] = useState("");
+  // console.log(data, "update data from card");
 
   const [show, setShow] = useState(false);
   const [id, setId] = useState("");
@@ -14,39 +16,34 @@ function UpdateModal({ data1 }) {
   const [height, setfishQuantity] = useState("");
   const [width, setfishWeight] = useState("");
   const [maxweight, setfishType] = useState("");
+  const [newData, setNewData] = useState();
 
-  const [newName, setNewName] = useState(name);
-  // setNewName(name)
-  // console.log(name, "name");
-  console.log(newName, "newname");
-
-  // useEffect(() => {
-  //   setData(data1);
-  //   console.log("apdatei useeffect");
-  //   console.log(data.name, "useeffecti data name");
-  // }, []);
-
-  // console.log(data, "updatei data");
-  // console.log(data.name, "datayi name");
-  // console.log(name, "name");
-
-  useEffect(() => {
+  const newDataFunc = () => {
     setId(data1.id);
     setName(data1.name);
     setfishQuantity(data1.height);
     setfishWeight(data1.width);
     setfishType(data1.maxweight);
-  });
+  };
+
+  useEffect(() => {
+    setId(data1.id);
+    // console.log(id, "useeffect id");
+  }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  // const update = (id) => {
+  //   console.log(id);
+  //   props.history.push("/update" + id);
+  // };
   const handleSubmit = (evt) => {
     // evt.preventDefault();
-    console.log(id, newName, height, width, maxweight);
+    console.log(id, name, height, width, maxweight);
     axios
       .post(`/pools/updatePool`, {
         id,
-        newName,
+        name,
         height,
         width,
         maxweight,
@@ -56,7 +53,7 @@ function UpdateModal({ data1 }) {
         if (response.data.success) {
           const updPool = {
             id: id,
-            name: newName,
+            name: name,
             // height: height,
             // width: width,
             // maxweight: maxweight,
@@ -66,21 +63,18 @@ function UpdateModal({ data1 }) {
         } else {
           toast.error(response.data.errorMessage);
         }
-
-        // const newPool{
-        //    name:name,
-        // height:height,
-        // width:width,
-        // maxweight:maxweight,
-        // }
       });
-    // window.location.reload(false);
-    // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
   return (
     <>
-      <div variant="primary" onClick={handleShow}>
+      <div
+        variant="primary"
+        onClick={() => {
+          handleShow();
+          newDataFunc();
+        }}
+      >
         Խմբագրել
       </div>
 
@@ -94,8 +88,8 @@ function UpdateModal({ data1 }) {
             <Form.Control
               type="text"
               placeholder=""
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
             <br />
             <Form.Label>Բարձրություն</Form.Label>

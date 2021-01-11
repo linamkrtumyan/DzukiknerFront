@@ -11,14 +11,16 @@ import Partners from "./Pages/Partners";
 import Foods from "./Pages/Foods";
 import Fishes from "./Pages/Fishes";
 import Login from "./Pages/Login";
+import NavbarPage from "./Navbar/Navbar";
 
 function App() {
   return (
     <>
       <Route path="/login" component={Login} exact />
-      <Header />
+      {/* <Header /> */}
+      <NavbarPage />
 
-      <Sidebar />
+      {/* <Sidebar /> */}
       <Switch>
         {/* <Route path="/pools" component={PoolCard} exact /> */}
         <Route path="/pools" component={PoolPage} exact />

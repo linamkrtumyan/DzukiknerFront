@@ -15,15 +15,18 @@ function UpdateFood({ data }) {
   const [weight, setWeight] = useState("");
   const [coefficient, setCoefficient] = useState("");
 
-  // console.log(id, name, number, weight, coefficient);
-  useEffect(() => {
+  const newDataFunc = () => {
     setId(data.id);
     setName(data.name);
     setNumber(data.number);
     setWeight(data.weight);
     setCoefficient(data.coefficient);
-  });
+  };
 
+  useEffect(() => {
+    setId(data.id);
+    // console.log(id, "useeffect id");
+  }, []);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (evt) => {
@@ -61,7 +64,13 @@ function UpdateFood({ data }) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button
+        variant="primary"
+        onClick={() => {
+          handleShow();
+          newDataFunc();
+        }}
+      >
         ✎
       </Button>
 

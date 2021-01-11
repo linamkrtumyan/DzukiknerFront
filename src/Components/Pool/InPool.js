@@ -30,7 +30,7 @@ function InPool({ data, data1 }) {
     const fetchData = async () => {
       // const result = await axios("/info/fish/getFishes");
       const partners = await axios("/info/partner/getPartners");
-      console.log(partners.data.allPartners);
+      // console.log(partners.data.allPartners);
       if (partners.data.allPartners) {
         // console.log(partners.data.allPartners);
         // setFishType(result.data.allFishes);

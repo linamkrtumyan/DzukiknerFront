@@ -16,7 +16,7 @@ function DeletePool({ data1, data }) {
     setId(data1.id);
   });
 
-  console.log(data1.id);
+  // console.log(data1.id);
 
   const handleSubmit = (evt) => {
     console.log(id, "bar");

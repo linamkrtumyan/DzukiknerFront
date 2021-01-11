@@ -35,7 +35,7 @@ function PoolCard({ data, data1 }) {
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item>
-                  <UpdateModal key={1} data1={data1} />
+                  <UpdateModal key={1} data1={data1} data={data} />
                 </Dropdown.Item>
                 <Dropdown.Item>
                   <InPool key={2} data={data} data1={data1} />

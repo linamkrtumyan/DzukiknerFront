@@ -15,15 +15,27 @@ function UpdatePartner({ data }) {
   const [phone, setPhone] = useState("");
   //   console.log(id, name, description, phone);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  useEffect(() => {
+  const newDataFunc = () => {
     setId(data.id);
     setName(data.name);
     setDescription(data.description);
     setPhone(data.phone);
-  });
+  };
+
+  useEffect(() => {
+    setId(data.id);
+    // console.log(id, "useeffect id");
+  }, []);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  // useEffect(() => {
+  //   setId(data.id);
+  //   setName(data.name);
+  //   setDescription(data.description);
+  //   setPhone(data.phone);
+  // });
 
   const handleSubmit = (evt) => {
     // evt.preventDefault();
@@ -59,7 +71,13 @@ function UpdatePartner({ data }) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button
+        variant="primary"
+        onClick={() => {
+          handleShow();
+          newDataFunc();
+        }}
+      >
         ✎
       </Button>
 

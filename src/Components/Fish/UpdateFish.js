@@ -13,11 +13,16 @@ function UpdateFish({ data }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
-  useEffect(() => {
+  const newDataFunc = () => {
     setId(data.id);
     setName(data.name);
     setDescription(data.description);
-  });
+  };
+
+  useEffect(() => {
+    setId(data.id);
+    // console.log(id, "useeffect id");
+  }, []);
   //   console.log(id, name, description, phone);
 
   const handleClose = () => setShow(false);
@@ -55,7 +60,13 @@ function UpdateFish({ data }) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button
+        variant="primary"
+        onClick={() => {
+          handleShow();
+          newDataFunc();
+        }}
+      >
         ✎
       </Button>
 

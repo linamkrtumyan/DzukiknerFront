@@ -50,7 +50,7 @@ function Foods() {
     fetchData();
   }, []);
   return (
-    <div style={{ marginTop: "30px", marginLeft: "160px" }}>
+    <div style={{ marginTop: "30px", padding: "30px" }}>
       <div
         style={{
           padding: "10px",

@@ -7,7 +7,7 @@ import AddPartner from "../Components/Partner/AddPartner";
 export const DzukContext = React.createContext();
 function Partners() {
   const [data, setData] = useState([]);
-  console.log(data);
+  // console.log(data);
   const addDzuk = (dzuk) => {
     data.push(dzuk);
     setData([...data]);
@@ -53,7 +53,13 @@ function Partners() {
     // console.log(data.hits);
   }, []);
   return (
-    <div style={{ marginTop: "30px", marginLeft: "160px" }}>
+    <div
+      style={{
+        marginTop: "30px",
+        padding: "30px",
+        // , marginLeft: "160px"
+      }}
+    >
       <div
         style={{
           padding: "10px",
