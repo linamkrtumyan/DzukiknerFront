@@ -64,15 +64,18 @@ function UpdateFood({ data }) {
 
   return (
     <>
-      <Button
+      <div
         variant="primary"
         onClick={() => {
           handleShow();
           newDataFunc();
         }}
       >
-        ✎
-      </Button>
+        <img
+          className="partner_icon"
+          src={require("../../img/edit.svg").default}
+        />
+      </div>
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>

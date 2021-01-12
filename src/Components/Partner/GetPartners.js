@@ -6,7 +6,7 @@ import UpdatePartner from "./UpdatePartner";
 function GetPartners({ data }) {
   return (
     <div>
-      <Table striped bordered hover>
+      <Table bordered hover style={{ backgroundColor: "white" }}>
         <thead>
           <tr>
             {/* <th>Id</th> */}
@@ -25,7 +25,7 @@ function GetPartners({ data }) {
                   <td>{partner.name}</td>
                   <td>{partner.description}</td>
                   <td>{partner.phone}</td>
-                  <td>
+                  <td className="table_action_column">
                     <UpdatePartner data={partner} />
                     <DeletePartner data={partner} />
                   </td>

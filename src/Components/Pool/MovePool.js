@@ -82,7 +82,7 @@ function MovePool({ data, data1 }) {
 
   return (
     <>
-      <div variant="primary" onClick={handleShow}>
+      <div className="pool_dropdown_item" onClick={handleShow}>
         Տեղափոխություն
       </div>
 

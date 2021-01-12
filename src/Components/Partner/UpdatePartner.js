@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DzukContext } from "../../Pages/Partners";
+import "./partner.css";
 
 function UpdatePartner({ data }) {
   const dzukik = useContext(DzukContext);
@@ -71,15 +72,20 @@ function UpdatePartner({ data }) {
 
   return (
     <>
-      <Button
-        variant="primary"
+      <div
+        // className="edit_icon"
+        // variant="primary"
         onClick={() => {
           handleShow();
           newDataFunc();
         }}
       >
-        ✎
-      </Button>
+        {/* ✎ */}
+        <img
+          className="partner_icon"
+          src={require("../../img/edit.svg").default}
+        />
+      </div>
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>

@@ -59,7 +59,7 @@ function Fishes() {
           justifyContent: "space-between",
         }}
       >
-        Ձկներ
+        Ձկան տեսակ
         <FishContext.Provider value={{ data, setData, addFish }}>
           <AddFish />
         </FishContext.Provider>

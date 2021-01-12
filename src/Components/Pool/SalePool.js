@@ -78,7 +78,9 @@ function SalePool({ data, data1 }) {
 
   return (
     <>
-      <div onClick={handleShow}>Վաճառք</div>
+      <div className="pool_dropdown_item" onClick={handleShow}>
+        Վաճառք
+      </div>
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {
   Navbar,
   Nav,
@@ -8,6 +8,7 @@ import {
   Button,
   NavDropdown,
 } from "react-bootstrap";
+import "./navbar.css";
 
 function NavbarPage() {
   return (
@@ -18,26 +19,64 @@ function NavbarPage() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
             <Nav.Link>
-              <Link to="/pools">Ավազաններ</Link>
+              <NavLink
+                to="/pools"
+                className="navlink"
+                activeClassName="activeclass"
+              >
+                Ավազաններ
+              </NavLink>
             </Nav.Link>
-            <Nav.Link>Գործառնություններ</Nav.Link>
-            <NavDropdown title="Տեղեկություններ" id="basic-nav-dropdown">
-              <NavDropdown.Item>
-                <Link to="/partners">Գործընկերներ</Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link to="/fishes">Ձկան տեսակ</Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link to="/foods">Կերի տեսակ</Link>
-              </NavDropdown.Item>
+            <Nav.Link>
+              <NavLink
+                to="/operations"
+                className="navlink"
+                activeClassName="activeclass"
+              >
+                Գործառնություններ
+              </NavLink>{" "}
+            </Nav.Link>
+            <NavDropdown
+              className="navlink"
+              title="Տեղեկություններ"
+              id="basic-nav-dropdown"
+            >
+              <div>
+                <NavDropdown.Item>
+                  <Link to="/partners">Գործընկերներ</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/fishes">Ձկան տեսակ</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/foods">Կերի տեսակ</Link>
+                </NavDropdown.Item>
+              </div>
               {/* <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">
                 Separated link
               </NavDropdown.Item> */}
             </NavDropdown>
-            <Nav.Link href="#link">Կերակրում և կորուստ</Nav.Link>
-            <Nav.Link href="#link"> Հաշվետվություններ</Nav.Link>
+            <Nav.Link>
+              {" "}
+              <NavLink
+                to="/feedingandlosses"
+                className="navlink"
+                activeClassName="activeclass"
+              >
+                Կերակրում և կորուստ
+              </NavLink>
+            </Nav.Link>
+            <Nav.Link>
+              {" "}
+              <NavLink
+                to="/reports"
+                className="navlink"
+                activeClassName="activeclass"
+              >
+                Հաշվետվություններ
+              </NavLink>
+            </Nav.Link>
           </Nav>
           {/* <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />

@@ -39,9 +39,12 @@ function DeleteFood({ data }) {
 
   return (
     <>
-      <Button style={{ marginLeft: "5px" }} onClick={handleShow}>
-        ✖
-      </Button>
+      <div style={{ marginLeft: "5px" }} onClick={handleShow}>
+        <img
+          className="partner_icon"
+          src={require("../../img/delete_icon.svg").default}
+        />
+      </div>
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>

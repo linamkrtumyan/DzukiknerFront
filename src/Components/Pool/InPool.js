@@ -81,7 +81,9 @@ function InPool({ data, data1 }) {
 
   return (
     <>
-      <div onClick={handleShow}>Մուտք</div>
+      <div className="pool_dropdown_item" onClick={handleShow}>
+        Մուտք
+      </div>
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>

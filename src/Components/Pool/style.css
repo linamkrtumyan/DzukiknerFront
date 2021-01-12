@@ -2,6 +2,18 @@
   display: none !important;
   visibility: hidden;
 }
+
+.my-dropdown-toggle {
+  /* background-color: #f1f1f1; */
+  background-color: white;
+  color: black;
+  border: none;
+  border-color: none;
+}
+.my-dropdown-toggle:hover {
+  background-color: #f1f1f1;
+  color: black;
+}
 /* input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -9,3 +21,30 @@ input[type="number"]::-webkit-outer-spin-button {
   appearance: none;
   margin: 0;
 } */
+.pool_card {
+  /* background-color: rgb(202, 197, 197); */
+  border-radius: 6px;
+  padding: 10px;
+  box-shadow: 2px 2px 2px 2px #e5e5e5;
+  height: 130px;
+}
+.pool_dropdown_item {
+  padding: 5px 2px 5px 15px;
+  cursor: pointer;
+}
+.pool_dropdown_item:hover {
+  background-color: #f1f1f1;
+}
+.pool_drp_menu {
+  /* padding: 10px; */
+}
+.pool_card_title {
+  text-align: center;
+  padding-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.pool_card_item {
+  float: left;
+  padding: 0px 20px;
+}

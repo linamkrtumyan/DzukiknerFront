@@ -6,7 +6,7 @@ import UpdateFood from "./UpdateFood";
 function GetFoods({ data }) {
   return (
     <div>
-      <Table striped bordered hover>
+      <Table bordered hover style={{ backgroundColor: "white" }}>
         <thead>
           <tr>
             {/* <th>Id</th> */}
@@ -27,7 +27,7 @@ function GetFoods({ data }) {
                   <td>{food.number}</td>
                   <td>{food.weight}</td>
                   <td>{food.coefficient}</td>
-                  <td>
+                  <td className="table_action_column">
                     <UpdateFood data={food} />
                     <DeleteFood data={food} />
                   </td>

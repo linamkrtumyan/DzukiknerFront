@@ -90,7 +90,7 @@ function PoolPage() {
   }, []);
 
   return (
-    <div style={{ marginLeft: "160px" }}>
+    <div style={{ padding: "30px" }}>
       <div
         style={{
           padding: "10px",
@@ -102,7 +102,6 @@ function PoolPage() {
       >
         Ավազաններ
         <PoolContext.Provider value={{ data, setData, addNewPool }}>
-          {" "}
           <AddPool />
         </PoolContext.Provider>
       </div>

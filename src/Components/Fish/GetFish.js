@@ -6,7 +6,7 @@ import DeleteFish from "./DeleteFish";
 function GetFish({ data }) {
   return (
     <div>
-      <Table striped bordered hover>
+      <Table bordered hover style={{ backgroundColor: "white" }}>
         <thead>
           <tr>
             <th>Անուն</th>
@@ -21,7 +21,7 @@ function GetFish({ data }) {
                 <tr key={index}>
                   <td>{fish.name}</td>
                   <td>{fish.description}</td>
-                  <td>
+                  <td className="table_action_column">
                     <UpdateFish data={fish} />
                     <DeleteFish data={fish} />
                   </td>

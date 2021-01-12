@@ -45,7 +45,9 @@ function DeletePool({ data1, data }) {
 
   return (
     <>
-      <div onClick={handleShow}>Ջնջել</div>
+      <div className="pool_dropdown_item" onClick={handleShow}>
+        Ջնջել
+      </div>
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>

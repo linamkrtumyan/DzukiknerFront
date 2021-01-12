@@ -3,6 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { PoolContext } from "../../Pages/PoolPage";
+import "./style.css";
 
 function UpdateModal({ data1, data }, props) {
   // console.log(data1, "data 1 from update comp");
@@ -69,7 +70,7 @@ function UpdateModal({ data1, data }, props) {
   return (
     <>
       <div
-        variant="primary"
+        className="pool_dropdown_item"
         onClick={() => {
           handleShow();
           newDataFunc();

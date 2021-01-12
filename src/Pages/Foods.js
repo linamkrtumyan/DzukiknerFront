@@ -60,7 +60,7 @@ function Foods() {
           justifyContent: "space-between",
         }}
       >
-        Կերեր
+        Կերի տեսակ
         <FoodContext.Provider value={{ data, setData, addFood }}>
           <AddFood />
         </FoodContext.Provider>

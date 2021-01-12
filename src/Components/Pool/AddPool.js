@@ -54,7 +54,7 @@ function AddPool() {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="light" onClick={handleShow}>
         Ավելացնել
       </Button>
 
