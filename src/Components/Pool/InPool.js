@@ -18,13 +18,11 @@ function InPool({ data, data1 }) {
 
   const [toPoolid, setToPoolId] = useState(data1.id);
   // const [toPoolid, settoPoolid] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [weight, setWeight] = useState("");
-  const [avgWeight, setAvgWeight] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [weight, setWeight] = useState(1);
+  const [avgWeight, setAvgWeight] = useState();
   const [partnerId, setPartnerId] = useState(null);
   const [description, setDescription] = useState(null);
-
-  //   console.log(data);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,8 +73,6 @@ function InPool({ data, data1 }) {
         console.log("error");
         toast.error("Կատարված չէ");
       });
-    // window.location.reload(false);
-    // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
   return (
@@ -133,7 +129,7 @@ function InPool({ data, data1 }) {
             <br />
             <Form.Label>Միջին քաշ</Form.Label>
             <Form.Control
-              type="number"
+              // type="number"
               placeholder=""
               value={weight / quantity}
               onChange={(e) => setAvgWeight(e.target.value)}
@@ -152,7 +148,9 @@ function InPool({ data, data1 }) {
                 Ընտրեք գործընկերոջը
               </option>
               {partners.map((partner) => (
-                <option value={partner.id}>{partner.name}</option>
+                <option key={partner.id} value={partner.id}>
+                  {partner.name}
+                </option>
               ))}
             </Form.Control>
             <br />

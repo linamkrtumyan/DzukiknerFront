@@ -7,18 +7,21 @@ import {
   FormControl,
   Button,
   NavDropdown,
+  DropdownButton,
+  Dropdown,
 } from "react-bootstrap";
 import "./navbar.css";
 
 function NavbarPage() {
   return (
     <div>
-      <Navbar bg="light" expand="lg">
+      <Navbar style={{ backgroundColor: "white" }} expand="lg">
         <Navbar.Brand href="#home">Logo</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
-            <Nav.Link>
+            {/* <Nav.Link> */}
+            <div style={{ padding: "10px" }}>
               <NavLink
                 to="/pools"
                 className="navlink"
@@ -26,8 +29,10 @@ function NavbarPage() {
               >
                 Ավազաններ
               </NavLink>
-            </Nav.Link>
-            <Nav.Link>
+            </div>
+            {/* </Nav.Link> */}
+            {/* <Nav.Link> */}
+            <div style={{ padding: "10px" }}>
               <NavLink
                 to="/operations"
                 className="navlink"
@@ -35,30 +40,32 @@ function NavbarPage() {
               >
                 Գործառնություններ
               </NavLink>{" "}
-            </Nav.Link>
+            </div>
+            {/* </Nav.Link> */}
             <NavDropdown
               className="navlink"
               title="Տեղեկություններ"
               id="basic-nav-dropdown"
+              style={{ padding: "2px" }}
             >
               <div>
-                <NavDropdown.Item>
+                <Dropdown.Item>
                   <Link to="/partners">Գործընկերներ</Link>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
+                </Dropdown.Item>
+                <Dropdown.Item>
                   <Link to="/fishes">Ձկան տեսակ</Link>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
+                </Dropdown.Item>
+                <Dropdown.Item>
                   <Link to="/foods">Կերի տեսակ</Link>
-                </NavDropdown.Item>
+                </Dropdown.Item>
               </div>
               {/* <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">
                 Separated link
               </NavDropdown.Item> */}
             </NavDropdown>
-            <Nav.Link>
-              {" "}
+            {/* <Nav.Link> */}{" "}
+            <div style={{ padding: "10px" }}>
               <NavLink
                 to="/feedingandlosses"
                 className="navlink"
@@ -66,9 +73,10 @@ function NavbarPage() {
               >
                 Կերակրում և կորուստ
               </NavLink>
-            </Nav.Link>
-            <Nav.Link>
-              {" "}
+            </div>
+            {/* </Nav.Link> */}
+            {/* <Nav.Link> */}{" "}
+            <div style={{ padding: "10px" }}>
               <NavLink
                 to="/reports"
                 className="navlink"
@@ -76,12 +84,13 @@ function NavbarPage() {
               >
                 Հաշվետվություններ
               </NavLink>
-            </Nav.Link>
+            </div>
+            {/* </Nav.Link> */}
           </Nav>
-          {/* <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
-          </Form> */}
+          <Form inline>
+            {/* <FormControl type="text" placeholder="Search" className="mr-sm-2" /> */}
+            {/* <Button className="mr-sm-2">Ելք</Button> */}
+          </Form>
         </Navbar.Collapse>
       </Navbar>
     </div>

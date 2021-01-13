@@ -54,6 +54,7 @@ function Partners() {
   }, []);
   return (
     <div
+      className="container"
       style={{
         marginTop: "30px",
         padding: "30px",

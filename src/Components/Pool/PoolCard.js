@@ -13,62 +13,57 @@ function PoolCard({ data, data1 }) {
   return (
     <div
       style={{
-        width: "18rem",
-        marginLeft: "10px",
+        width: "270px",
+        // marginLeft: "10px",
         // marginTop: "30px",
         // bottom: "30px",
-        marginBottom: "10px",
+        // marginBottom: "10px",
       }}
     >
       {/* <AddPool /> */}
       <Card className="pool_card">
-        <Card.Body>
+        <Card.Body style={{ padding: "0.5rem" }}>
           <div style={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}>
             <Dropdown>
               <Dropdown.Toggle variant="light" className="my-dropdown-toggle ">
                 ⋮
               </Dropdown.Toggle>
+
               <Dropdown.Menu className="pool_drp_menu">
-                {/* <Dropdown.Item> */}
-                <UpdateModal key={1} data1={data1} data={data} />
-                {/* </Dropdown.Item> */}
-                {/* <Dropdown.Item> */}
-                <InPool key={2} data={data} data1={data1} />
-                {/* </Dropdown.Item> */}
-                {/* <Dropdown.Item> */}
-                <SalePool key={3} data={data} data1={data1} />
-                {/* </Dropdown.Item> */}
-                {/* <Dropdown.Item> */}
-                <MovePool key={4} data={data} data1={data1} />
-                {/* </Dropdown.Item> */}
-                {/* <Dropdown.Item> */}
-                <DeletePool key={5} data1={data1} data={data} />
-                {/* </Dropdown.Item> */}
+                <UpdateModal data1={data1} data={data} />
+                <InPool data={data} data1={data1} />
+                <SalePool data1={data1} />
+                <MovePool data={data} data1={data1} />
+                <DeletePool data1={data1} data={data} />
               </Dropdown.Menu>
             </Dropdown>
           </div>
-          <Card.Text>
-            <div className="pool_card_title">
-              <div style={{ float: "left", fontWeight: "700" }}>
-                {/* Ավազան */}
-              </div>
-              {data1.name}
+          {/* <Card.Text> */}
+          <div className="pool_card_title">
+            <div style={{ float: "left", fontWeight: "700" }}>
+              {/* Ավազան */}
             </div>
-            <div className="pool_card_item">
-              <div style={{ float: "left", fontWeight: "700" }}>
-                {/* Տեսակ */}
-              </div>
-              {data1.fishType}
+            <p> {data1.name}</p>
+          </div>
+          <div className="pool_card_item">
+            <div style={{ float: "left", fontWeight: "700" }}>
+              {/* Տեսակ */}
             </div>
-            <div className="pool_card_item">
+            <p>{data1.fishType}</p>
+          </div>
+          <div className="pool_card_item">
+            <div>
               {data1.fishQuantity}
-              <span style={{ fontWeight: "700" }}>Հատ</span>
+              <p style={{ fontWeight: "700" }}>Հատ</p>
             </div>
-            <div className="pool_card_item">
+          </div>
+          <div className="pool_card_item">
+            <div>
               {data1.fishWeight}
-              <span style={{ fontWeight: "700" }}>Կգ</span>
+              <p style={{ fontWeight: "700" }}>Կգ</p>
             </div>
-          </Card.Text>
+          </div>
+          {/* </Card.Text> */}
         </Card.Body>
       </Card>
     </div>

@@ -68,7 +68,7 @@ function UpdateModal({ data1, data }, props) {
   };
 
   return (
-    <>
+    <div>
       <div
         className="pool_dropdown_item"
         onClick={() => {
@@ -134,7 +134,7 @@ function UpdateModal({ data1, data }, props) {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 }
 

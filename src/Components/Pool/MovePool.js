@@ -13,9 +13,9 @@ function MovePool({ data, data1 }) {
   // const [id, setId] = useState();
   const [fromPoolid, setFromPoolId] = useState(data1.id);
   const [toPoolid, settoPoolid] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [weight, setWeight] = useState("");
-  const [avgWeight, setAvgWeight] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [weight, setWeight] = useState(1);
+  const [avgWeight, setAvgWeight] = useState(0);
   const [partnerId, setPartnerId] = useState("");
   const [description, setDescription] = useState("");
 
@@ -103,7 +103,9 @@ function MovePool({ data, data1 }) {
                 Ընտրեք ավազանը
               </option>
               {data.map((data1) => (
-                <option value={data1.id}>{data1.name}</option>
+                <option key={data1.id} value={data1.id}>
+                  {data1.name}
+                </option>
               ))}
             </Form.Control>
             <br />
@@ -151,7 +153,9 @@ function MovePool({ data, data1 }) {
                 Ընտրեք գործընկերոջը
               </option>
               {partners.map((partner) => (
-                <option value={partner.id}>{partner.name}</option>
+                <option key={partner.id} value={partner.id}>
+                  {partner.name}
+                </option>
               ))}
             </Form.Control>
             <br />

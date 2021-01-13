@@ -16,9 +16,9 @@ function SalePool({ data, data1 }) {
 
   const [fromPoolid, setFromPoolId] = useState(data1.id);
   // const [toPoolid, settoPoolid] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [weight, setWeight] = useState("");
-  const [avgWeight, setAvgWeight] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [weight, setWeight] = useState(1);
+  const [avgWeight, setAvgWeight] = useState(0);
   const [partnerId, setPartnerId] = useState(null);
   const [description, setDescription] = useState(null);
 
@@ -128,7 +128,9 @@ function SalePool({ data, data1 }) {
                 Ընտրեք գործընկերոջը
               </option>
               {partners.map((partner) => (
-                <option value={partner.id}>{partner.name}</option>
+                <option key={partner.id} value={partner.id}>
+                  {partner.name}
+                </option>
               ))}
             </Form.Control>
             <br />
