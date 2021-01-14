@@ -40,27 +40,23 @@ function PoolCard({ data, data1 }) {
           </div>
           {/* <Card.Text> */}
           <div className="pool_card_title">
-            <div style={{ float: "left", fontWeight: "700" }}>
-              {/* Ավազան */}
-            </div>
+            <div style={{ float: "left" }}>{/* Ավազան */}</div>
             <p> {data1.name}</p>
           </div>
           <div className="pool_card_item">
-            <div style={{ float: "left", fontWeight: "700" }}>
-              {/* Տեսակ */}
-            </div>
+            <div style={{ float: "left" }}>{/* Տեսակ */}</div>
             <p>{data1.fishType}</p>
           </div>
           <div className="pool_card_item">
-            <div>
+            <div style={{ textAlign: "center" }}>
               {data1.fishQuantity}
-              <p style={{ fontWeight: "700" }}>Հատ</p>
+              <p style={{}}>Հատ</p>
             </div>
           </div>
           <div className="pool_card_item">
-            <div>
+            <div style={{ textAlign: "center" }}>
               {data1.fishWeight}
-              <p style={{ fontWeight: "700" }}>Կգ</p>
+              <p style={{}}>Կգ</p>
             </div>
           </div>
           {/* </Card.Text> */}

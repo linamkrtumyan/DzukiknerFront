@@ -1,45 +1,50 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { Button } from "react-bootstrap";
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import PoolCard from "./Components/Pool/PoolCard";
 import Header from "./Components/Header/Header";
-import Sidebar from "./Components/Sidebar/Sidebar";
-import PoolPage from "./Pages/PoolPage";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import Partners from "./Pages/Partners";
-import Foods from "./Pages/Foods";
-import Fishes from "./Pages/Fishes";
+import { Route, Redirect } from "react-router-dom";
 import Login from "./Pages/Login";
-import NavbarPage from "./Navbar/Navbar";
+import Routes from "./Routes/Routes";
+import { connect } from "react-redux";
+import Navbar from "./Navbar/Navbar";
 
-function App() {
-  document.body.style = "background:  #f1f1f1;";
+document.body.style = "background:  #f1f1f1;";
+
+function App({ isLoggedIn }) {
+  // useEffect(() => {
+  //   tokenVerify();
+  // }, []);
+
+  const tokenVerify = () => {
+    //if(window.location == '/login') {
+    // if (token exist) {
+    //delete token from cookie
+    // }
+    //} else {
+    //}
+  };
+  // if (isLoggedIn)
+  // if (isLoggedIn) {
   return (
-    <div className="main_page">
-      <Route path="/login" component={Login} exact />
-      {/* <Header /> */}
-      <NavbarPage />
-
-      {/* <Sidebar /> */}
-      {/* <BrowserRouter> */}
-      <Switch>
-        {/* <Route path="/pools" component={PoolCard} exact /> */}
-        <Route path="/pools" component={PoolPage} exact />
-        <Route path="/partners" component={Partners} exact />
-        <Route path="/fishes" component={Fishes} exact />
-        <Route path="/foods" component={Foods} exact />
-
-        {/* <PoolPage /> */}
-        {/* <Route path="/about" component={About} /> */}
-        {/* <Route path="/shop" component={Shop} /> */}
-        {/* <Redirect to="/pools" /> */}
-      </Switch>
-      {/* </BrowserRouter> */}
-
-      {/* <PoolCard /> */}
-    </div>
+    <>
+      <Navbar />
+      <Routes />
+    </>
   );
+  // } else {
+  //   return (
+  //     <>
+
+  //       <Route path="/login" component={Login} />
+  //     </>
+  //   );
+  // }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.isLoggedIn,
+  };
+};
+
+export default connect(mapStateToProps)(App);

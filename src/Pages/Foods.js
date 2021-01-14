@@ -50,17 +50,20 @@ function Foods() {
     fetchData();
   }, []);
   return (
-    <div className="container" style={{ marginTop: "30px", padding: "30px" }}>
+    <div
+      className="container"
+      style={{ padding: "30px", backgroundColor: "white" }}
+    >
       <div
         style={{
-          padding: "10px",
+          padding: "10px 0px",
           fontSize: "25px",
           fontWeight: "700",
           display: "flex",
           justifyContent: "space-between",
+          float: "right",
         }}
       >
-        Կերի տեսակ
         <FoodContext.Provider value={{ data, setData, addFood }}>
           <AddFood />
         </FoodContext.Provider>

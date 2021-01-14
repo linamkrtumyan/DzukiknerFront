@@ -2,13 +2,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Button, Form, FormGroup } from "react-bootstrap";
-import { Route } from "react-router-dom";
-import PoolPage from "./PoolPage";
 import "./style.css";
+
+import { connect } from "react-redux";
+import { login } from "../redux/auth/actions";
+import { useHistory } from "react-router-dom";
 
 const secretKey = "6LecLQoaAAAAAD5uQQ37dD5n-xh76rhIU4HFwlMR";
 
-function Login() {
+function Login({ isLoggedIn, login }) {
+  console.log(isLoggedIn);
+  let history = useHistory();
+
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [captcha, setCaptcha] = useState({});
@@ -40,9 +45,11 @@ function Login() {
       .then((res) => {
         console.log(res.data.success);
         if (res.data.success) {
-          console.log("true a");
+          console.log("Success is true!");
           toast.error(res.data);
-          window.location = "/pools";
+          login(true);
+          console.log(isLoggedIn);
+          history.push("/pools");
         } else {
           console.log(res.data);
 
@@ -58,7 +65,7 @@ function Login() {
   return (
     <Form className="login">
       <FormGroup>
-        <Form.Label>Email address</Form.Label>
+        <Form.Label>Էլ․ փոստ 📧</Form.Label>
         <Form.Control
           value={mail}
           id="email"
@@ -68,21 +75,19 @@ function Login() {
         />
       </FormGroup>
       <FormGroup>
-        <Form.Label>Password</Form.Label>
+        <Form.Label>Ծածկագիր 🔐</Form.Label>
         <Form.Control
           value={password}
           id="password"
+          type="password"
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         />
       </FormGroup>
 
-      <FormGroup check>
-        <Form.Label check>
-          <Form.Control type="checkbox" id="chackbox" />
-          {"Հիշիր ինձ"}
-        </Form.Label>
+      <FormGroup check="true">
+        <Form.Check type="checkbox" label="Հիշիր ինձ" />
       </FormGroup>
       <FormGroup></FormGroup>
 
@@ -100,4 +105,16 @@ function Login() {
   );
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.isLoggedIn,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (isLoggedIn) => dispatch(login(isLoggedIn)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -13,3 +13,11 @@
 #chackbox {
   width: 15px;
 }
+.nav-tabs .nav-link.active {
+  color: #495057;
+  background-color: #fff;
+  border-color: #fff #fff #fff;
+}
+.nav-tabs {
+  border-bottom: 1px solid #fff;
+}

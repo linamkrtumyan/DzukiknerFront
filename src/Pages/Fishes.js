@@ -49,17 +49,20 @@ function Fishes() {
     fetchData();
   }, []);
   return (
-    <div className="container" style={{ marginTop: "30px", padding: "30px" }}>
+    <div
+      className="container"
+      style={{ backgroundColor: "white", padding: "30px" }}
+    >
       <div
         style={{
-          padding: "10px",
+          padding: "10px 0px",
           fontSize: "25px",
           fontWeight: "700",
           display: "flex",
           justifyContent: "space-between",
+          float: "right",
         }}
       >
-        Ձկան տեսակ
         <FishContext.Provider value={{ data, setData, addFish }}>
           <AddFish />
         </FishContext.Provider>

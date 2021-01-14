@@ -16,7 +16,7 @@ function NavbarPage() {
   return (
     <div>
       <Navbar style={{ backgroundColor: "white" }} expand="lg">
-        <Navbar.Brand href="#home">Logo</Navbar.Brand>
+        {/* <Navbar.Brand href="#home">Logo</Navbar.Brand> */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
@@ -32,17 +32,17 @@ function NavbarPage() {
             </div>
             {/* </Nav.Link> */}
             {/* <Nav.Link> */}
+            {/* </Nav.Link> */}
             <div style={{ padding: "10px" }}>
               <NavLink
-                to="/operations"
+                to="/information"
                 className="navlink"
                 activeClassName="activeclass"
               >
-                Գործառնություններ
-              </NavLink>{" "}
+                Տեղեկություններ
+              </NavLink>
             </div>
-            {/* </Nav.Link> */}
-            <NavDropdown
+            {/* <NavDropdown
               className="navlink"
               title="Տեղեկություններ"
               id="basic-nav-dropdown"
@@ -58,12 +58,12 @@ function NavbarPage() {
                 <Dropdown.Item>
                   <Link to="/foods">Կերի տեսակ</Link>
                 </Dropdown.Item>
-              </div>
-              {/* <NavDropdown.Divider />
+              </div> */}
+            {/* <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">
                 Separated link
               </NavDropdown.Item> */}
-            </NavDropdown>
+            {/* </NavDropdown> */}
             {/* <Nav.Link> */}{" "}
             <div style={{ padding: "10px" }}>
               <NavLink
