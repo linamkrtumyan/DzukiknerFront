@@ -49,7 +49,8 @@ function Login({ isLoggedIn, login }) {
           toast.error(res.data);
           login(true);
           console.log(isLoggedIn);
-          history.push("/pools");
+          // history.reloa("/pools");
+          window.location.reload();
         } else {
           console.log(res.data);
 

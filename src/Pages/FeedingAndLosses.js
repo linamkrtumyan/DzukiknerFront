@@ -14,8 +14,8 @@ function FeedingAndLosses() {
       const result = await axios("/pools/getPools");
       const foodresult = await axios("/info/food/getFoods");
       const coefresult = await axios("/info/food/getCoefficient");
-      console.log(coefresult, "coefresult");
-      console.log(result, "result");
+      // console.log(coefresult, "coefresult");
+      // console.log(result, "result");
       setCoefficient(coefresult.data.allCoef);
       setData(result.data.allPools);
       setFoods(foodresult.data.allFoods);

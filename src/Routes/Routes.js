@@ -16,7 +16,8 @@ export default function Routes() {
       <Route path="/fishes" component={Fishes} exact />
       <Route path="/foods" component={Foods} exact />
       <Route path="/information" component={Information} exact />
-      <Route patg="/feedingandlosses" component={FeedingAndLosses} exact />
+      <Route path="/feedingandlosses" component={FeedingAndLosses} exact />
+      <Redirect to="/pools" />
     </Switch>
   );
 }

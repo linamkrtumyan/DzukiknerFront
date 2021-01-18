@@ -141,9 +141,6 @@ function InPool({ data, data1 }) {
               placeholder="Ընտրեք գործընկերոջը"
               onChange={(e) => setPartnerId(e.target.value)}
             >
-              {/* <option disabled={true} value="">
-                Ընտրեք գործընկերոջը
-              </option> */}
               <option hidden value="">
                 Ընտրեք գործընկերոջը
               </option>

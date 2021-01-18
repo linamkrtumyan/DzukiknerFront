@@ -1,9 +1,12 @@
-import React from "react";
-import { Table, InputGroup, FormControl, Form } from "react-bootstrap";
+import React, { useContext, useState } from "react";
+import { Table, InputGroup, FormControl, Form, Button } from "react-bootstrap";
 import AddFeeding from "./AddFeeding";
 
 function Feeding({ data, foods, coefficient }) {
-  console.log(coefficient, "coefficient");
+  // console.log(data, "data");
+  const [addFood, setAddFood] = useState(data);
+  // con
+  console.log(addFood, "addfood");
   return (
     <div
       className="container"
@@ -29,7 +32,15 @@ function Feeding({ data, foods, coefficient }) {
                     <Form.Control
                       type="number"
                       placeholder="Կերի քանակ"
-                      name="zip"
+                      // name="count"
+                      onChange={(e) => {
+                        addFood[index] = {
+                          ...data[index],
+                          ...addFood[index],
+                          count: e.target.value,
+                        };
+                        setAddFood([...addFood]);
+                      }}
                     />
                   </td>
                   <td>
@@ -37,7 +48,15 @@ function Feeding({ data, foods, coefficient }) {
                     <Form.Control
                       as="select"
                       placeholder="Ընտրեք կերը"
-                      //   onChange={(e) => setPartnerId(e.target.value)}
+                      onChange={(e) => {
+                        addFood[index] = {
+                          ...data[index],
+                          ...addFood[index],
+                          // count: count,
+                          food: e.target.value,
+                        };
+                        setAddFood([...addFood]);
+                      }}
                     >
                       <option hidden value="">
                         Ընտրեք կերը
@@ -53,8 +72,18 @@ function Feeding({ data, foods, coefficient }) {
                     <Form.Control
                       as="select"
                       placeholder="Ընտրեք գործակիցը"
-                      //   onChange={(e) => setPartnerId(e.target.value)}
+                      onChange={(e) => {
+                        addFood[index] = {
+                          ...data[index],
+                          ...addFood[index],
+                          coef: e.target.value,
+                        };
+                        setAddFood([...addFood]);
+                      }}
                     >
+                      <option hidden value="">
+                        Ընտրեք գործակիցը
+                      </option>
                       {coefficient.map((coef) => (
                         <option key={coef.id} value={coef.id}>
                           {coef.coefficient}
@@ -72,7 +101,10 @@ function Feeding({ data, foods, coefficient }) {
           )}
         </tbody>
       </Table>
-      <AddFeeding />
+      {/* <AddFeeding /> */}
+      <Button onClick={(e) => console.log(addFood)} variant="primary">
+        Հաստատել
+      </Button>
     </div>
   );
 }
