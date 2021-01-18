@@ -13,7 +13,7 @@ function PoolCard({ data, data1 }) {
   return (
     <div
       style={{
-        width: "270px",
+        width: "360px",
         // marginLeft: "10px",
         // marginTop: "30px",
         // bottom: "30px",
@@ -22,7 +22,7 @@ function PoolCard({ data, data1 }) {
     >
       {/* <AddPool /> */}
       <Card className="pool_card">
-        <Card.Body style={{ padding: "0.5rem" }}>
+        <Card.Body style={{ padding: "1.2rem 0.5rem" }}>
           <div style={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}>
             <Dropdown>
               <Dropdown.Toggle variant="light" className="my-dropdown-toggle ">
@@ -40,12 +40,19 @@ function PoolCard({ data, data1 }) {
           </div>
           {/* <Card.Text> */}
           <div className="pool_card_title">
-            <div style={{ float: "left" }}>{/* Ավազան */}</div>
-            <p> {data1.name}</p>
+            <div style={{ fontSize: "22px" }}>
+              {/* Ավազան */}
+              <p> {data1.name}</p>
+            </div>
           </div>
+          {/* <div style={{ marginLeft: "auto", marginRight: "auto" }}> */}
           <div className="pool_card_item">
-            <div style={{ float: "left" }}>{/* Տեսակ */}</div>
-            <p>{data1.fishType}</p>
+            <div style={{ textAlign: "center" }}>
+              {/* Տեսակ */}
+
+              <p>{data1.fishType}</p>
+              {/* <p>fish type</p> */}
+            </div>
           </div>
           <div className="pool_card_item">
             <div style={{ textAlign: "center" }}>
@@ -55,10 +62,18 @@ function PoolCard({ data, data1 }) {
           </div>
           <div className="pool_card_item">
             <div style={{ textAlign: "center" }}>
-              {data1.fishWeight}
+              {Math.round(data1.fishWeight * 100) / 100}
               <p style={{}}>Կգ</p>
             </div>
           </div>
+          <div className="pool_card_item">
+            <div style={{ textAlign: "center" }}>
+              {Math.round(data1.fishAvgWeight * 100) / 100}
+              <p style={{}}>Կգ/Հատ</p>
+            </div>
+          </div>
+          {/* </div> */}
+
           {/* </Card.Text> */}
         </Card.Body>
       </Card>

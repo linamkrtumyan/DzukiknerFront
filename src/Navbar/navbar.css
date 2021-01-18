@@ -4,3 +4,14 @@
 .navlink {
   color: black;
 }
+.logout {
+  position: absolute;
+  /* top: 50px; */
+  right: 10px;
+}
+@media only screen and (max-width: 991px) {
+  .logout {
+    position: relative;
+    width: 200px !important;
+  }
+}

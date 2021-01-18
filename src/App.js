@@ -58,8 +58,9 @@ function App({ isLoggedIn }) {
   } else {
     return (
       <>
-        <Header />
+        {/* <Header /> */}
         <Route path="/login" component={Login} />
+        <Redirect to="./login" />
       </>
     );
   }

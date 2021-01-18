@@ -66,7 +66,7 @@ function Login({ isLoggedIn, login }) {
   return (
     <Form className="login">
       <FormGroup>
-        <Form.Label>Էլ․ փոստ 📧</Form.Label>
+        <Form.Label>Էլ․ փոստ </Form.Label>
         <Form.Control
           value={mail}
           id="email"
@@ -76,7 +76,7 @@ function Login({ isLoggedIn, login }) {
         />
       </FormGroup>
       <FormGroup>
-        <Form.Label>Ծածկագիր 🔐</Form.Label>
+        <Form.Label>Ծածկագիր </Form.Label>
         <Form.Control
           value={password}
           id="password"

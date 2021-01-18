@@ -26,7 +26,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 0px;
   /* padding: 10px; */
   /* box-shadow: 2px 2px 2px 2px #e5e5e5; */
-  height: 130px;
+  height: 180px;
 }
 .pool_dropdown_item {
   padding: 5px 2px 5px 15px;
@@ -42,9 +42,15 @@ input[type="number"]::-webkit-outer-spin-button {
   text-align: center;
   padding-bottom: 10px;
   font-size: 20px;
-  font-weight: 600;
+  /* font-weight: 600; */
 }
 .pool_card_item {
+  /* float: left;
+  padding: 0px 0px;
+  max-width: 81px;
+  margin: 0px 15px; */
+  display: inline-block;
   float: left;
-  padding: 0px 20px;
+  width: 85px;
+  font-size: 19px;
 }

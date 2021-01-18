@@ -40,18 +40,7 @@ function Logout({ isLoggedIn }) {
 
   return (
     <div>
-      <Button
-        style={{
-          color: "black",
-          margin: "5%",
-          boxShadow: "5px 5px 3px rgba(46, 46, 46, 0.62)",
-          background: "red",
-        }}
-        onClick={handleSubmit}
-        size="lg"
-        className="bg-gradient-theme-left border-0"
-        block
-      >
+      <Button onClick={handleSubmit} variant="secondary" block>
         {"Դուրս գալ"}
       </Button>
     </div>
