@@ -96,6 +96,7 @@ function UpdateModal({ data1, data }, props) {
             <Form.Label>Բարձրություն</Form.Label>
             <Form.Control
               type="number"
+              min="0"
               placeholder=""
               value={height}
               id="fishCount"
@@ -105,6 +106,7 @@ function UpdateModal({ data1, data }, props) {
             <Form.Label>Լայնություն</Form.Label>
             <Form.Control
               type="number"
+              min="0"
               placeholder=""
               value={width}
               onChange={(e) => setfishWeight(e.target.value)}
@@ -113,6 +115,7 @@ function UpdateModal({ data1, data }, props) {
             <Form.Label>Առավելագույն քաշ</Form.Label>
             <Form.Control
               type="number"
+              min="0"
               placeholder=""
               value={maxweight}
               onChange={(e) => setfishType(e.target.value)}

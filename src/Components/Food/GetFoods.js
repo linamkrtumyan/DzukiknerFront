@@ -3,7 +3,8 @@ import { Table, Button, Form } from "react-bootstrap";
 import DeleteFood from "./DeleteFood";
 import UpdateFood from "./UpdateFood";
 
-function GetFoods({ data }) {
+function GetFoods({ data, coef }) {
+  console.log(coef, "coef");
   return (
     <div>
       <Table bordered hover style={{ backgroundColor: "white" }}>
@@ -13,7 +14,7 @@ function GetFoods({ data }) {
             <th>Անուն</th>
             <th>Համար</th>
             <th>Քաշ </th>
-            <th>Գործակից </th>
+            {/* <th>Գործակից </th> */}
             <th>Գործողություն</th>
           </tr>
         </thead>
@@ -26,7 +27,7 @@ function GetFoods({ data }) {
                   <td>{food.name}</td>
                   <td>{food.number}</td>
                   <td>{food.weight}</td>
-                  <td>{food.coefficient}</td>
+                  {/* <td>{coef.coefficient}</td> */}
                   <td className="table_action_column">
                     <UpdateFood data={food} />
                     <DeleteFood data={food} />

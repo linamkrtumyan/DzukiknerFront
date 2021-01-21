@@ -1,12 +1,42 @@
 import React, { useContext, useState } from "react";
 import { Table, InputGroup, FormControl, Form, Button } from "react-bootstrap";
 import AddFeeding from "./AddFeeding";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function Feeding({ data, foods, coefficient }) {
   // console.log(data, "data");
   const [addFood, setAddFood] = useState(data);
   // con
   console.log(addFood, "addfood");
+
+  // let sql = addFood.map(
+  //   (item) =>
+  //     `(${item.id}, ${item.coef}, ${item.count}, ${item.food}, ${item.name})`
+  // );
+
+  // console.log(sql, "sql");
+
+  const handleSubmit = (evt) => {
+    // console.log(sql);
+    axios
+      .post(`/feeding/addFeedingHistory`, {
+        addFood,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.data.success) {
+          toast.success("Կատարված է");
+        } else {
+          toast.error(response.data.errorMessage);
+        }
+      })
+      .catch((e) => {
+        console.log("error");
+        toast.error("Կատարված չէ");
+      });
+  };
+
   return (
     <div
       className="container"
@@ -31,6 +61,7 @@ function Feeding({ data, foods, coefficient }) {
                   <td>
                     <Form.Control
                       type="number"
+                      min="0"
                       placeholder="Կերի քանակ"
                       // name="count"
                       onChange={(e) => {
@@ -70,8 +101,9 @@ function Feeding({ data, foods, coefficient }) {
                   </td>
                   <td>
                     <Form.Control
-                      as="select"
-                      placeholder="Ընտրեք գործակիցը"
+                      type="number"
+                      min="0"
+                      placeholder="Գործակիցը"
                       onChange={(e) => {
                         addFood[index] = {
                           ...data[index],
@@ -81,14 +113,14 @@ function Feeding({ data, foods, coefficient }) {
                         setAddFood([...addFood]);
                       }}
                     >
-                      <option hidden value="">
+                      {/* <option hidden value="">
                         Ընտրեք գործակիցը
                       </option>
-                      {coefficient.map((coef) => (
+                      {data.map((coef) => (
                         <option key={coef.id} value={coef.id}>
                           {coef.coefficient}
                         </option>
-                      ))}
+                      ))} */}
                     </Form.Control>
                   </td>
                 </tr>
@@ -102,7 +134,7 @@ function Feeding({ data, foods, coefficient }) {
         </tbody>
       </Table>
       {/* <AddFeeding /> */}
-      <Button onClick={(e) => console.log(addFood)} variant="primary">
+      <Button onClick={handleSubmit} variant="primary">
         Հաստատել
       </Button>
     </div>

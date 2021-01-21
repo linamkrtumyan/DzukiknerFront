@@ -74,6 +74,7 @@ function AddPool() {
             <Form.Label>Բարձրություն</Form.Label>
             <Form.Control
               type="number"
+              min="0"
               placeholder=""
               onChange={(e) => setHeight(e.target.value)}
             />
@@ -81,6 +82,7 @@ function AddPool() {
             <Form.Label>Լայնություն</Form.Label>
             <Form.Control
               type="number"
+              min="0"
               placeholder=""
               onChange={(e) => setWidth(e.target.value)}
             />
@@ -88,6 +90,7 @@ function AddPool() {
             <Form.Label>Առավելագույն Քաշ</Form.Label>
             <Form.Control
               type="number"
+              min="0"
               placeholder=""
               onChange={(e) => setMaxweight(e.target.value)}
             />

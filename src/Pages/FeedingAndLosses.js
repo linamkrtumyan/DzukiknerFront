@@ -10,13 +10,18 @@ function FeedingAndLosses() {
   const [coefficient, setCoefficient] = useState([]);
   //   console.log(coefficient, "coef from page");
   useEffect(() => {
+    console.log("object");
     const fetchData = async () => {
+      console.log("object2");
       const result = await axios("/pools/getPools");
+      console.log("object3");
       const foodresult = await axios("/info/food/getFoods");
-      const coefresult = await axios("/info/food/getCoefficient");
-      // console.log(coefresult, "coefresult");
+      // const coefresult = await axios("/info/food/getCoefficient");
+      console.log(foodresult, "foodresult");
+      console.log(result.data.allPools, "result");
       // console.log(result, "result");
-      setCoefficient(coefresult.data.allCoef);
+
+      // setCoefficient(coefresult.data.allCoef);
       setData(result.data.allPools);
       setFoods(foodresult.data.allFoods);
     };
@@ -43,7 +48,7 @@ function FeedingAndLosses() {
           <Feeding data={data} foods={foods} coefficient={coefficient} />
         </Tab>
         <Tab eventKey="fishes" title="Կորուստ">
-          <Losses />
+          <Losses data={data} />
         </Tab>
       </Tabs>
     </div>

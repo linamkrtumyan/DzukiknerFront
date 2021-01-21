@@ -117,6 +117,7 @@ function MovePool({ data, data1 }) {
             <Form.Label>Քանակ</Form.Label>
             <Form.Control
               type="number"
+              min="0"
               placeholder=""
               onChange={(e) => setQuantity(e.target.value)}
             />
@@ -124,6 +125,7 @@ function MovePool({ data, data1 }) {
             <Form.Label>Քաշ</Form.Label>
             <Form.Control
               type="number"
+              min="0"
               placeholder=""
               onChange={(e) => {
                 setAvgWeight(weight / quantity);
@@ -135,6 +137,7 @@ function MovePool({ data, data1 }) {
             <Form.Label>Միջին քաշ</Form.Label>
             <Form.Control
               type="number"
+              min="0"
               placeholder=""
               value={weight / quantity}
               onChange={(e) => setAvgWeight(e.target.value)}

@@ -7,6 +7,7 @@ import AddFood from "../Components/Food/AddFood";
 export const FoodContext = React.createContext();
 function Foods() {
   const [data, setData] = useState([]);
+  const [coef, setCoef] = useState([]);
   console.log(data);
   const addFood = (food) => {
     data.push(food);
@@ -42,9 +43,11 @@ function Foods() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("/info/food/getFoods");
+      const coef = await axios("/pools/getPoolsAndDetails");
       console.log(result.data.allFoods);
 
       setData(result.data.allFoods);
+      setCoef(coef.data.allPools);
     };
 
     fetchData();
@@ -69,7 +72,7 @@ function Foods() {
         </FoodContext.Provider>
       </div>
       <FoodContext.Provider value={{ data, setData, updateFood, deleteFood }}>
-        <GetFoods data={data} />
+        <GetFoods data={data} coef={coef} />
       </FoodContext.Provider>
     </div>
   );

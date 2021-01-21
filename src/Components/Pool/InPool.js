@@ -112,6 +112,7 @@ function InPool({ data, data1 }) {
             <Form.Label>Քանակ</Form.Label>
             <Form.Control
               type="number"
+              min="0"
               placeholder=""
               onChange={(e) => setQuantity(e.target.value)}
             />
@@ -119,6 +120,7 @@ function InPool({ data, data1 }) {
             <Form.Label>Քաշ</Form.Label>
             <Form.Control
               type="number"
+              min="0"
               placeholder=""
               onChange={(e) => {
                 setAvgWeight(weight / quantity);

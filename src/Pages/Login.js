@@ -6,17 +6,19 @@ import "./style.css";
 
 import { connect } from "react-redux";
 import { login } from "../redux/auth/actions";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 const secretKey = "6LecLQoaAAAAAD5uQQ37dD5n-xh76rhIU4HFwlMR";
 
 function Login({ isLoggedIn, login }) {
   console.log(isLoggedIn);
-  let history = useHistory();
+  // let history = useHistory();
 
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [captcha, setCaptcha] = useState({});
+  const [isDisabled, setDisable] = useState(true);
+  const [classname, setClassame] = useState("");
 
   useEffect(() => {
     createToken();
@@ -40,6 +42,10 @@ function Login({ isLoggedIn, login }) {
     console.log(captcha);
     event.preventDefault();
 
+    if (mail == "" && password == "") {
+      setDisable(true);
+    }
+
     axios
       .post(`/user/login`, { mail, password, captcha })
       .then((res) => {
@@ -49,12 +55,13 @@ function Login({ isLoggedIn, login }) {
           toast.error(res.data);
           login(true);
           console.log(isLoggedIn);
-          // history.reloa("/pools");
+          // history.push("/pools");
           window.location.reload();
         } else {
           console.log(res.data);
-
-          toast.error(res.data);
+          //information given about wrong password or email.
+          setClassame("form-control is-invalid");
+          toast.error("Սխալ էլ․ փոստ և/կամ գաղտնաբառ❌");
         }
         console.log(res);
       })
@@ -66,23 +73,27 @@ function Login({ isLoggedIn, login }) {
   return (
     <Form className="login">
       <FormGroup>
-        <Form.Label>Էլ․ փոստ </Form.Label>
+        <Form.Label>Էլ․ փոստ 📧</Form.Label>
         <Form.Control
           value={mail}
           id="email"
+          className={classname}
           onChange={(e) => {
             setMail(e.target.value);
+            setDisable(false);
           }}
         />
       </FormGroup>
       <FormGroup>
-        <Form.Label>Ծածկագիր </Form.Label>
+        <Form.Label>Գաղտնաբառ 🔐</Form.Label>
         <Form.Control
           value={password}
           id="password"
           type="password"
+          className={classname}
           onChange={(e) => {
             setPassword(e.target.value);
+            setDisable(false);
           }}
         />
       </FormGroup>
@@ -95,6 +106,7 @@ function Login({ isLoggedIn, login }) {
       <hr />
 
       <Button
+        disabled={isDisabled}
         onClick={handleSubmit}
         size="lg"
         className="bg-gradient-theme-left border-0"
@@ -102,6 +114,28 @@ function Login({ isLoggedIn, login }) {
       >
         {"Մուտք"}
       </Button>
+
+      {/* <label
+htmlFor="defaultFormRegisterPasswordEx4"
+className="grey-text"
+>
+Zip
+</label>
+<input
+value={mail}
+className={mail ? "form-control is-valid" : "form-control is-invalid"}
+onChange={mail.changeHandler}
+type="text"
+id="defaultFormRegisterPasswordEx4"
+className="form-control"
+name="zip"
+placeholder="Zip"
+required
+/>
+<div className="invalid-feedback">
+Please provide a valid zip.
+</div>
+<div className="valid-feedback">Looks good!</div> */}
     </Form>
   );
 }
