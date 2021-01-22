@@ -15,10 +15,10 @@ import Logout from "../Components/Logout/Logout";
 
 function NavbarPage() {
   return (
-    <div>
+    <div className="nav_fixed">
       <Navbar
-        className="bg-light justify-content-between"
-        style={{ backgroundColor: "white" }}
+        className="navik justify-content-between"
+        // style={{ backgroundColor: " #f1f1f1" }}
         expand="lg"
       >
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -90,17 +90,16 @@ function PoolPage() {
   }, []);
 
   return (
-    <div className="container" style={{ padding: "30px" }}>
+    <div className="container" style={{ padding: "80px 0px" }}>
       <div
         style={{
           padding: "10px 0px",
-          fontSize: "25px",
-          fontWeight: "700",
+          // fontWeight: "700",
           display: "flex",
           justifyContent: "space-between",
         }}
       >
-        <p>Ավազաններ</p>
+        <p className="fontsize">Ավազաններ</p>
 
         <PoolContext.Provider value={{ data, setData, addNewPool }}>
           <AddPool />

@@ -13,14 +13,14 @@ function UpdateFood({ data }) {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [weight, setWeight] = useState("");
-  const [coefficient, setCoefficient] = useState("");
+  // const [coefficient, setCoefficient] = useState("");
 
   const newDataFunc = () => {
     setId(data.id);
     setName(data.name);
     setNumber(data.number);
     setWeight(data.weight);
-    setCoefficient(data.coefficient);
+    // setCoefficient(data.coefficient);
   };
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function UpdateFood({ data }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (evt) => {
-    console.log(id, name, number, weight, coefficient);
+    console.log(id, name, number, weight);
     // { id, name, description, phone }
     axios
       .post(`/info/food/updateFood`, {
@@ -38,8 +38,9 @@ function UpdateFood({ data }) {
         name,
         number,
         weight,
-        coefficient,
+        // coefficient,
       })
+
       .then((response) => {
         console.log(response);
         if (response.data.success) {
@@ -48,7 +49,7 @@ function UpdateFood({ data }) {
             name: name,
             number: number,
             weight: weight,
-            coefficient: coefficient,
+            // coefficient: coefficient,
           };
           foods.updateFood(food);
           toast.success("Կատարված է");
@@ -73,7 +74,7 @@ function UpdateFood({ data }) {
       >
         <img
           className="partner_icon"
-          src={require("../../img/edit.svg").default}
+          src={require("../../img/icon_editik.svg").default}
         />
       </div>
 
@@ -107,14 +108,14 @@ function UpdateFood({ data }) {
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
             />
-            <br />
+            {/* <br />
             <Form.Label>Coefficient</Form.Label>
             <Form.Control
               type="text"
               placeholder=""
               value={coefficient}
               onChange={(e) => setCoefficient(e.target.value)}
-            />
+            /> */}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

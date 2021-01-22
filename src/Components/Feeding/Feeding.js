@@ -3,6 +3,7 @@ import { Table, InputGroup, FormControl, Form, Button } from "react-bootstrap";
 import AddFeeding from "./AddFeeding";
 import axios from "axios";
 import { toast } from "react-toastify";
+import "./feeding.css";
 
 function Feeding({ data, foods, coefficient }) {
   // console.log(data, "data");
@@ -40,7 +41,7 @@ function Feeding({ data, foods, coefficient }) {
   return (
     <div
       className="container"
-      style={{ backgroundColor: "white", padding: "30px" }}
+      style={{ backgroundColor: "white", padding: "30px", height: "110vh" }}
     >
       <Table bordered hover>
         <thead>
@@ -133,10 +134,11 @@ function Feeding({ data, foods, coefficient }) {
           )}
         </tbody>
       </Table>
-      {/* <AddFeeding /> */}
-      <Button onClick={handleSubmit} variant="primary">
-        Հաստատել
-      </Button>
+      <div className="done_btn">
+        <Button onClick={handleSubmit} variant="primary">
+          Հաստատել
+        </Button>
+      </div>
     </div>
   );
 }

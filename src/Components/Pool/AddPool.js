@@ -54,7 +54,13 @@ function AddPool() {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button
+        // style={{ fontSize: "15px !important" }}
+        height="40px !important"
+        variant="primary"
+        onClick={handleShow}
+        className="addpool"
+      >
         Ավելացնել
       </Button>
 

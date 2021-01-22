@@ -20,8 +20,7 @@ function Foods() {
         id1.name = food.name;
         id1.number = food.number;
         id1.weight = food.weight;
-        id1.coefficient = food.coefficient;
-
+        // id1.coefficient = food.coefficient;
         setData([...data]);
       }
     });
@@ -55,7 +54,7 @@ function Foods() {
   return (
     <div
       className="container"
-      style={{ padding: "30px", backgroundColor: "white" }}
+      style={{ padding: "0px 30px 30px 30px", backgroundColor: "white" }}
     >
       <div
         style={{

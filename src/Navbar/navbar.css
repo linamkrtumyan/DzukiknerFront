@@ -9,6 +9,14 @@
   /* top: 50px; */
   right: 10px;
 }
+.nav_fixed {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+.navik {
+  background-color: #f1f1f1 !important ;
+}
 @media only screen and (max-width: 991px) {
   .logout {
     position: relative;

@@ -44,15 +44,15 @@ function DeletePartner({ data }) {
       <div style={{ marginLeft: "5px" }} onClick={handleShow}>
         <img
           className="partner_icon"
-          src={require("../../img/delete_icon.svg").default}
+          src={require("../../img/delete_icon1.svg").default}
         />
       </div>
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Ջնջել գործընկերոջը</Modal.Title>
+          <Modal.Title>Համոզվա՞ծ եք</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Համոզված եք</Modal.Body>
+        {/* <Modal.Body>Համոզված եք</Modal.Body> */}
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Չեղարկել

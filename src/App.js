@@ -8,8 +8,12 @@ import Routes from "./Routes/Routes";
 import { connect } from "react-redux";
 import axios from "axios";
 import NavbarPage from "./Navbar/Navbar";
-document.body.style = "background:  #f1f1f1;";
+// document.body.style = "background:  #f1f1f1;";
 
+document.body.style = "background:  #f8f9fa;";
+
+// document.body.style = "backgroundImage: "url('./img/back1.jpg')"  ";
+// document.body.style.backgroundImage = "url('./img/back1.jpg')";
 function App({ isLoggedIn }) {
   const [data, setData] = useState(false);
 
@@ -50,18 +54,20 @@ function App({ isLoggedIn }) {
 
   if (data) {
     return (
-      <>
-        <NavbarPage />
-        <Routes />
-      </>
+      <div className="background">
+        <div className="content">
+          <NavbarPage />
+          <Routes />
+        </div>
+      </div>
     );
   } else {
     return (
-      <>
+      <div className="background">
         {/* <Header /> */}
         <Route path="/login" component={Login} />
         <Redirect to="./login" />
-      </>
+      </div>
     );
   }
 }

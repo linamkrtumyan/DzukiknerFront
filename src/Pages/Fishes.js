@@ -51,7 +51,7 @@ function Fishes() {
   return (
     <div
       className="container"
-      style={{ backgroundColor: "white", padding: "30px" }}
+      style={{ backgroundColor: "white", padding: "0px 30px 30px 30px" }}
     >
       <div
         style={{

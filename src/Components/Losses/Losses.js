@@ -13,14 +13,15 @@ function Losses({ data }) {
       {" "}
       <div
         className="container"
-        style={{ backgroundColor: "white", padding: "30px" }}
+        style={{ backgroundColor: "white", padding: "30px", height: "110vh" }}
       >
         <Table bordered hover>
           <thead>
             <tr>
               <th>Ավազան</th>
               <th>Կորուստ (կգ)</th>
-              <th>Պիտանի թափոն</th>
+              <th>Պիտանի (հատ)</th>
+              <th>Թափոն (հատ)</th>
             </tr>
           </thead>
           <tbody>
@@ -50,13 +51,30 @@ function Losses({ data }) {
                       <Form.Control
                         type="number"
                         min="0"
-                        placeholder="Պիտանի թափոն"
+                        placeholder="Պիտանի"
                         onChange={(e) => {
                           addLosses[index] = {
                             ...data[index],
                             ...addLosses[index],
 
                             fit: e.target.value,
+                          };
+                          setAddLosses([...addLosses]);
+                        }}
+                      ></Form.Control>
+                    </td>
+                    <td>
+                      {" "}
+                      <Form.Control
+                        type="number"
+                        min="0"
+                        placeholder="Թափոն"
+                        onChange={(e) => {
+                          addLosses[index] = {
+                            ...data[index],
+                            ...addLosses[index],
+
+                            waste: e.target.value,
                           };
                           setAddLosses([...addLosses]);
                         }}
@@ -73,12 +91,14 @@ function Losses({ data }) {
           </tbody>
         </Table>
 
-        <Button
-          // onClick={handleSubmit}
-          variant="primary"
-        >
-          Հաստատել
-        </Button>
+        <div className="done_btn">
+          <Button
+            //  onClick={handleSubmit}
+            variant="primary"
+          >
+            Հաստատել
+          </Button>
+        </div>
       </div>
     </div>
   );

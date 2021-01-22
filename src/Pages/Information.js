@@ -5,7 +5,7 @@ import Partners from "./Partners";
 import Foods from "./Foods";
 function Information() {
   return (
-    <div className="container">
+    <div className="container" style={{ padding: "80px 0px" }}>
       <Tabs
         style={{ paddingTop: "50px " }}
         defaultactivekey="partners"

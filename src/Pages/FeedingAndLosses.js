@@ -30,7 +30,7 @@ function FeedingAndLosses() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container" style={{ padding: "80px 0px" }}>
       <Tabs
         style={{ paddingTop: "50px " }}
         defaultactivekey="partners"

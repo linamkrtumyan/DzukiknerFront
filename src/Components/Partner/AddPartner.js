@@ -39,7 +39,7 @@ function AddPartner() {
             phone: phone,
           };
           dzukik.addDzuk(dzuk);
-          toast.success("Գործընկերն ավելացված է");
+          toast.success("Կատարված է");
         } else {
           toast.error(response.data.errorMessage);
         }

@@ -51,9 +51,9 @@ function DeletePool({ data1, data }) {
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Ջնջել Ավազանը</Modal.Title>
+          <Modal.Title>Համոզվա՞ծ եք</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Համոզված եք</Modal.Body>
+        {/* <Modal.Body>Համոզված եք</Modal.Body> */}
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Չեղարկել

@@ -57,7 +57,7 @@ function Partners() {
       className="container"
       style={{
         // marginTop: "30px",
-        padding: "30px",
+        padding: "0px 30px 30px 30px",
         backgroundColor: "white",
         // , marginLeft: "160px"
       }}

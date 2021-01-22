@@ -3,7 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { FoodContext } from "../../Pages/Foods";
 import { toast } from "react-toastify";
-
+toast.configure();
 function AddFood() {
   // name, height, width, maxweight
   const food = useContext(FoodContext);
@@ -25,7 +25,7 @@ function AddFood() {
         name,
         number,
         weight,
-        coefficient,
+        // coefficient,
       })
       .then((response) => {
         console.log(response);
@@ -34,10 +34,10 @@ function AddFood() {
             name: name,
             number: number,
             weight: weight,
-            coefficient: coefficient,
+            // coefficient: coefficient,
           };
           food.addFood(food1);
-          toast.success("foody avelacav");
+          toast.success("Կատարված է");
         } else {
           toast.error(response.data.errorMessage);
         }
@@ -80,14 +80,14 @@ function AddFood() {
               placeholder=""
               onChange={(e) => setWeight(e.target.value)}
             />
-            <br />
+            {/* <br />
             <Form.Label>Գործակից</Form.Label>
             <Form.Control
               //   type="number"
               placeholder=""
               onChange={(e) => setCoefficient(e.target.value)}
             />
-            <br />
+            <br /> */}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
