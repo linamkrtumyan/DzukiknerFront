@@ -5,11 +5,19 @@
 /* } */
 
 .login {
-  width: 25%;
-  padding-top: 50px;
+  width: 30%;
+  top: 30%;
+  left: 35%;
+  position: absolute;
+  /* padding-top: 150px; */
   margin: auto;
 }
-
+.log_label {
+  color: white;
+}
+.log_input {
+  background-color: rgb(255 255 255 / 72%);
+}
 #chackbox {
   width: 15px;
 }

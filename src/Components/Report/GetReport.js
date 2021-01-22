@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Table, Button, Form } from "react-bootstrap";
 import "./Report.css";
 // import excelLogo from '../../iconfinder_excel_272697.svg';
-import excelLogo from "../../img/iconfinder_excel_272697.svg";
+import excelLogo from "../../img/excel.svg";
 import axios from "axios";
 
 export default function Reports({ data }) {
@@ -37,27 +37,27 @@ export default function Reports({ data }) {
 
   return (
     <div className="reports">
-      <div style={{ marginTop: "60px" }}>
-        <div className="img-text-wrapper">
-          <button style={{ border: "white" }} onClick={downloadReports}>
+      <div style={{ marginTop: "30px" }}>
+        <div
+          style={{ marginLeft: "10px" }}
+          className="img-text-wrapper download"
+        >
+          <div onClick={downloadReports}>
             <img
               src={excelLogo}
               className="excelIcon"
               alt=".xlsx"
               title="Ներբեռնել հաշվետվությունը"
             />
-          </button>
+          </div>
+          <p className="download_title">Ներբեռնել</p>
           <label className="subtitle">Ներբեռնել հաշվետվությունը</label>
         </div>
         <div className="previous-reports">
-          <Button variant="primary" onClick={getPreviousReports} id="reportBtn">
-            Նախորդ հաշվետվություններ
-          </Button>
-
-          <label for="month" className="month">
-            Ամիս
-          </label>
-          <select className="month">
+          <Form.Control style={{ width: "150px", margin: "10px" }} as="select">
+            <option hidden value="">
+              Ամիս
+            </option>
             <option value="January">Հունվար</option>
             <option value="February">Փետրվար</option>
             <option value="March">Մարտ</option>
@@ -70,11 +70,11 @@ export default function Reports({ data }) {
             <option value="October">Հոկտեմբեր</option>
             <option value="November">Նոյեմբեր</option>
             <option value="December">Դեկտեմբեր</option>
-          </select>
-          <label for="year" className="year">
-            Տարի
-          </label>
-          <select className="year">
+          </Form.Control>
+          <Form.Control style={{ width: "150px", margin: "10px" }} as="select">
+            <option hidden value="">
+              Տարի
+            </option>
             <option value="Jun">2021</option>
             <option value="Jun">2022</option>
             <option value="Jun">2024</option>
@@ -85,8 +85,18 @@ export default function Reports({ data }) {
             <option value="Jun">2029</option>
             <option value="Jun">2030</option>
             <option value="Jun">2031</option>
-          </select>
+          </Form.Control>
+
+          <Button
+            style={{ margin: "10px", width: "130px", fontSize: "16px" }}
+            variant="primary"
+            onClick={getPreviousReports}
+            id="reportBtn"
+          >
+            Փնտրել
+          </Button>
         </div>
+
         <div></div>
 
         <Table

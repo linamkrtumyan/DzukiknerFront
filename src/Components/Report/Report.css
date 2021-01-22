@@ -12,11 +12,13 @@
 }
 
 .previous-reports {
-  float: right;
+  /* float: right; */
+  float: left;
+  display: flex;
 }
 
 .img-text-wrapper {
-  float: left;
+  /* float: left; */
   position: relative;
   top: 0;
   display: flex;
@@ -30,10 +32,10 @@
   visibility: hidden;
 }
 
-.img-text-wrapper:hover .subtitle {
+/* .img-text-wrapper:hover .subtitle {
   color: black;
   visibility: visible;
-}
+} */
 
 .logo-wrapper img {
   margin-bottom: 20px;
@@ -46,4 +48,24 @@
 
 #datepicker {
   cursor: pointer;
+}
+.rep_label {
+  color: white;
+}
+.excelIcon {
+  width: 40px;
+  background-color: transparent;
+}
+.download {
+  /* margin: 10px; */
+  cursor: pointer;
+  width: 130px;
+}
+.download:hover {
+  /* margin: 10px; */
+  cursor: pointer;
+  /* background-color: tomato; */
+}
+.download_title {
+  padding: 10px 5px;
 }

@@ -63,11 +63,11 @@ function Login() {
   return (
     <Form className="login">
       <FormGroup>
-        <Form.Label>Էլ․ փոստ</Form.Label>
+        <Form.Label className="log_label">Էլ․ փոստ</Form.Label>
         <Form.Control
           value={mail}
           id="email"
-          className={classname}
+          className="log_input"
           onChange={(e) => {
             setMail(e.target.value);
             setDisable(false);
@@ -75,12 +75,12 @@ function Login() {
         />
       </FormGroup>
       <FormGroup>
-        <Form.Label>Գաղտնաբառ</Form.Label>
+        <Form.Label className="log_label">Գաղտնաբառ</Form.Label>
         <Form.Control
           value={password}
           id="password"
           type="password"
-          className={classname}
+          className="log_input"
           onChange={(e) => {
             setPassword(e.target.value);
             setDisable(false);
@@ -99,7 +99,8 @@ function Login() {
         disabled={isDisabled}
         onClick={handleSubmit}
         size="lg"
-        className="bg-gradient-theme-left border-0"
+        style={{ backgroundColor: "white !important" }}
+        // className="bg-gradient-theme-left border-0"
         block
       >
         {"Մուտք"}
