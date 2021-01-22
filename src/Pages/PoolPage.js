@@ -90,7 +90,7 @@ function PoolPage() {
   }, []);
 
   return (
-    <div className="container background" style={{ padding: "80px 0px" }}>
+    <div className="container " style={{ padding: "80px 0px" }}>
       <div
         style={{
           padding: "10px 0px",

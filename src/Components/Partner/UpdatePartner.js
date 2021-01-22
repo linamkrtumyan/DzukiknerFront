@@ -83,7 +83,7 @@ function UpdatePartner({ data }) {
         {/* ✎ */}
         <img
           className="partner_icon editik"
-          src={require("../../img/icon_editik.svg").default}
+          src={require("../../img/edit_fin.svg").default}
         />
       </div>
 

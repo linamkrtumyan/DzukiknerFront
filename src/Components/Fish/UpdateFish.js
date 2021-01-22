@@ -69,7 +69,7 @@ function UpdateFish({ data }) {
       >
         <img
           className="partner_icon"
-          src={require("../../img/icon_editik.svg").default}
+          src={require("../../img/edit_fin.svg").default}
         />
       </div>
 

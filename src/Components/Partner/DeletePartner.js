@@ -44,7 +44,7 @@ function DeletePartner({ data }) {
       <div style={{ marginLeft: "5px" }} onClick={handleShow}>
         <img
           className="partner_icon"
-          src={require("../../img/delete_icon1.svg").default}
+          src={require("../../img/delete_fin.svg").default}
         />
       </div>
 

@@ -4,16 +4,9 @@ import { toast } from "react-toastify";
 import { Button, Form, FormGroup } from "react-bootstrap";
 import "./style.css";
 
-import { connect } from "react-redux";
-import { login } from "../redux/auth/actions";
-// import { useHistory } from "react-router-dom";
-
 const secretKey = "6LecLQoaAAAAAD5uQQ37dD5n-xh76rhIU4HFwlMR";
 
-function Login({ isLoggedIn, login }) {
-  console.log(isLoggedIn);
-  // let history = useHistory();
-
+function Login() {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [captcha, setCaptcha] = useState({});
@@ -53,9 +46,6 @@ function Login({ isLoggedIn, login }) {
         if (res.data.success) {
           console.log("Success is true!");
           toast.error(res.data);
-          login(true);
-          console.log(isLoggedIn);
-          // history.push("/pools");
           window.location.reload();
         } else {
           console.log(res.data);
@@ -73,7 +63,7 @@ function Login({ isLoggedIn, login }) {
   return (
     <Form className="login">
       <FormGroup>
-        <Form.Label>Էլ․ փոստ 📧</Form.Label>
+        <Form.Label>Էլ․ փոստ</Form.Label>
         <Form.Control
           value={mail}
           id="email"
@@ -85,7 +75,7 @@ function Login({ isLoggedIn, login }) {
         />
       </FormGroup>
       <FormGroup>
-        <Form.Label>Գաղտնաբառ 🔐</Form.Label>
+        <Form.Label>Գաղտնաբառ</Form.Label>
         <Form.Control
           value={password}
           id="password"
@@ -114,28 +104,6 @@ function Login({ isLoggedIn, login }) {
       >
         {"Մուտք"}
       </Button>
-
-      {/* <label
-htmlFor="defaultFormRegisterPasswordEx4"
-className="grey-text"
->
-Zip
-</label>
-<input
-value={mail}
-className={mail ? "form-control is-valid" : "form-control is-invalid"}
-onChange={mail.changeHandler}
-type="text"
-id="defaultFormRegisterPasswordEx4"
-className="form-control"
-name="zip"
-placeholder="Zip"
-required
-/>
-<div className="invalid-feedback">
-Please provide a valid zip.
-</div>
-<div className="valid-feedback">Looks good!</div> */}
     </Form>
   );
 }
@@ -146,10 +114,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    login: (isLoggedIn) => dispatch(login(isLoggedIn)),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     login: () => dispatch(login()),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

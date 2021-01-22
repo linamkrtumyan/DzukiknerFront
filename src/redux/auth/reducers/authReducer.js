@@ -1,24 +1,42 @@
-import { LOGGED_IN, NOT_LOGGED_IN } from "../actions/types";
+import {
+  FETCH_USER_REQUEST,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_FAILURE
+} from "../actions/types";
 
 const initialState = {
-  isLoggedIn: false
-}
+  token: false,
+  error: null,
+  ready: false,
+  loading: false,
+};
 
-const authReducer = (state = initialState, action) => {
-  switch(action.type) {
-      case LOGGED_IN:
-        return {
-          ...state,
-          isLoggedIn: action.payload.isLoggedIn
-        };
-      case NOT_LOGGED_IN:
-        return {
-          ...state,
-          isLoggedIn: action.payload.isLoggedIn
-        };
-      default:
-        return state;
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case FETCH_USER_REQUEST:
+      return {
+        ...state,
+        loading: false,
+        ready: false
+      };
+    case FETCH_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        ready: true,
+        token: action.payload.token,
+        error: null,
+      };
+    case FETCH_USER_FAILURE:
+      return {
+        loading: false,
+        ready: true,
+        token: null,
+        error: action.payload.error,
+      };
+    default:
+      return state;
   }
-}
+};
 
-export default authReducer;
+export default reducer;

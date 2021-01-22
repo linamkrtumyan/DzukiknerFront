@@ -6,7 +6,6 @@ import { Button } from "react-bootstrap";
 // import auth from '../../Auth/Auth'
 
 import { connect } from "react-redux";
-import { logout } from "../../redux/auth/actions/logout";
 import { useHistory } from "react-router-dom";
 
 function Logout({ isLoggedIn }) {
@@ -23,7 +22,7 @@ function Logout({ isLoggedIn }) {
         if (res.data.success) {
           console.log("Success is true!");
           toast.error(res.data);
-          logout(false);
+          // logout(false);
           // history.push("/login");
           window.location = "/login";
         } else {
@@ -53,10 +52,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logout: () => dispatch(logout()),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     logout: () => dispatch(logout()),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Logout);
+export default connect(mapStateToProps, null)(Logout);

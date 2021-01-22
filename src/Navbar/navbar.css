@@ -17,6 +17,21 @@
 .navik {
   background-color: #f1f1f1 !important ;
 }
+.navbar {
+  padding-left: 100px;
+  height: 60px;
+}
+.navbar a {
+  /* color: #000 !important; */
+  font-size: 18px;
+}
+.navbar a:hover {
+  /* color: red !important; */
+  text-decoration: none !important;
+  /* color: black !important; */
+  /* text-decoration-style: none !important; */
+  /* font-size: 20px; */
+}
 @media only screen and (max-width: 991px) {
   .logout {
     position: relative;
