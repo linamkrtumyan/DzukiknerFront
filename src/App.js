@@ -21,10 +21,10 @@ function App({ token, ready, fetchUser, loading }) {
   } else {
     return (
       <div className="background">
-        <DzukContext.Provider>
-          {/* <NavbarPage /> */}
-          <Routes isLoggedIn={token} />
-        </DzukContext.Provider>
+        {/* <DzukContext.Provider> */}
+        {/* <NavbarPage /> */}
+        <Routes isLoggedIn={token} />
+        {/* </DzukContext.Provider> */}
       </div>
     );
   }

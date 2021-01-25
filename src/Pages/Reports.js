@@ -5,7 +5,15 @@ import axios from "axios";
 export const DzukContext = React.createContext();
 
 function Reports() {
-  const date = "2021-01-21";
+  const date = new Date();
+  const year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  if (month.toString().length == 1) {
+    month = "0" + month;
+  }
+  const day = date.getDate();
+  const currentDate = `'${year}-${month}-${day}'`;
+  console.log(currentDate);
   const [data, setData] = useState([]);
 
   console.log(data);
@@ -13,8 +21,8 @@ function Reports() {
   useEffect(() => {
     const fetchData = async () => {
       axios
-        .post(`/reports/getReports`, {
-          date,
+        .post(`/reports/getCurrentReports`, {
+          currentDate,
         })
         .then((response) => {
           console.log(response);
@@ -33,13 +41,9 @@ function Reports() {
   }, []);
   return (
     <div
-      // className="container "
       style={{
         marginTop: "0px",
         padding: "40px 0px",
-        // padding: "10px",
-        // backgroundColor: "white",
-        // , marginLeft: "160px"
       }}
     >
       <DzukContext.Provider value={{ data, setData }}>

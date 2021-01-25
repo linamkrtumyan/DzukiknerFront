@@ -1,37 +1,55 @@
 import React, { useState } from "react";
 import { Table, Button, Form } from "react-bootstrap";
 import "./Report.css";
-// import excelLogo from '../../iconfinder_excel_272697.svg';
 import excelLogo from "../../img/excel.svg";
 import axios from "axios";
+import FileSaver from "file-saver";
 
 export default function Reports({ data }) {
   console.log(data);
 
-  // const [report, setReport] = useState([])
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
+  const [reports, setReports] = useState(data);
 
-  const getPreviousReports = (e) => {};
+  const getMonth = (e) => {
+    setMonth(e.target.value);
+  };
+  const getYear = (e) => {
+    setYear(e.target.value);
+  };
 
-  const downloadReports = async (e) => {
-    console.log("sexmvec");
-    e.preventDefault();
-
+  const getPreviousReports = (e) => {
     axios
-      .post(`/reports/download`, {
-        data,
+      .post(`/reports/getReportsForMonth`, {
+        month,
+        year,
       })
       .then((response) => {
         console.log(response);
-        // setReport(data.data.reports)
-        // if (response.data.reports) {
-        //   setData(response.data.reports)
-
-        // } else {
-        //   console.log(response.data.errorMessage);
-        // }
+        if (response.data.reports) {
+          setReports(response.data.reports);
+          // console.log("++++++++++++ ", reports);
+        } else {
+          console.log(response.data.errorMessage);
+        }
       })
       .catch((e) => {
-        console.log(e);
+        console.log("error");
+      });
+  };
+
+  const downloadReports = async (e) => {
+    console.log("reports:", reports);
+    e.preventDefault();
+    axios
+      .post("/reports/download", { responseType: "arraybuffer", data: reports })
+      .then((response) => {
+        var blob = new Blob([response.data], {
+          type:
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+        FileSaver.saveAs(blob, "Հաշվետվություններ.xlsx");
       });
   };
 
@@ -54,37 +72,45 @@ export default function Reports({ data }) {
           <label className="subtitle">Ներբեռնել հաշվետվությունը</label>
         </div>
         <div className="previous-reports">
-          <Form.Control style={{ width: "150px", margin: "10px" }} as="select">
+          <Form.Control
+            style={{ width: "150px", margin: "10px" }}
+            as="select"
+            onChange={getMonth}
+          >
             <option hidden value="">
               Ամիս
             </option>
-            <option value="January">Հունվար</option>
-            <option value="February">Փետրվար</option>
-            <option value="March">Մարտ</option>
-            <option value="April">Ապրիլ</option>
-            <option value="May">Մայիս</option>
-            <option value="June">Հունիս</option>
-            <option value="July">Հուլիս</option>
-            <option value="August">Օգոստոս</option>
-            <option value="September">Սեպտեմբեր</option>
-            <option value="October">Հոկտեմբեր</option>
-            <option value="November">Նոյեմբեր</option>
-            <option value="December">Դեկտեմբեր</option>
+            <option value="1">Հունվար</option>
+            <option value="2">Փետրվար</option>
+            <option value="3">Մարտ</option>
+            <option value="4">Ապրիլ</option>
+            <option value="5">Մայիս</option>
+            <option value="6">Հունիս</option>
+            <option value="7">Հուլիս</option>
+            <option value="8">Օգոստոս</option>
+            <option value="9">Սեպտեմբեր</option>
+            <option value="10">Հոկտեմբեր</option>
+            <option value="11">Նոյեմբեր</option>
+            <option value="12">Դեկտեմբեր</option>
           </Form.Control>
-          <Form.Control style={{ width: "150px", margin: "10px" }} as="select">
+          <Form.Control
+            style={{ width: "150px", margin: "10px" }}
+            as="select"
+            onChange={getYear}
+          >
             <option hidden value="">
               Տարի
             </option>
-            <option value="Jun">2021</option>
-            <option value="Jun">2022</option>
-            <option value="Jun">2024</option>
-            <option value="Jun">2025</option>
-            <option value="Jun">2026</option>
-            <option value="Jun">2027</option>
-            <option value="Jun">2028</option>
-            <option value="Jun">2029</option>
-            <option value="Jun">2030</option>
-            <option value="Jun">2031</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+            <option value="2028">2028</option>
+            <option value="2029">2029</option>
+            <option value="2030">2030</option>
+            <option value="2031">2031</option>
           </Form.Control>
 
           <Button
@@ -118,7 +144,7 @@ export default function Reports({ data }) {
               <td colSpan="1"></td>
               <td colSpan="2"></td>
             </tr>
-            <tr>
+            <tr className="report_title">
               <th>Ավազաններ</th>
               <th>Ձկան տեսակ</th>
               <th>միջ․քաշ</th>
@@ -128,7 +154,7 @@ export default function Reports({ data }) {
               <th>քաշ /կգ/</th>
               <th>քանակ /հատ/</th>
               <th>քաշ /կգ/</th>
-              <th>քանակ /հատ/</th>
+              <th>քանակ&#10; /հատ/</th>
               <th>քաշ /կգ/</th>
               <th>քանակ /հատ/</th>
               <th>քաշ /կգ/</th>
@@ -147,7 +173,6 @@ export default function Reports({ data }) {
               data.map((report, index) => {
                 return (
                   <tr key={index}>
-                    {/* <td>{partner.id}</td> */}
                     <td>{report.PoolName}</td>
                     <td>{report.FishType}</td>
                     <td>{report.InitialAvgWeight}</td>
