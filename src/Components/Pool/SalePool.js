@@ -16,8 +16,8 @@ function SalePool({ data, data1 }) {
 
   const [fromPoolid, setFromPoolId] = useState(data1.id);
   // const [toPoolid, settoPoolid] = useState("");
-  const [quantity, setQuantity] = useState(1);
-  const [weight, setWeight] = useState(1);
+  const [quantity, setQuantity] = useState("");
+  const [weight, setWeight] = useState("");
   const [avgWeight, setAvgWeight] = useState(0);
   const [partnerId, setPartnerId] = useState(null);
   const [description, setDescription] = useState(null);
@@ -91,7 +91,7 @@ function SalePool({ data, data1 }) {
             <Form.Label>Քանակ</Form.Label>
             <Form.Control
               type="number"
-              min="0"
+              min={0}
               placeholder=""
               maxLength="10"
               onChange={(e) => setQuantity(e.target.value)}

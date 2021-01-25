@@ -21,7 +21,7 @@ function Feeding({ data, foods, coefficient }) {
   const handleSubmit = (evt) => {
     // console.log(sql);
     axios
-      .post(`/feeding/addFeedingHistory`, {
+      .post(`/feeding/addFeed`, {
         addFood,
       })
       .then((response) => {

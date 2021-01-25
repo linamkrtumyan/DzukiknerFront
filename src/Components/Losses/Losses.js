@@ -8,6 +8,26 @@ function Losses({ data }) {
   const [addLosses, setAddLosses] = useState(data);
 
   console.log(addLosses, "addLosses");
+
+  const handleSubmit = (evt) => {
+    console.log("sql");
+    axios
+      .post(`/losses/addLosse`, {
+        addLosses,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.data.success) {
+          toast.success("Կատարված է");
+        } else {
+          toast.error(response.data.errorMessage);
+        }
+      })
+      .catch((e) => {
+        console.log("error");
+        toast.error("Կատարված չէ");
+      });
+  };
   return (
     <div>
       {" "}
@@ -19,9 +39,10 @@ function Losses({ data }) {
           <thead>
             <tr>
               <th>Ավազան</th>
-              <th>Կորուստ (կգ)</th>
-              <th>Պիտանի (հատ)</th>
               <th>Թափոն (հատ)</th>
+              <th>Թափոն (կգ)</th>
+              <th>Պիտանի (հատ)</th>
+              <th>Պիտանի (կգ)</th>
             </tr>
           </thead>
           <tbody>
@@ -32,32 +53,17 @@ function Losses({ data }) {
                     {/* <td>{partner.id}</td> */}
                     <td>{pool.name}</td>
                     <td>
-                      <Form.Control
-                        type="number"
-                        min="0"
-                        placeholder="Կորուստ"
-                        onChange={(e) => {
-                          addLosses[index] = {
-                            ...data[index],
-                            ...addLosses[index],
-                            losses: e.target.value,
-                          };
-                          setAddLosses([...addLosses]);
-                        }}
-                      />
-                    </td>
-                    <td>
                       {" "}
                       <Form.Control
                         type="number"
                         min="0"
-                        placeholder="Պիտանի"
+                        placeholder="Թափոն (հատ)"
                         onChange={(e) => {
                           addLosses[index] = {
                             ...data[index],
                             ...addLosses[index],
 
-                            fit: e.target.value,
+                            wastequantity: e.target.value,
                           };
                           setAddLosses([...addLosses]);
                         }}
@@ -68,13 +74,47 @@ function Losses({ data }) {
                       <Form.Control
                         type="number"
                         min="0"
-                        placeholder="Թափոն"
+                        placeholder="Թափոն (կգ)"
                         onChange={(e) => {
                           addLosses[index] = {
                             ...data[index],
                             ...addLosses[index],
 
-                            waste: e.target.value,
+                            wasteweight: e.target.value,
+                          };
+                          setAddLosses([...addLosses]);
+                        }}
+                      ></Form.Control>
+                    </td>
+
+                    <td>
+                      {" "}
+                      <Form.Control
+                        type="number"
+                        min="0"
+                        placeholder="Պիտանի (հատ)"
+                        onChange={(e) => {
+                          addLosses[index] = {
+                            ...data[index],
+                            ...addLosses[index],
+
+                            profitablewastequantity: e.target.value,
+                          };
+                          setAddLosses([...addLosses]);
+                        }}
+                      ></Form.Control>
+                    </td>
+                    <td>
+                      <Form.Control
+                        type="number"
+                        min="0"
+                        placeholder="Պիտանի (կգ)"
+                        onChange={(e) => {
+                          addLosses[index] = {
+                            ...data[index],
+                            ...addLosses[index],
+
+                            profitablewasteweight: e.target.value,
                           };
                           setAddLosses([...addLosses]);
                         }}
@@ -92,10 +132,7 @@ function Losses({ data }) {
         </Table>
 
         <div className="done_btn">
-          <Button
-            //  onClick={handleSubmit}
-            variant="primary"
-          >
+          <Button onClick={handleSubmit} variant="primary">
             Հաստատել
           </Button>
         </div>

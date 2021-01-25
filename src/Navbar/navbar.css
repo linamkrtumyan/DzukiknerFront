@@ -37,4 +37,13 @@
     position: relative;
     width: 200px !important;
   }
+  .navbar {
+    padding-left: 10px;
+    height: auto;
+  }
+  .nav_fixed {
+    position: relative;
+    width: 100%;
+    /* z-index: 100; */
+  }
 }

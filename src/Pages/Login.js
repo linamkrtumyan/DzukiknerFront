@@ -51,7 +51,7 @@ function Login() {
           console.log(res.data);
           //information given about wrong password or email.
           setClassame("form-control is-invalid");
-          toast.error("Սխալ էլ․ փոստ և/կամ գաղտնաբառ❌");
+          toast.error("Սխալ էլ․ փոստ կամ գաղտնաբառ");
         }
         console.log(res);
       })
