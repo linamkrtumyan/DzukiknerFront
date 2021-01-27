@@ -3,6 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { PoolContext } from "../../Pages/PoolPage";
+// import { useFormik } from 'formik';
 
 function AddPool() {
   // name, height, width, maxweight
@@ -10,9 +11,10 @@ function AddPool() {
   const [id, setId] = useState("");
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
-  const [height, setHeight] = useState(null);
-  const [width, setWidth] = useState(null);
-  const [maxweight, setMaxweight] = useState(null);
+  const [fishName, setFishName] = useState("");
+  // const [height, setHeight] = useState(null);
+  // const [width, setWidth] = useState(null);
+  // const [maxweight, setMaxweight] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -70,35 +72,19 @@ function AddPool() {
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
-            <Form.Label>Ավազան</Form.Label>
+            <Form.Label>Անուն</Form.Label>
             <Form.Control
               type="text"
               placeholder=""
               onChange={(e) => setName(e.target.value)}
             />
             <br />
-            <Form.Label>Բարձրություն</Form.Label>
+            <Form.Label>Ձկան տեսակ</Form.Label>
             <Form.Control
               type="number"
               min="0"
               placeholder=""
-              onChange={(e) => setHeight(e.target.value)}
-            />
-            <br />
-            <Form.Label>Լայնություն</Form.Label>
-            <Form.Control
-              type="number"
-              min="0"
-              placeholder=""
-              onChange={(e) => setWidth(e.target.value)}
-            />
-            <br />
-            <Form.Label>Առավելագույն Քաշ</Form.Label>
-            <Form.Control
-              type="number"
-              min="0"
-              placeholder=""
-              onChange={(e) => setMaxweight(e.target.value)}
+              onChange={(e) => setFishName(e.target.value)}
             />
           </Form.Group>
         </Modal.Body>

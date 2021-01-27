@@ -3,8 +3,10 @@ import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { PoolContext } from "../../Pages/PoolPage";
+import { useFormik } from "formik";
 
 function SalePool({ data, data1 }) {
+  console.log(data1);
   const pool = useContext(PoolContext);
   const [show, setShow] = useState(false);
 
@@ -21,6 +23,7 @@ function SalePool({ data, data1 }) {
   const [avgWeight, setAvgWeight] = useState(0);
   const [partnerId, setPartnerId] = useState(null);
   const [description, setDescription] = useState(null);
+  const errors = [];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,33 +49,40 @@ function SalePool({ data, data1 }) {
       partnerId,
       description
     );
-    axios
-      .post(`/pools/sales`, {
-        fromPoolid,
-        quantity,
-        weight,
-        avgWeight,
-        partnerId,
-        description,
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.data.success) {
-          const salePool = {
-            id: fromPoolid,
-            quantity: quantity,
-            weight: weight,
-          };
-          pool.salePool(salePool);
-          toast.success("Կատարված է");
-        } else {
-          toast.error(response.data.errorMessage);
-        }
-      })
-      .catch((e) => {
-        console.log("error");
-        toast.error("Կատարված չէ");
-      });
+    if (data1.fishQuantity - quantity < 0) {
+      toast.error("edqan chka");
+      errors.push("Name can't be empty");
+    } else {
+      axios
+        .post(`/pools/sales`, {
+          fromPoolid,
+          quantity,
+          weight,
+          avgWeight,
+          partnerId,
+          description,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.data.success) {
+            const salePool = {
+              id: fromPoolid,
+              quantity: quantity,
+              weight: weight,
+            };
+            pool.salePool(salePool);
+            toast.success("Կատարված է");
+            handleClose();
+          } else {
+            toast.error(response.data.errorMessage);
+          }
+        })
+        .catch((e) => {
+          console.log("error");
+          toast.error("Կատարված չէ");
+        });
+    }
+
     // window.location.reload(false);
   };
 
@@ -92,10 +102,16 @@ function SalePool({ data, data1 }) {
             <Form.Control
               type="number"
               min={0}
+              max="data1.fishQuantity"
               placeholder=""
               maxLength="10"
               onChange={(e) => setQuantity(e.target.value)}
+              required
             />
+            <div>{data1.fishQuantity}</div>
+            {/* {data1.map((dataik, index) => (
+              <div key={dataik.id}>{dataik.quantity} </div>
+            ))} */}
             <br />
             <Form.Label>Քաշ</Form.Label>
             <Form.Control
@@ -154,7 +170,7 @@ function SalePool({ data, data1 }) {
             variant="primary"
             onClick={() => {
               handleSubmit();
-              handleClose();
+              // handleClose();
             }}
           >
             Հաստատել

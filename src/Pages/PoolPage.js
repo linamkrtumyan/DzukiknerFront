@@ -5,8 +5,11 @@ import axios from "axios";
 // import AddPool from "../Components/Pool/AddPool";
 import Cards from "../Components/Pool/Cards";
 import AddPool from "../Components/Pool/AddPool";
+import { toast } from "react-toastify";
 
 export const PoolContext = React.createContext();
+
+toast.configure();
 
 function PoolPage() {
   const [data, setData] = useState([]);
@@ -56,7 +59,12 @@ function PoolPage() {
         console.log("salePool");
         id1.fishQuantity = parseInt(id1.fishQuantity) - parseInt(pool.quantity);
         id1.fishWeight = parseInt(id1.fishWeight) - parseInt(pool.weight);
-        setData([...data]);
+        if (id1.fishQuantity > 0 || id1.fishWeight > 0) {
+          setData([...data]);
+        } else {
+          toast.error("aaaaaaaa");
+          console.log("aaaaaaaaaaaaaaa");
+        }
       }
     });
   };
@@ -82,7 +90,7 @@ function PoolPage() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("/pools/getPoolsAndDetails");
-
+      console.log(result, "gpollsdetails");
       setData(result.data.allPools);
     };
 

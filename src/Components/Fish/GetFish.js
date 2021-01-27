@@ -30,7 +30,7 @@ function GetFish({ data }) {
             })
           ) : (
             <tr>
-              <td colSpan="5">Loading...</td>
+              <td colSpan="5">Տվյաներ չկան</td>
             </tr>
           )}
         </tbody>

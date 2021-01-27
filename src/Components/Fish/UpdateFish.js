@@ -4,7 +4,7 @@ import axios from "axios";
 import { FishContext } from "../../Pages/Fishes";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+toast.configure();
 function UpdateFish({ data }) {
   const fishes = useContext(FishContext);
   //   console.log(data);
@@ -12,6 +12,7 @@ function UpdateFish({ data }) {
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
 
   const newDataFunc = () => {
     setId(data.id);
@@ -31,31 +32,39 @@ function UpdateFish({ data }) {
     // evt.preventDefault();
     console.log(id, name, description);
     // { id, name, description, phone }
-    axios
-      .post(`/info/fish/updateFish`, {
-        id,
-        name,
-        description,
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.data.success) {
-          const fish = {
-            id: id,
-            name: name,
-            description: description,
-          };
-          fishes.updateFish(fish);
-          toast.success("Կատարված է");
-        } else {
-          toast.error(response.data.errorMessage);
-        }
-      })
-      .catch((e) => {
-        console.log("error");
-        toast.error("Կատարված չէ");
-      });
-    // const res = await axios.put('/pools/updatePool', { hello: 'world' });
+    if (name == "") {
+      setError("form-control is-invalid ");
+    } else {
+      axios
+        .post(`/info/fish/updateFish`, {
+          id,
+          name,
+          description,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.data.success) {
+            const fish = {
+              id: id,
+              name: name,
+              description: description,
+            };
+            handleClose();
+            fishes.updateFish(fish);
+
+            toast.success("Կատարված է");
+          } else {
+            handleClose();
+            toast.error(response.data.errorMessage);
+          }
+        })
+        .catch((e) => {
+          handleClose();
+          console.log("error");
+          toast.error("Կատարված չէ");
+        });
+      // const res = await axios.put('/pools/updatePool', { hello: 'world' });
+    }
   };
 
   return (
@@ -85,6 +94,7 @@ function UpdateFish({ data }) {
               placeholder=""
               value={name}
               id="fishCount"
+              className={error}
               onChange={(e) => setName(e.target.value)}
             />
             <br />
@@ -105,7 +115,7 @@ function UpdateFish({ data }) {
             variant="primary"
             onClick={() => {
               handleSubmit();
-              handleClose();
+              // handleClose();
             }}
           >
             Հաստատել

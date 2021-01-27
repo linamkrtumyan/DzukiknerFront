@@ -13,39 +13,47 @@ function AddFood() {
   const [number, setNumber] = useState("");
   const [weight, setWeight] = useState("");
   const [coefficient, setCoefficient] = useState("");
+  const [error, setError] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSubmit = (evt) => {
     // evt.preventDefault();
-    console.log(name, number, weight, coefficient);
-    axios
-      .post(`/info/food/addFood`, {
-        name,
-        number,
-        weight,
-        // coefficient,
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.data.success) {
-          const food1 = {
-            name: name,
-            number: number,
-            weight: weight,
-            // coefficient: coefficient,
-          };
-          food.addFood(food1);
-          toast.success("Կատարված է");
-        } else {
-          toast.error(response.data.errorMessage);
-        }
-      })
-      .catch((e) => {
-        console.log("error");
-        toast.error("Կատարված չէ");
-      });
+    console.log(name, number, weight);
+    if (name == "") {
+      setError("form-control is-invalid ");
+    } else {
+      axios
+        .post(`/info/food/addFood`, {
+          name,
+          number,
+          weight,
+          // coefficient,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.data.success) {
+            const food1 = {
+              name: name,
+              number: number,
+              weight: weight,
+              // coefficient: coefficient,
+            };
+            handleClose();
+            food.addFood(food1);
+            toast.success("Կատարված է");
+          } else {
+            handleClose();
+            toast.error(response.data.errorMessage);
+          }
+        })
+        .catch((e) => {
+          console.log("error");
+          handleClose();
+          toast.error("Կատարված չէ");
+        });
+    }
   };
 
   return (
@@ -64,6 +72,7 @@ function AddFood() {
             <Form.Control
               type="text"
               placeholder=""
+              className={error}
               onChange={(e) => setName(e.target.value)}
             />
             <br />
@@ -98,7 +107,7 @@ function AddFood() {
             variant="primary"
             onClick={() => {
               handleSubmit();
-              handleClose();
+              // handleClose();
             }}
           >
             Հաստատել

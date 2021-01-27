@@ -14,6 +14,7 @@ function UpdatePartner({ data }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [phone, setPhone] = useState("");
+  const [error, setError] = useState("");
   //   console.log(id, name, description, phone);
 
   const newDataFunc = () => {
@@ -42,32 +43,39 @@ function UpdatePartner({ data }) {
     // evt.preventDefault();
     console.log(id, name, description, phone);
     // { id, name, description, phone }
-    axios
-      .post(`/info/partner/updatePartner`, {
-        id,
-        name,
-        description,
-        phone,
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.data.success) {
-          const partner = {
-            id: id,
-            name: name,
-            description: description,
-            phone: phone,
-          };
-          dzukik.updatePartner(partner);
-          toast.success("Կատարված է");
-        } else {
-          toast.error(response.data.errorMessage);
-        }
-      })
-      .catch((e) => {
-        console.log("error");
-        toast.error("Կատարված չէ");
-      });
+    if (name == "") {
+      setError("form-control is-invalid ");
+    } else {
+      axios
+        .post(`/info/partner/updatePartner`, {
+          id,
+          name,
+          description,
+          phone,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.data.success) {
+            const partner = {
+              id: id,
+              name: name,
+              description: description,
+              phone: phone,
+            };
+            dzukik.updatePartner(partner);
+            handleClose();
+            toast.success("Կատարված է");
+          } else {
+            toast.error(response.data.errorMessage);
+            handleClose();
+          }
+        })
+        .catch((e) => {
+          console.log("error");
+          toast.error("Կատարված չէ");
+          handleClose();
+        });
+    }
   };
 
   return (
@@ -107,6 +115,7 @@ function UpdatePartner({ data }) {
               placeholder=""
               value={name}
               id="fishCount"
+              className={error}
               onChange={(e) => setName(e.target.value)}
             />
             <br />
@@ -135,7 +144,7 @@ function UpdatePartner({ data }) {
             variant="primary"
             onClick={() => {
               handleSubmit();
-              handleClose();
+              // handleClose();
             }}
           >
             Հաստատել

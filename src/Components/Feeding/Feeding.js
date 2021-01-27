@@ -19,14 +19,19 @@ function Feeding({ data, foods, coefficient }) {
   // console.log(sql, "sql");
 
   const handleSubmit = (evt) => {
+    // evt.target.reset();
+    // evt.preventDefault();
     // console.log(sql);
     axios
       .post(`/feeding/addFeed`, {
         addFood,
       })
       .then((response) => {
+        // evt.target.reset();
         console.log(response);
         if (response.data.success) {
+          // evt.target.reset();
+          setAddFood("");
           toast.success("Կատարված է");
         } else {
           toast.error(response.data.errorMessage);
@@ -63,6 +68,7 @@ function Feeding({ data, foods, coefficient }) {
                     <Form.Control
                       type="number"
                       min="0"
+                      // type="reset"
                       placeholder="Կերի քանակ"
                       // name="count"
                       onChange={(e) => {

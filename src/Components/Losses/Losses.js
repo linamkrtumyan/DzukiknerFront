@@ -16,7 +16,7 @@ function Losses({ data }) {
         addLosses,
       })
       .then((response) => {
-        console.log(response);
+        console.log(response, "response");
         if (response.data.success) {
           toast.success("Կատարված է");
         } else {
