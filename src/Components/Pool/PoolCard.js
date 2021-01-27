@@ -10,6 +10,9 @@ import DeletePool from "./DeletePool";
 import "./style.css";
 
 function PoolCard({ data, data1 }) {
+  console.log(data1, "pool cardi data1");
+  console.log(data, "pool cardi data");
+
   return (
     <div
       style={{

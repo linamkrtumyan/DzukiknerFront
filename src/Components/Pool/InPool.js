@@ -3,11 +3,11 @@ import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { PoolContext } from "../../Pages/PoolPage";
+import { useFormik } from "formik";
 
 function InPool({ data, data1 }) {
+  console.log(data1);
   const pool = useContext(PoolContext);
-
-  // console.log(data1);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -18,11 +18,12 @@ function InPool({ data, data1 }) {
 
   const [toPoolid, setToPoolId] = useState(data1.id);
   // const [toPoolid, settoPoolid] = useState("");
-  const [quantity, setQuantity] = useState(1);
-  const [weight, setWeight] = useState(1);
-  const [avgWeight, setAvgWeight] = useState();
+  const [quantity, setQuantity] = useState("");
+  const [weight, setWeight] = useState("");
+  const [avgWeight, setAvgWeight] = useState(0);
   const [partnerId, setPartnerId] = useState(null);
   const [description, setDescription] = useState(null);
+  const errors = [];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,13 +42,16 @@ function InPool({ data, data1 }) {
 
   const handleSubmit = (evt) => {
     console.log(toPoolid, quantity, weight, avgWeight, partnerId, description);
-    // if(toPoolid=="" || quantity =="", weight == "" , partnerId=="" )
+    // if (data1.fishQuantity - quantity < 0) {
+    //   toast.error("edqan chka");
+    //   errors.push("Name can't be empty");
+    // } else {
     axios
       .post(`/pools/inPool`, {
         toPoolid,
         quantity,
         weight,
-        avgWeight: weight / quantity,
+        avgWeight,
         partnerId,
         description,
       })
@@ -58,21 +62,21 @@ function InPool({ data, data1 }) {
             id: toPoolid,
             quantity: quantity,
             weight: weight,
-            // height: height,
-            // width: width,
-            // maxweight: maxweight,
           };
           pool.inPool(inPool);
           toast.success("Կատարված է");
+          // handleClose();
         } else {
           toast.error(response.data.errorMessage);
         }
-        // toast("lya");
       })
       .catch((e) => {
         console.log("error");
         toast.error("Կատարված չէ");
       });
+    // }
+
+    // window.location.reload(false);
   };
 
   return (
@@ -87,35 +91,20 @@ function InPool({ data, data1 }) {
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
-            {/* <Form.Label>Ավազանի համար</Form.Label>
-            <Form.Control
-              as="select"
-              onChange={(e) => setToPoolId(e.target.value)}
-            >
-              {data.map((data1) => (
-                <option value={data1.id}>{data1.name}</option>
-              ))}
-            </Form.Control> */}
-            {/* <br /> */}
-            {/* <Form.Label>Տեսակ</Form.Label>
-            <Form.Control
-              as="select"
-              onChange={(e) => setfishQuantity(e.target.value)}
-            >
-              {fishType.map((fish) => (
-                <option value={fish.id}>{fish.name}</option>
-              ))}
-
-            
-            </Form.Control> */}
-            {/* <br /> */}
             <Form.Label>Քանակ</Form.Label>
             <Form.Control
               type="number"
-              min="0"
+              min={0}
+              max="data1.fishQuantity"
               placeholder=""
+              maxLength="10"
               onChange={(e) => setQuantity(e.target.value)}
+              required
             />
+            <div>{data1.fishQuantity}</div>
+            {/* {data1.map((dataik, index) => (
+              <div key={dataik.id}>{dataik.quantity} </div>
+            ))} */}
             <br />
             <Form.Label>Քաշ</Form.Label>
             <Form.Control
@@ -131,7 +120,8 @@ function InPool({ data, data1 }) {
             <br />
             <Form.Label>Միջին քաշ</Form.Label>
             <Form.Control
-              // type="number"
+              type="number"
+              min="0"
               placeholder=""
               value={weight / quantity}
               onChange={(e) => setAvgWeight(e.target.value)}
@@ -143,6 +133,9 @@ function InPool({ data, data1 }) {
               placeholder="Ընտրեք գործընկերոջը"
               onChange={(e) => setPartnerId(e.target.value)}
             >
+              {/* <option disabled={true} value="">
+                Ընտրեք գործընկերոջը
+              </option> */}
               <option hidden value="">
                 Ընտրեք գործընկերոջը
               </option>
@@ -155,7 +148,7 @@ function InPool({ data, data1 }) {
             <br />
             <Form.Label>Նշումներ</Form.Label>
             <Form.Control
-              // type="text"
+              type="text"
               as="textarea"
               placeholder=""
               onChange={(e) => setDescription(e.target.value)}

@@ -1,63 +1,62 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { PoolContext } from "../../Pages/PoolPage";
 // import { useFormik } from 'formik';
 
-function AddPool() {
+function AddPool({ fishData }) {
+  console.log(fishData);
   // name, height, width, maxweight
   const pool = useContext(PoolContext);
+  // const [fishData, setFishData] = useState("");
   const [id, setId] = useState("");
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
-  const [fishName, setFishName] = useState("");
-  // const [height, setHeight] = useState(null);
-  // const [width, setWidth] = useState(null);
-  // const [maxweight, setMaxweight] = useState(null);
+  const [fishName, setFishName] = useState(null);
+  const [error, setError] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSubmit = (evt) => {
-    // evt.preventDefault();
-    console.log(name, height, width, maxweight);
-    axios
-      .post(`/pools/addPool`, {
-        name,
-        height,
-        width,
-        maxweight,
-      })
-      .then((response) => {
-        console.log(response);
+    console.log(name, fishName);
+    if (name == "") {
+      setError("form-control is-invalid ");
+    } else {
+      axios
+        .post(`/pools/addPool`, {
+          name,
+          fishName,
+        })
+        .then((response) => {
+          console.log(response);
 
-        if (response.data.success) {
-          const newPool = {
-            id: response.data.id,
-            name: name,
-            height: height,
-            width: width,
-            maxweight: maxweight,
-          };
-          pool.addNewPool(newPool);
-          toast.success("Կատարված է");
-        } else {
-          toast.error(response.data.errorMessage);
-        }
-      })
-      .catch((e) => {
-        console.log("error");
-        toast.error("Կատարված չէ");
-      });
-    // window.location.reload(false);
-    // const res = await axios.put('/pools/updatePool', { hello: 'world' });
+          if (response.data.success) {
+            const newPool = {
+              id: response.data.id,
+              name: name,
+              fishName: fishName,
+            };
+            pool.addNewPool(newPool);
+            handleClose();
+            toast.success("Կատարված է");
+          } else {
+            toast.error(response.data.errorMessage);
+            handleClose();
+          }
+        })
+        .catch((e) => {
+          console.log("error");
+          handleClose();
+          toast.error("Կատարված չէ");
+        });
+    }
   };
 
   return (
     <>
       <Button
-        // style={{ fontSize: "15px !important" }}
         height="40px !important"
         variant="primary"
         onClick={handleShow}
@@ -76,16 +75,26 @@ function AddPool() {
             <Form.Control
               type="text"
               placeholder=""
+              className={error}
               onChange={(e) => setName(e.target.value)}
             />
             <br />
             <Form.Label>Ձկան տեսակ</Form.Label>
+
             <Form.Control
-              type="number"
-              min="0"
-              placeholder=""
+              as="select"
+              placeholder="Ընտրեք ձկան տեսակ"
               onChange={(e) => setFishName(e.target.value)}
-            />
+            >
+              <option hidden value="">
+                Ընտրեք ձկան տեսակ
+              </option>
+              {fishData.map((fish) => (
+                <option key={fish.id} value={fish.id}>
+                  {fish.name}
+                </option>
+              ))}
+            </Form.Control>
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
@@ -94,12 +103,10 @@ function AddPool() {
           </Button>
           <Button
             variant="primary"
-            // onClick={handleSubmit}
             onClick={() => {
               handleSubmit();
-              handleClose();
+              // handleClose();
             }}
-            // onClick={handleClose}
           >
             Հաստատել
           </Button>

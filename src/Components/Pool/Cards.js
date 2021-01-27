@@ -3,7 +3,7 @@ import React from "react";
 import PoolCard from "./PoolCard";
 
 function Cards({ data }) {
-  //   console.log({ data }, "cards");
+  console.log({ data }, "cards");
   return (
     <>
       <div style={{ display: "flex", flexWrap: "wrap" }}>

@@ -14,17 +14,13 @@ function UpdateModal({ data1, data }, props) {
   const [show, setShow] = useState(false);
   const [id, setId] = useState("");
   const [name, setName] = useState("");
-  const [height, setfishQuantity] = useState("");
-  const [width, setfishWeight] = useState("");
-  const [maxweight, setfishType] = useState("");
+  const [fishType, setfishType] = useState("");
   const [newData, setNewData] = useState();
 
   const newDataFunc = () => {
     setId(data1.id);
     setName(data1.name);
-    setfishQuantity(data1.height);
-    setfishWeight(data1.width);
-    setfishType(data1.maxweight);
+    setfishType(data1.fishType);
   };
 
   useEffect(() => {
@@ -40,14 +36,12 @@ function UpdateModal({ data1, data }, props) {
   // };
   const handleSubmit = (evt) => {
     // evt.preventDefault();
-    console.log(id, name, height, width, maxweight);
+    console.log(id, name, fishType);
     axios
       .post(`/pools/updatePool`, {
         id,
         name,
-        height,
-        width,
-        maxweight,
+        fishType,
       })
       .then((response) => {
         console.log(response);
@@ -55,6 +49,7 @@ function UpdateModal({ data1, data }, props) {
           const updPool = {
             id: id,
             name: name,
+            fishType: fishType,
             // height: height,
             // width: width,
             // maxweight: maxweight,
@@ -93,31 +88,11 @@ function UpdateModal({ data1, data }, props) {
               onChange={(e) => setName(e.target.value)}
             />
             <br />
-            <Form.Label>Բարձրություն</Form.Label>
+            <Form.Label>Ձկան տեսակ</Form.Label>
             <Form.Control
-              type="number"
-              min="0"
+              type="text"
               placeholder=""
-              value={height}
-              id="fishCount"
-              onChange={(e) => setfishQuantity(e.target.value)}
-            />
-            <br />
-            <Form.Label>Լայնություն</Form.Label>
-            <Form.Control
-              type="number"
-              min="0"
-              placeholder=""
-              value={width}
-              onChange={(e) => setfishWeight(e.target.value)}
-            />
-            <br />
-            <Form.Label>Առավելագույն քաշ</Form.Label>
-            <Form.Control
-              type="number"
-              min="0"
-              placeholder=""
-              value={maxweight}
+              value={fishType}
               onChange={(e) => setfishType(e.target.value)}
             />
           </Form.Group>

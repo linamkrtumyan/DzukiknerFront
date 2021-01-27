@@ -13,7 +13,8 @@ toast.configure();
 
 function PoolPage() {
   const [data, setData] = useState([]);
-  console.log(data, "data");
+  const [fishData, setFishData] = useState([]);
+  console.log(data, "pool page data");
   const [changeData, setChangeData] = useState([]);
 
   const addNewPool = (pool) => {
@@ -38,6 +39,7 @@ function PoolPage() {
       if (id1.id == pool.id) {
         console.log("updatePool");
         id1.name = pool.name;
+        id1.fishType = pool.fishTypes;
         setData([...data]);
       }
     });
@@ -90,6 +92,8 @@ function PoolPage() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("/pools/getPoolsAndDetails");
+      const fishDatares = await axios("/info/fish/getFishes");
+      setFishData(fishDatares.data.allFishes);
       console.log(result, "gpollsdetails");
       setData(result.data.allPools);
     };
@@ -110,7 +114,7 @@ function PoolPage() {
         <p className="fontsize">Ավազաններ</p>
 
         <PoolContext.Provider value={{ data, setData, addNewPool }}>
-          <AddPool />
+          <AddPool fishData={fishData} />
         </PoolContext.Provider>
       </div>
       <PoolContext.Provider
