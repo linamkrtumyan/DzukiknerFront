@@ -14,11 +14,20 @@ function AddPool({ fishData }) {
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
   const [fishName, setFishName] = useState(null);
+  const [fishType, setFishType] = useState("");
   const [error, setError] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  useEffect(() => {
+    fishData.map((fish1) => {
+      if (fish1.id == fishName) {
+        setFishType(fish1.name);
+        // console.log(fishType, "fishType");
+      }
+    });
+  });
   const handleSubmit = (evt) => {
     console.log(name, fishName);
     if (name == "") {
@@ -36,8 +45,12 @@ function AddPool({ fishData }) {
             const newPool = {
               id: response.data.id,
               name: name,
-              fishName: fishName,
+              fishType: fishType,
+              fishAvgWeight: 0,
+              fishQuantity: 0,
+              fishWeight: 0,
             };
+            console.log(fishType, "fishtype newpool");
             pool.addNewPool(newPool);
             handleClose();
             toast.success("Կատարված է");
@@ -89,11 +102,17 @@ function AddPool({ fishData }) {
               <option hidden value="">
                 Ընտրեք ձկան տեսակ
               </option>
-              {fishData.map((fish) => (
-                <option key={fish.id} value={fish.id}>
-                  {fish.name}
+              {fishData.length > 0 ? (
+                fishData.map((fish) => (
+                  <option key={fish.id} value={fish.id}>
+                    {fish.name}
+                  </option>
+                ))
+              ) : (
+                <option disabled selected value>
+                  Տվյաներ չկան
                 </option>
-              ))}
+              )}
             </Form.Control>
           </Form.Group>
         </Modal.Body>

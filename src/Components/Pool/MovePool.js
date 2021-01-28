@@ -7,46 +7,19 @@ import { PoolContext } from "../../Pages/PoolPage";
 function MovePool({ data, data1 }) {
   const pool = useContext(PoolContext);
   const [show, setShow] = useState(false);
-
-  const [partners, setPartners] = useState([]);
-
-  // const [id, setId] = useState();
+  const toPoolData = data.filter((dataik) => dataik.id != data1.id);
   const [fromPoolid, setFromPoolId] = useState(data1.id);
   const [toPoolid, settoPoolid] = useState("");
-  const [quantity, setQuantity] = useState(1);
-  const [weight, setWeight] = useState(1);
+  const [quantity, setQuantity] = useState("");
+  const [weight, setWeight] = useState("");
   const [avgWeight, setAvgWeight] = useState(0);
-  const [partnerId, setPartnerId] = useState("");
   const [description, setDescription] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // const result = await axios("/info/fish/getFishes");
-      const partners = await axios("/info/partner/getPartners");
-      // console.log(partners.data.allPartners);
-      if (partners.data.allPartners) {
-        // console.log(partners.data.allPartners);
-        // setFishType(result.data.allFishes);
-        setPartners(partners.data.allPartners);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   const handleSubmit = (evt) => {
-    console.log(
-      fromPoolid,
-      toPoolid,
-      quantity,
-      weight,
-      avgWeight,
-      partnerId,
-      description
-    );
+    console.log(fromPoolid, toPoolid, quantity, weight, avgWeight, description);
     axios
       .post(`/pools/movement`, {
         fromPoolid,
@@ -54,7 +27,6 @@ function MovePool({ data, data1 }) {
         quantity,
         weight,
         avgWeight,
-        partnerId,
         description,
       })
       .then((response) => {
@@ -76,8 +48,6 @@ function MovePool({ data, data1 }) {
         console.log("error");
         toast.error("Կատարված չէ");
       });
-    // window.location.reload(false);
-    // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
   return (
@@ -102,19 +72,15 @@ function MovePool({ data, data1 }) {
               <option hidden value="">
                 Ընտրեք ավազանը
               </option>
-              {data.map((data1) => (
+              {toPoolData.map((data1) => (
                 <option key={data1.id} value={data1.id}>
                   {data1.name}
                 </option>
               ))}
             </Form.Control>
             <br />
-            {/* <Form.Label>Տեսակ</Form.Label>
-            <Form.Control as="select">
-              <option>ստեղ տեսակները դեն լի</option>
-            </Form.Control>
-            <br /> */}
-            <Form.Label>Քանակ</Form.Label>
+
+            <Form.Label>Քանակ (հատ)</Form.Label>
             <Form.Control
               type="number"
               min="0"
@@ -122,7 +88,7 @@ function MovePool({ data, data1 }) {
               onChange={(e) => setQuantity(e.target.value)}
             />
             <br />
-            <Form.Label>Քաշ</Form.Label>
+            <Form.Label>Քաշ (կգ)</Form.Label>
             <Form.Control
               type="number"
               min="0"
@@ -134,34 +100,16 @@ function MovePool({ data, data1 }) {
             />
 
             <br />
-            <Form.Label>Միջին քաշ</Form.Label>
+            <Form.Label>Միջին քաշ (կգ)</Form.Label>
             <Form.Control
               type="number"
               min="0"
               placeholder=""
-              value={weight / quantity}
+              // value={weight / quantity}
+              value={Math.round((weight / quantity) * 10000) / 10000}
               onChange={(e) => setAvgWeight(e.target.value)}
             />
-            <br />
-            <Form.Label>Գործընկեր</Form.Label>
-            <Form.Control
-              as="select"
-              placeholder="Ընտրեք գործընկերոջը"
-              onChange={(e) => setPartnerId(e.target.value)}
-            >
-              {/* <option disabled={true} value="">
-                Ընտրեք գործընկերոջը
-              </option> */}
-              <option hidden value="">
-                Ընտրեք գործընկերոջը
-              </option>
-              {partners.map((partner) => (
-                <option key={partner.id} value={partner.id}>
-                  {partner.name}
-                </option>
-              ))}
-            </Form.Control>
-            <br />
+
             <Form.Label>Նշումներ</Form.Label>
             <Form.Control
               type="text"

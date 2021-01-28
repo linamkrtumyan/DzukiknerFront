@@ -26,8 +26,8 @@ function GetFoods({ data, coef }) {
                   {/* <td>{food.id}</td> */}
                   <td>{food.name}</td>
                   <td>{food.number}</td>
-                  <td>{food.weight}</td>
-                  {/* <td>{coef.coefficient}</td> */}
+                  <td>{Math.round(food.weight * 10000) / 10000}</td>
+
                   <td className="table_action_column">
                     <UpdateFood data={food} />
                     <DeleteFood data={food} />

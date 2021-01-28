@@ -1,14 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Table, InputGroup, FormControl, Form, Button } from "react-bootstrap";
 // import AddFeeding from "./AddFeeding";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
 
-function Losses({ data }) {
+function Losses() {
+  let history = useHistory();
+  const [data, setData] = useState([]);
   const [addLosses, setAddLosses] = useState(data);
 
   console.log(addLosses, "addLosses");
+  useEffect(() => {
+    console.log("object");
+    const fetchData = async () => {
+      const result = await axios("/pools/getPools");
 
+      setData(result.data.allPools);
+    };
+
+    fetchData();
+  }, []);
   const handleSubmit = (evt) => {
     console.log("sql");
     axios
@@ -29,8 +41,38 @@ function Losses({ data }) {
       });
   };
   return (
-    <div>
+    <div className="container" style={{ paddingTop: "130px" }}>
       {" "}
+      <ul className="nav nav-tabs" id="myTab" role="tablist">
+        <li
+          className="nav-item cursor"
+          onClick={() => history.push("/feeding")}
+          className="nav-item cursor"
+        >
+          <a
+            className="nav-link  "
+            id="home-tab"
+            data-toggle="tab"
+            role="tab"
+            aria-controls="home"
+            aria-selected="true"
+          >
+            Կերակրում
+          </a>
+        </li>
+        <li>
+          <a
+            className="nav-link active "
+            id="profile-tab"
+            data-toggle="tab"
+            role="tab"
+            aria-controls="profile"
+            aria-selected="false"
+          >
+            Կորուստ
+          </a>
+        </li>
+      </ul>
       <div
         className="container"
         style={{ backgroundColor: "white", padding: "30px", height: "110vh" }}

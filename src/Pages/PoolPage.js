@@ -39,7 +39,7 @@ function PoolPage() {
       if (id1.id == pool.id) {
         console.log("updatePool");
         id1.name = pool.name;
-        id1.fishType = pool.fishTypes;
+        id1.fishType = pool.fishType;
         setData([...data]);
       }
     });
@@ -120,6 +120,7 @@ function PoolPage() {
       <PoolContext.Provider
         value={{
           data,
+          fishData,
           setData,
           addNewPool,
           deletePool,
@@ -129,7 +130,7 @@ function PoolPage() {
           movePool,
         }}
       >
-        <Cards data={data} />
+        <Cards fishData={fishData} data={data} />
       </PoolContext.Provider>
 
       {/* <Cards /> */}

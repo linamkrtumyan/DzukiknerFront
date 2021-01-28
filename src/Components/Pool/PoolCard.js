@@ -9,9 +9,9 @@ import AddPool from "./AddPool";
 import DeletePool from "./DeletePool";
 import "./style.css";
 
-function PoolCard({ data, data1 }) {
-  console.log(data1, "pool cardi data1");
-  console.log(data, "pool cardi data");
+function PoolCard({ data, data1, fishData }) {
+  // console.log(fishData, "fishData poolcard");
+  // console.log(data, "pool cardi data");
 
   return (
     <div
@@ -33,7 +33,7 @@ function PoolCard({ data, data1 }) {
               </Dropdown.Toggle>
 
               <Dropdown.Menu className="pool_drp_menu">
-                <UpdateModal data1={data1} data={data} />
+                <UpdateModal data1={data1} data={data} fishData={fishData} />
                 <InPool data={data} data1={data1} />
                 <SalePool data1={data1} />
                 <MovePool data={data} data1={data1} />

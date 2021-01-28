@@ -21,6 +21,7 @@ function DeleteFood({ data }) {
 
   const handleSubmit = (evt) => {
     // evt.preventDefault();
+    console.log(id, "delete food id");
     axios
       .post(`/info/food/deleteFood`, { id })
       .then((response) => {

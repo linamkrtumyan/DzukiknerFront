@@ -5,46 +5,49 @@ import { toast } from "react-toastify";
 import { PoolContext } from "../../Pages/PoolPage";
 import "./style.css";
 
-function UpdateModal({ data1, data }, props) {
-  // console.log(data1, "data 1 from update comp");
+function UpdateModal({ data1, fishData }) {
   const pool = useContext(PoolContext);
-  // const [data, setData] = useState("");
-  // console.log(data, "update data from card");
+  console.log(fishData, "fishData");
 
   const [show, setShow] = useState(false);
   const [id, setId] = useState("");
   const [name, setName] = useState("");
+  const [fishName, setFishName] = useState(null);
   const [fishType, setfishType] = useState("");
-  const [newData, setNewData] = useState();
 
   const newDataFunc = () => {
     setId(data1.id);
     setName(data1.name);
     setfishType(data1.fishType);
   };
+  useEffect(() => {
+    fishData.map((fish1) => {
+      if (fish1.id == fishName) {
+        setfishType(fish1.name);
+      } else {
+      }
+    });
+  });
 
   useEffect(() => {
     setId(data1.id);
-    // console.log(id, "useeffect id");
   }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // const update = (id) => {
-  //   console.log(id);
-  //   props.history.push("/update" + id);
-  // };
+
   const handleSubmit = (evt) => {
-    // evt.preventDefault();
-    console.log(id, name, fishType);
+    console.log(id, name, fishName, "uxarkvoxnery");
+    console.log(fishName, "fishnamn a *****");
     axios
       .post(`/pools/updatePool`, {
         id,
         name,
-        fishType,
+        fishName,
       })
       .then((response) => {
         console.log(response);
+
         if (response.data.success) {
           const updPool = {
             id: id,
@@ -90,11 +93,25 @@ function UpdateModal({ data1, data }, props) {
             <br />
             <Form.Label>Ձկան տեսակ</Form.Label>
             <Form.Control
-              type="text"
-              placeholder=""
-              value={fishType}
-              onChange={(e) => setfishType(e.target.value)}
-            />
+              as="select"
+              placeholder="Ընտրեք ձկան տեսակ"
+              onChange={(e) => setFishName(e.target.value)}
+            >
+              <option hidden value="">
+                {fishType}
+              </option>
+              {fishData.length > 0 ? (
+                fishData.map((fish) => (
+                  <option key={fish.id} value={fish.id}>
+                    {fish.name}
+                  </option>
+                ))
+              ) : (
+                <option disabled selected value>
+                  Տվյաներ չկան
+                </option>
+              )}
+            </Form.Control>
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

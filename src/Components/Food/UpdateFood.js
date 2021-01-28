@@ -4,7 +4,7 @@ import axios from "axios";
 import { FoodContext } from "../../Pages/Foods";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+toast.configure();
 function UpdateFood({ data }) {
   const foods = useContext(FoodContext);
   //   console.log(data);
@@ -84,7 +84,7 @@ function UpdateFood({ data }) {
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
-            <Form.Label>Name</Form.Label>
+            <Form.Label>Անուն</Form.Label>
             <Form.Control
               type="text"
               placeholder=""
@@ -93,7 +93,7 @@ function UpdateFood({ data }) {
               onChange={(e) => setName(e.target.value)}
             />
             <br />
-            <Form.Label>Number</Form.Label>
+            <Form.Label>Համար</Form.Label>
             <Form.Control
               type="text"
               placeholder=""
@@ -101,21 +101,13 @@ function UpdateFood({ data }) {
               onChange={(e) => setNumber(e.target.value)}
             />
             <br />
-            <Form.Label>Weight</Form.Label>
+            <Form.Label>Քաշ (կգ)</Form.Label>
             <Form.Control
               type="text"
               placeholder=""
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
             />
-            {/* <br />
-            <Form.Label>Coefficient</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder=""
-              value={coefficient}
-              onChange={(e) => setCoefficient(e.target.value)}
-            /> */}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

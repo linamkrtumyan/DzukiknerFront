@@ -37,7 +37,7 @@ function NavbarPage() {
 
               <div style={{ padding: "10px" }}>
                 <NavLink
-                  to="/information"
+                  to="/information/partners"
                   className="navlink"
                   activeClassName="activeclass"
                 >
@@ -47,7 +47,7 @@ function NavbarPage() {
 
               <div style={{ padding: "10px" }}>
                 <NavLink
-                  to="/feedingandlosses"
+                  to="/feeding"
                   className="navlink"
                   activeClassName="activeclass"
                 >

@@ -25,6 +25,7 @@
   color: #495057;
   background-color: #fff;
   border-color: #fff #fff #fff;
+  border-bottom: 1px solid #fff;
 }
 .nav-tabs {
   border-bottom: 1px solid #fff;
@@ -33,4 +34,7 @@
   /* font-size: 30px; */
   font-weight: 700;
   color: white;
+}
+.cursor {
+  cursor: pointer;
 }

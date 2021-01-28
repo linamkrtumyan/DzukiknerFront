@@ -6,7 +6,7 @@ import { PoolContext } from "../../Pages/PoolPage";
 import { useFormik } from "formik";
 
 function SalePool({ data, data1 }) {
-  console.log(data1);
+  // console.log(data1);
   const pool = useContext(PoolContext);
   const [show, setShow] = useState(false);
 
@@ -98,7 +98,7 @@ function SalePool({ data, data1 }) {
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
-            <Form.Label>Քանակ</Form.Label>
+            <Form.Label>Քանակ (հատ)</Form.Label>
             <Form.Control
               type="number"
               min={0}
@@ -113,7 +113,7 @@ function SalePool({ data, data1 }) {
               <div key={dataik.id}>{dataik.quantity} </div>
             ))} */}
             <br />
-            <Form.Label>Քաշ</Form.Label>
+            <Form.Label>Քաշ (կգ)</Form.Label>
             <Form.Control
               type="number"
               min="0"
@@ -125,12 +125,13 @@ function SalePool({ data, data1 }) {
             />
 
             <br />
-            <Form.Label>Միջին քաշ</Form.Label>
+            <Form.Label>Միջին քաշ (կգ)</Form.Label>
             <Form.Control
               type="number"
               min="0"
               placeholder=""
-              value={weight / quantity}
+              // value={weight / quantity}
+              value={Math.round((weight / quantity) * 10000) / 10000}
               onChange={(e) => setAvgWeight(e.target.value)}
             />
             <br />
