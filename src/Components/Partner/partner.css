@@ -9,6 +9,7 @@
 }
 .partner_icon {
   width: 30px;
+  padding: 0px 5px;
   float: left;
   cursor: pointer;
   /* padding: 0px; */

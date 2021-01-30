@@ -5,41 +5,45 @@ import { FoodContext } from "../../Pages/Foods";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
-function UpdateFood({ data }) {
+function PlusWeight({ data }) {
   const foods = useContext(FoodContext);
   //   console.log(data);
   const [show, setShow] = useState(false);
   const [id, setId] = useState("");
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
+  const [partners, setPartner] = useState([]);
+  const [partnerid, setPartnerId] = useState("");
+  const [description, setDesc] = useState(null);
   const [weight, setWeight] = useState("");
-  // const [coefficient, setCoefficient] = useState("");
 
   const newDataFunc = () => {
     setId(data.id);
-    setName(data.name);
-    setNumber(data.number);
-    setWeight(data.weight);
-    // setCoefficient(data.coefficient);
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios("/info/partner/getPartners");
+      console.log(result.data.allPartners);
+      setPartner(result.data.allPartners);
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     setId(data.id);
-    // console.log(id, "useeffect id");
   }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (evt) => {
-    console.log(id, name, number, weight);
+    console.log(id, weight, partnerid, description);
     // { id, name, description, phone }
     axios
-      .post(`/info/food/updateFood`, {
+      .post(`/info/food/updateWeight`, {
         id,
-        name,
-        number,
         weight,
-        // coefficient,
+        description,
+        partnerid,
       })
 
       .then((response) => {
@@ -47,12 +51,9 @@ function UpdateFood({ data }) {
         if (response.data.success) {
           const food = {
             id: id,
-            name: name,
-            number: number,
             weight: weight,
-            // coefficient: coefficient,
           };
-          foods.updateFood(food);
+          foods.plusFood(food);
           toast.success("Կատարված է");
         } else {
           toast.error(response.data.errorMessage);
@@ -75,39 +76,53 @@ function UpdateFood({ data }) {
       >
         <img
           className="partner_icon"
-          src={require("../../img/pencil.svg").default}
+          src={require("../../img/cart4.svg").default}
         />
       </div>
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Խմբագրել</Modal.Title>
+          <Modal.Title>Ավելացնել/Պակասեցնել</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
-            <Form.Label>Անուն</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder=""
-              value={name}
-              id="fishCount"
-              onChange={(e) => setName(e.target.value)}
-            />
-            <br />
-            <Form.Label>Համար</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder=""
-              value={number}
-              onChange={(e) => setNumber(e.target.value)}
-            />
-            <br />
             <Form.Label>Քաշ (կգ)</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
               placeholder=""
-              value={weight}
+              //   value={Math.round(weight * 10000) / 10000}
+              //   value={weight}
               onChange={(e) => setWeight(e.target.value)}
+            />
+            <br />
+            <Form.Label>Գործընկեր</Form.Label>
+            <Form.Control
+              as="select"
+              placeholder="Ընտրեք գործընկերոջը"
+              onChange={(e) => setPartnerId(e.target.value)}
+            >
+              <option hidden value="">
+                Ընտրեք գործընկերոջը
+              </option>
+              {partners.length > 0 ? (
+                partners.map((partner) => (
+                  <option key={partner.id} value={partner.id}>
+                    {partner.name}
+                  </option>
+                ))
+              ) : (
+                <option disabled selected value>
+                  Տվյաներ չկան
+                </option>
+              )}
+            </Form.Control>
+            <br />
+            <Form.Label>Նկարագրություն</Form.Label>
+            <Form.Control
+              type="text"
+              //   placeholder=""
+              //   value={number}
+              onChange={(e) => setDesc(e.target.value)}
             />
           </Form.Group>
         </Modal.Body>
@@ -130,4 +145,4 @@ function UpdateFood({ data }) {
   );
 }
 
-export default UpdateFood;
+export default PlusWeight;

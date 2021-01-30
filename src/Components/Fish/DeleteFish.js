@@ -41,7 +41,7 @@ function DeleteFish({ data }) {
       <div style={{ marginLeft: "5px" }} onClick={handleShow}>
         <img
           className="partner_icon"
-          src={require("../../img/delete_fin.svg").default}
+          src={require("../../img/trash.svg").default}
         />
       </div>
 

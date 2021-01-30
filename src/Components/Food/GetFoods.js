@@ -1,6 +1,8 @@
 import React from "react";
 import { Table, Button, Form } from "react-bootstrap";
 import DeleteFood from "./DeleteFood";
+import PlusWeight from "./PlusWeight";
+
 import UpdateFood from "./UpdateFood";
 
 function GetFoods({ data, coef }) {
@@ -31,6 +33,7 @@ function GetFoods({ data, coef }) {
                   <td className="table_action_column">
                     <UpdateFood data={food} />
                     <DeleteFood data={food} />
+                    <PlusWeight data={food} />
                   </td>
                 </tr>
               );

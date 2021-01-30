@@ -17,10 +17,10 @@ function PoolCard({ data, data1, fishData }) {
     <div
       style={{
         width: "360px",
-        // marginLeft: "10px",
+        marginLeft: "10px",
         // marginTop: "30px",
         // bottom: "30px",
-        // marginBottom: "10px",
+        marginBottom: "10px",
       }}
     >
       {/* <AddPool /> */}

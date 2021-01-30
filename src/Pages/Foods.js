@@ -28,6 +28,18 @@ function Foods() {
     });
   };
 
+  const plusFood = (food) => {
+    data.map((id1) => {
+      if (id1.id == food.id) {
+        console.log("plusFood");
+
+        id1.weight = parseInt(id1.weight) + parseInt(food.weight);
+
+        setData([...data]);
+      }
+    });
+  };
+
   const deleteFood = (fish) => {
     data.map((id1) => {
       if (id1.id == fish) {
@@ -125,7 +137,9 @@ function Foods() {
             <AddFood />
           </FoodContext.Provider>
         </div>
-        <FoodContext.Provider value={{ data, setData, updateFood, deleteFood }}>
+        <FoodContext.Provider
+          value={{ data, setData, updateFood, deleteFood, plusFood }}
+        >
           <GetFoods data={data} coef={coef} />
         </FoodContext.Provider>
       </div>
