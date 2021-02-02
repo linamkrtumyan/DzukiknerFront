@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Button, Tab, Tabs, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
-function FeedingHistory({ foodHistory }) {
-  console.log(foodHistory, "foodHistory fin");
+function MoveHistory({ moveHistory }) {
+  console.log(moveHistory, "moveHistory fin");
 
   return (
     <>
@@ -20,14 +20,14 @@ function FeedingHistory({ foodHistory }) {
             </tr>
           </thead>
           <tbody>
-            {foodHistory.length > 0 ? (
-              foodHistory.map((food, index) => {
+            {moveHistory.length > 0 ? (
+              moveHistory.map((move, index) => {
                 return (
                   <tr key={index}>
-                    <td>{food.foodName}</td>
+                    {/* <td>{food.foodName}</td>
                     <td>{food.weight}</td>
                     <td>{food.coefficient}</td>
-                    <td>{food.insertedDate}</td>
+                    <td>{food.insertedDate}</td> */}
                   </tr>
                 );
               })
@@ -43,4 +43,4 @@ function FeedingHistory({ foodHistory }) {
   );
 }
 
-export default FeedingHistory;
+export default MoveHistory;

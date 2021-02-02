@@ -19,10 +19,10 @@ function PoolCard({ data, data1, fishData }) {
   // useEffect(() => {
   //   handleClick();
   // }, [feeding]);
-  // function handleClick() {
-  //   setFeeding(true);
-  //   // history.push(`/feeding-move-history/${data1.id}`);
-  // }
+  function handleClick() {
+    // setFeeding(true);
+    history.push(`/feeding-move-history/${data1.id}`);
+  }
   // if (feeding) {
   //   return <FeedingMoveHistory id={data1.id} />;
   // } else {
@@ -53,10 +53,7 @@ function PoolCard({ data, data1, fishData }) {
               </Dropdown.Menu>
             </Dropdown>
           </div>
-          <div
-            className="cursor"
-            // onClick={handleClick}
-          >
+          <div className="cursor" onClick={handleClick}>
             <div className="pool_card_title">
               <div style={{ fontSize: "22px" }}>
                 <p> {data1.name}</p>
