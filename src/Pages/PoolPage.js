@@ -51,6 +51,20 @@ function PoolPage() {
         console.log("inPool");
         id1.fishQuantity = parseInt(id1.fishQuantity) + parseInt(pool.quantity);
         id1.fishWeight = parseInt(id1.fishWeight) + parseInt(pool.weight);
+        id1.fishAvgWeight =
+          parseInt(pool.allWeight) / parseInt(pool.allQuantity);
+        setData([...data]);
+      }
+    });
+  };
+  const correction = (pool) => {
+    data.map((id1) => {
+      if (id1.id == pool.id) {
+        console.log("inPool");
+        id1.fishQuantity = 0;
+        id1.fishWeight = 0;
+        id1.fishAvgWeight = 0;
+        id1.fishType = "";
         setData([...data]);
       }
     });
@@ -61,6 +75,8 @@ function PoolPage() {
         console.log("salePool");
         id1.fishQuantity = parseInt(id1.fishQuantity) - parseInt(pool.quantity);
         id1.fishWeight = parseInt(id1.fishWeight) - parseInt(pool.weight);
+        id1.fishAvgWeight =
+          parseInt(pool.allWeight) / parseInt(pool.allQuantity);
         if (id1.fishQuantity > 0 || id1.fishWeight > 0) {
           setData([...data]);
         } else {
@@ -76,6 +92,7 @@ function PoolPage() {
         console.log("movePool");
         id1.fishQuantity = parseInt(id1.fishQuantity) - parseInt(pool.quantity);
         id1.fishWeight = parseInt(id1.fishWeight) - parseInt(pool.weight);
+        id1.fishAvgWeight = id1.fishWeight / id1.fishQuantity;
         setData([...data]);
       }
     });
@@ -84,6 +101,7 @@ function PoolPage() {
         console.log("movePool");
         id1.fishQuantity = parseInt(id1.fishQuantity) + parseInt(pool.quantity);
         id1.fishWeight = parseInt(id1.fishWeight) + parseInt(pool.weight);
+        id1.fishAvgWeight = id1.fishWeight / id1.fishQuantity;
         setData([...data]);
       }
     });
@@ -128,6 +146,7 @@ function PoolPage() {
           inPool,
           salePool,
           movePool,
+          correction,
         }}
       >
         <Cards fishData={fishData} data={data} />

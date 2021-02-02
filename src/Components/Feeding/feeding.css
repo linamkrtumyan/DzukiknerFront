@@ -2,3 +2,9 @@
   float: right;
   /* position: fixed; */
 }
+.react-datepicker__input-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+}

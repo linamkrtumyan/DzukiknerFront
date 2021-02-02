@@ -12,21 +12,26 @@ function MovePool({ data, data1 }) {
   const [toPoolid, settoPoolid] = useState("");
   const [quantity, setQuantity] = useState("");
   const [weight, setWeight] = useState("");
-  const [avgWeight, setAvgWeight] = useState(0);
-  const [description, setDescription] = useState("");
+  const [forSend, setforSend] = useState(0);
+  const [avgWeight, setAvgWeight] = useState(null);
+  const [description, setDescription] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  useEffect(() => {
+    setforSend(Number(weight) / Number(quantity));
+  }, [weight, quantity]);
+
   const handleSubmit = (evt) => {
-    console.log(fromPoolid, toPoolid, quantity, weight, avgWeight, description);
+    console.log(fromPoolid, toPoolid, quantity, weight, forSend, description);
     axios
       .post(`/pools/movement`, {
         fromPoolid,
         toPoolid,
         quantity,
         weight,
-        avgWeight,
+        forSend,
         description,
       })
       .then((response) => {
@@ -94,7 +99,7 @@ function MovePool({ data, data1 }) {
               min="0"
               placeholder=""
               onChange={(e) => {
-                setAvgWeight(weight / quantity);
+                // setAvgWeight(weight / quantity);
                 setWeight(e.target.value);
               }}
             />
@@ -105,9 +110,10 @@ function MovePool({ data, data1 }) {
               type="number"
               min="0"
               placeholder=""
-              // value={weight / quantity}
               value={Math.round((weight / quantity) * 10000) / 10000}
-              onChange={(e) => setAvgWeight(e.target.value)}
+              // value={weight / quantity}
+              readOnly
+              // onChange={(e) => setAvgWeight(e.target.value)}
             />
 
             <Form.Label>Նշումներ</Form.Label>

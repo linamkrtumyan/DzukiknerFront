@@ -32,13 +32,6 @@ function UpdatePartner({ data }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // useEffect(() => {
-  //   setId(data.id);
-  //   setName(data.name);
-  //   setDescription(data.description);
-  //   setPhone(data.phone);
-  // });
-
   const handleSubmit = (evt) => {
     // evt.preventDefault();
     console.log(id, name, description, phone);

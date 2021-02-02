@@ -38,3 +38,10 @@
 .cursor {
   cursor: pointer;
 }
+/* .login .grecaptcha-badge {
+  display: block !important;
+} */
+.login .grecaptcha-badge {
+  visibility: visible !important;
+  display: block !important;
+}

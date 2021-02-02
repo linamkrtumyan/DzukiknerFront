@@ -4,11 +4,37 @@ import { Table, InputGroup, FormControl, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Losses() {
   let history = useHistory();
   const [data, setData] = useState([]);
   const [addLosses, setAddLosses] = useState(data);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [sendDate, setSendDate] = useState("");
+  const ExampleCustomInput = ({ value, onClick }) => (
+    <Button className="example-custom-input" onClick={onClick}>
+      {value}
+    </Button>
+  );
+  //   console.log(coefficient, "coef from page");
+  useEffect(() => {
+    setSendDate(
+      selectedDate.getFullYear() +
+        "-" +
+        (selectedDate.getMonth() + 1) +
+        "-" +
+        selectedDate.getDate() +
+        " " +
+        selectedDate.getHours() +
+        ":" +
+        selectedDate.getMinutes() +
+        ":" +
+        selectedDate.getSeconds(),
+      "selectedDate"
+    );
+  }, [selectedDate]);
 
   console.log(addLosses, "addLosses");
   useEffect(() => {
@@ -77,14 +103,39 @@ function Losses() {
         className="container"
         style={{ backgroundColor: "white", padding: "30px", height: "110vh" }}
       >
+        {" "}
+        <DatePicker
+          style={{
+            width: "150px",
+            margin: "10px",
+            cursor: "pointer",
+          }}
+          selected={selectedDate}
+          onChange={(date) => {
+            setSelectedDate(date);
+          }}
+          dateFormat="yyyy/MM/dd"
+          // minDate={'2021/01/01'}
+          maxDate={new Date()}
+          // isClearable
+          closeOnScroll={true}
+          scrollableMonthYearDropdown
+          // peekNextMonth
+          showMonthDropdown
+          showYearDropdown
+          customInput={<ExampleCustomInput />}
+          // dropdownMode="select"
+          placeholderText="Տարի/Ամիս/Օր        🔽"
+          mode="date"
+        />
         <Table bordered hover>
           <thead>
             <tr>
               <th>Ավազան</th>
               <th>Թափոն (հատ)</th>
-              <th>Թափոն (կգ)</th>
+              {/* <th>Թափոն (կգ)</th> */}
               <th>Պիտանի (հատ)</th>
-              <th>Պիտանի (կգ)</th>
+              {/* <th>Պիտանի (կգ)</th>s */}
             </tr>
           </thead>
           <tbody>
@@ -106,13 +157,14 @@ function Losses() {
                             ...addLosses[index],
 
                             wastequantity: e.target.value,
+                            date: sendDate,
                           };
                           setAddLosses([...addLosses]);
                         }}
                       ></Form.Control>
                     </td>
-                    <td>
-                      {" "}
+                    {/* <td>
+                      
                       <Form.Control
                         type="number"
                         min="0"
@@ -127,7 +179,7 @@ function Losses() {
                           setAddLosses([...addLosses]);
                         }}
                       ></Form.Control>
-                    </td>
+                    </td> */}
 
                     <td>
                       {" "}
@@ -146,7 +198,7 @@ function Losses() {
                         }}
                       ></Form.Control>
                     </td>
-                    <td>
+                    {/* <td>
                       <Form.Control
                         type="number"
                         min="0"
@@ -161,7 +213,7 @@ function Losses() {
                           setAddLosses([...addLosses]);
                         }}
                       ></Form.Control>
-                    </td>
+                    </td> */}
                   </tr>
                 );
               })
@@ -172,7 +224,6 @@ function Losses() {
             )}
           </tbody>
         </Table>
-
         <div className="done_btn">
           <Button onClick={handleSubmit} variant="primary">
             Հաստատել

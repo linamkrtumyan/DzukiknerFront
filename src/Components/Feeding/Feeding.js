@@ -5,13 +5,34 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import "./feeding.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Feeding() {
   let history = useHistory();
   const [data, setData] = useState([]);
   const [foods, setFoods] = useState([]);
   const [coefficient, setCoefficient] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [sendDate, setSendDate] = useState("");
   //   console.log(coefficient, "coef from page");
+  useEffect(() => {
+    setSendDate(
+      selectedDate.getFullYear() +
+        "-" +
+        (selectedDate.getMonth() + 1) +
+        "-" +
+        selectedDate.getDate() +
+        " " +
+        selectedDate.getHours() +
+        ":" +
+        selectedDate.getMinutes() +
+        ":" +
+        selectedDate.getSeconds(),
+      "selectedDate"
+    );
+  }, [selectedDate]);
+
   useEffect(() => {
     console.log("object");
     const fetchData = async () => {
@@ -35,8 +56,13 @@ function Feeding() {
   console.log(foods, "data feeding");
   const [addFood, setAddFood] = useState(data);
   // con
+  const ExampleCustomInput = ({ value, onClick }) => (
+    <Button className="example-custom-input" onClick={onClick}>
+      {value}
+    </Button>
+  );
   console.log(addFood, "addfood");
-
+  // console.log(sendDate, "sendDate");
   // let sql = addFood.map(
   //   (item) =>
   //     `(${item.id}, ${item.coef}, ${item.count}, ${item.food}, ${item.name})`
@@ -47,7 +73,10 @@ function Feeding() {
   const handleSubmit = (evt) => {
     // evt.target.reset();
     // evt.preventDefault();
-    // console.log(sql);
+    // setAddFood([...sendDate]);
+    // addFood.push(sendDate);
+    console.log(addFood);
+
     axios
       .post(`/feeding/addFeed`, {
         addFood,
@@ -101,6 +130,27 @@ function Feeding() {
         className="container"
         style={{ backgroundColor: "white", padding: "30px", height: "110vh" }}
       >
+        <DatePicker
+          style={{
+            width: "150px",
+            margin: "10px",
+            cursor: "pointer",
+          }}
+          selected={selectedDate}
+          onChange={(date) => {
+            setSelectedDate(date);
+          }}
+          dateFormat="yyyy/MM/dd"
+          maxDate={new Date()}
+          closeOnScroll={true}
+          scrollableMonthYearDropdown
+          showMonthDropdown
+          showYearDropdown
+          customInput={<ExampleCustomInput />}
+          placeholderText="Տարի/Ամիս/Օր        🔽"
+          mode="date"
+        />
+
         <Table bordered hover>
           <thead>
             <tr>
@@ -129,6 +179,7 @@ function Feeding() {
                             ...data[index],
                             ...addFood[index],
                             count: e.target.value,
+                            date: sendDate,
                           };
                           setAddFood([...addFood]);
                         }}
@@ -171,6 +222,7 @@ function Feeding() {
                             ...addFood[index],
                             coef: e.target.value,
                           };
+
                           setAddFood([...addFood]);
                         }}
                       >

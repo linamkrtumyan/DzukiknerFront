@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Dropdown } from "react-bootstrap";
 import InPool from "./InPool";
 import UpdateModal from "./UpdateModal";
@@ -8,22 +8,33 @@ import MovePool from "./MovePool";
 import AddPool from "./AddPool";
 import DeletePool from "./DeletePool";
 import "./style.css";
+import Correction from "./Correction";
+import { useHistory } from "react-router-dom";
+import FeedingMoveHistory from "../../Pages/FeedingMoveHistory";
 
 function PoolCard({ data, data1, fishData }) {
-  // console.log(fishData, "fishData poolcard");
-  // console.log(data, "pool cardi data");
+  const history = useHistory();
+  const [feeding, setFeeding] = useState(false);
 
+  // useEffect(() => {
+  //   handleClick();
+  // }, [feeding]);
+  // function handleClick() {
+  //   setFeeding(true);
+  //   // history.push(`/feeding-move-history/${data1.id}`);
+  // }
+  // if (feeding) {
+  //   return <FeedingMoveHistory id={data1.id} />;
+  // } else {
   return (
     <div
       style={{
         width: "360px",
         marginLeft: "10px",
-        // marginTop: "30px",
-        // bottom: "30px",
+
         marginBottom: "10px",
       }}
     >
-      {/* <AddPool /> */}
       <Card className="pool_card">
         <Card.Body style={{ padding: "1.2rem 0.5rem" }}>
           <div style={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}>
@@ -38,50 +49,49 @@ function PoolCard({ data, data1, fishData }) {
                 <SalePool data1={data1} />
                 <MovePool data={data} data1={data1} />
                 <DeletePool data1={data1} data={data} />
+                <Correction data1={data1} />
               </Dropdown.Menu>
             </Dropdown>
           </div>
-          {/* <Card.Text> */}
-          <div className="pool_card_title">
-            <div style={{ fontSize: "22px" }}>
-              {/* Ավազան */}
-              <p> {data1.name}</p>
+          <div
+            className="cursor"
+            // onClick={handleClick}
+          >
+            <div className="pool_card_title">
+              <div style={{ fontSize: "22px" }}>
+                <p> {data1.name}</p>
+              </div>
             </div>
-          </div>
-          {/* <div style={{ marginLeft: "auto", marginRight: "auto" }}> */}
-          <div className="pool_card_item">
-            <div style={{ textAlign: "center" }}>
-              {/* Տեսակ */}
 
-              <p>{data1.fishType}</p>
-              {/* <p>fish type</p> */}
+            <div className="pool_card_item">
+              <div style={{ textAlign: "center" }}>
+                <p>{data1.fishType}</p>
+              </div>
+            </div>
+            <div className="pool_card_item">
+              <div style={{ textAlign: "center" }}>
+                {data1.fishQuantity}
+                <p style={{}}>Հատ</p>
+              </div>
+            </div>
+            <div className="pool_card_item">
+              <div style={{ textAlign: "center" }}>
+                {Math.round(data1.fishWeight * 100) / 100}
+                <p style={{}}>Կգ</p>
+              </div>
+            </div>
+            <div className="pool_card_item">
+              <div style={{ textAlign: "center" }}>
+                {Math.round(data1.fishAvgWeight * 100) / 100}
+                <p style={{}}>Կգ/Հատ</p>
+              </div>
             </div>
           </div>
-          <div className="pool_card_item">
-            <div style={{ textAlign: "center" }}>
-              {data1.fishQuantity}
-              <p style={{}}>Հատ</p>
-            </div>
-          </div>
-          <div className="pool_card_item">
-            <div style={{ textAlign: "center" }}>
-              {Math.round(data1.fishWeight * 100) / 100}
-              <p style={{}}>Կգ</p>
-            </div>
-          </div>
-          <div className="pool_card_item">
-            <div style={{ textAlign: "center" }}>
-              {Math.round(data1.fishAvgWeight * 100) / 100}
-              <p style={{}}>Կգ/Հատ</p>
-            </div>
-          </div>
-          {/* </div> */}
-
-          {/* </Card.Text> */}
         </Card.Body>
       </Card>
     </div>
   );
+  // }
 }
 
 export default PoolCard;

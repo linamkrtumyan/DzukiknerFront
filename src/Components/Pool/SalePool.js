@@ -6,7 +6,7 @@ import { PoolContext } from "../../Pages/PoolPage";
 import { useFormik } from "formik";
 
 function SalePool({ data, data1 }) {
-  // console.log(data1);
+  // console.log(data1, "data1-i quantity");
   const pool = useContext(PoolContext);
   const [show, setShow] = useState(false);
 
@@ -20,10 +20,23 @@ function SalePool({ data, data1 }) {
   // const [toPoolid, settoPoolid] = useState("");
   const [quantity, setQuantity] = useState("");
   const [weight, setWeight] = useState("");
-  const [avgWeight, setAvgWeight] = useState(0);
+  const [avgWeight, setAvgWeight] = useState(null);
+  const [forSend, setforSend] = useState(0);
+  // console.log(avgWeight, "skizb");
   const [partnerId, setPartnerId] = useState(null);
   const [description, setDescription] = useState(null);
+  const [allQuantity, setAllQuantity] = useState(0);
+  // const [allWeight, setallWeight] = useState(null);
   const errors = [];
+
+  // useEffect(() => {
+  //   setAllQuantity(Number(data1.fishQuantity) + Number(quantity));
+  //   console.log(allQuantity, "usei allquantity");
+  // }, [quantity]);
+
+  useEffect(() => {
+    setforSend(Number(weight) / Number(quantity));
+  }, [weight, quantity]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,19 +49,19 @@ function SalePool({ data, data1 }) {
         setPartners(partners.data.allPartners);
       }
     };
-
+    // setAvgWeight(parseInt(weight, 10) / parseInt(quantity, 10));
+    // setAvgWeight(Number(weight) / Number(quantity));
+    // console.log(avgWeight, "1111111111");
     fetchData();
   }, []);
 
   const handleSubmit = (evt) => {
-    console.log(
-      fromPoolid,
-      quantity,
-      weight,
-      avgWeight,
-      partnerId,
-      description
-    );
+    console.log(fromPoolid, quantity, weight, forSend, partnerId, description);
+    // if (data1.fishQuantity - quantity < 0) {
+    //   toast.error("edqan chka");
+    //   errors.push("Name can't be empty");
+    // } else {
+    console.log(forSend, "1111111111");
     if (data1.fishQuantity - quantity < 0) {
       toast.error("edqan chka");
       errors.push("Name can't be empty");
@@ -58,7 +71,7 @@ function SalePool({ data, data1 }) {
           fromPoolid,
           quantity,
           weight,
-          avgWeight,
+          forSend,
           partnerId,
           description,
         })
@@ -69,10 +82,15 @@ function SalePool({ data, data1 }) {
               id: fromPoolid,
               quantity: quantity,
               weight: weight,
+              fishAvgWeight: forSend,
+              allQuantity: Number(data1.fishQuantity) - Number(quantity),
+              allWeight: Number(data1.fishWeight) - Number(weight),
             };
+            console.log(salePool.allQuantity, "allQuantity");
+            console.log(salePool.allWeight, "allWeight");
             pool.salePool(salePool);
             toast.success("Կատարված է");
-            handleClose();
+            // handleClose();
           } else {
             toast.error(response.data.errorMessage);
           }
@@ -102,13 +120,12 @@ function SalePool({ data, data1 }) {
             <Form.Control
               type="number"
               min={0}
-              max="data1.fishQuantity"
+              // max="data1.fishQuantity"
               placeholder=""
-              maxLength="10"
+              // maxLength="10"
               onChange={(e) => setQuantity(e.target.value)}
-              required
             />
-            <div>{data1.fishQuantity}</div>
+            {/* <div>{data1.fishQuantity}</div> */}
             {/* {data1.map((dataik, index) => (
               <div key={dataik.id}>{dataik.quantity} </div>
             ))} */}
@@ -119,7 +136,7 @@ function SalePool({ data, data1 }) {
               min="0"
               placeholder=""
               onChange={(e) => {
-                setAvgWeight(weight / quantity);
+                // setAvgWeight(weight / quantity);
                 setWeight(e.target.value);
               }}
             />
@@ -130,9 +147,14 @@ function SalePool({ data, data1 }) {
               type="number"
               min="0"
               placeholder=""
-              // value={weight / quantity}
+              // value={Number(weight) / Number(quantity)}
               value={Math.round((weight / quantity) * 10000) / 10000}
-              onChange={(e) => setAvgWeight(e.target.value)}
+              readOnly
+              // onChange={
+              //   (e) =>
+              //   // setAvgWeight(e.target.value)
+              //   // setAvgWeight(Number(weight) / Number(quantity))
+              // }
             />
             <br />
             <Form.Label>Գործընկեր</Form.Label>
@@ -171,7 +193,7 @@ function SalePool({ data, data1 }) {
             variant="primary"
             onClick={() => {
               handleSubmit();
-              // handleClose();
+              handleClose();
             }}
           >
             Հաստատել

@@ -10,8 +10,8 @@ function AddFood() {
 
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
-  const [number, setNumber] = useState("0");
-  const [weight, setWeight] = useState("0");
+  const [number, setNumber] = useState(null);
+  const [weight, setWeight] = useState(null);
   const [coefficient, setCoefficient] = useState("");
   const [error, setError] = useState("");
 

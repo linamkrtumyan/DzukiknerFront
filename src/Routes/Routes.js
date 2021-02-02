@@ -12,6 +12,8 @@ import Login from "../Pages/Login";
 import NavbarPage from "../Navbar/Navbar";
 import Feeding from "../Components/Feeding/Feeding";
 import Losses from "../Components/Losses/Losses";
+import FeedingHistory from "../Components/FeedingHistory/FeedingHistory";
+import FeedingMoveHistory from "../Pages/FeedingMoveHistory";
 
 function Routes({ isLoggedIn }) {
   console.log("isLoggedIn: ", isLoggedIn);
@@ -33,6 +35,12 @@ function Routes({ isLoggedIn }) {
           <Route path="/losses" component={Losses} exact />
           <Route path="/reports" component={Reports} exact />
           <Route path="/information/fishes" component={Fishes} exact />
+          {/* <Route path="feeding-history" component={FeedingHistory} exact /> */}
+          <Route
+            path="/feeding-move-history/:id"
+            component={FeedingMoveHistory}
+            exact
+          />
           <Redirect to="/pools" />
         </Switch>
       </div>
