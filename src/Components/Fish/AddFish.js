@@ -6,19 +6,15 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 function AddFish() {
-  // name, height, width, maxweight
   const fish = useContext(FishContext);
-
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
   const [description, setHeight] = useState(null);
   const [error, setError] = useState("");
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSubmit = (evt) => {
-    console.log(name, description);
     if (name == "") {
       setError("form-control is-invalid ");
     } else {
@@ -28,7 +24,6 @@ function AddFish() {
           description,
         })
         .then((response) => {
-          console.log(response);
           if (response.data.success) {
             const fish1 = {
               id: response.data.id,
@@ -44,7 +39,6 @@ function AddFish() {
           }
         })
         .catch((e) => {
-          console.log("error");
           toast.error("Կատարված չէ");
           handleClose();
         });
@@ -73,7 +67,6 @@ function AddFish() {
             <br />
             <Form.Label>Նկարագրություն</Form.Label>
             <Form.Control
-              //   type="number"
               placeholder=""
               onChange={(e) => setHeight(e.target.value)}
             />

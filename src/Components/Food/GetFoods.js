@@ -6,17 +6,14 @@ import PlusWeight from "./PlusWeight";
 import UpdateFood from "./UpdateFood";
 
 function GetFoods({ data, coef }) {
-  console.log(coef, "coef");
   return (
     <div>
       <Table bordered hover style={{ backgroundColor: "white" }}>
         <thead>
           <tr>
-            {/* <th>Id</th> */}
             <th>Անուն</th>
             <th>Համար</th>
             <th>Քաշ </th>
-            {/* <th>Գործակից </th> */}
             <th>Գործողություն</th>
           </tr>
         </thead>
@@ -25,7 +22,6 @@ function GetFoods({ data, coef }) {
             data.map((food, index) => {
               return (
                 <tr key={index}>
-                  {/* <td>{food.id}</td> */}
                   <td>{food.name}</td>
                   <td>{food.number}</td>
                   <td>{Math.round(food.weight * 10000) / 10000}</td>

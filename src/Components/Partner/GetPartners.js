@@ -9,7 +9,6 @@ function GetPartners({ data }) {
       <Table bordered hover style={{ backgroundColor: "white" }}>
         <thead>
           <tr>
-            {/* <th>Id</th> */}
             <th>Անուն</th>
             <th>Նկարագրություն</th>
             <th>Հեռախոսահամար</th>
@@ -21,7 +20,6 @@ function GetPartners({ data }) {
             data.map((partner, index) => {
               return (
                 <tr key={index}>
-                  {/* <td>{partner.id}</td> */}
                   <td>{partner.name}</td>
                   <td>{partner.description}</td>
                   <td>{partner.phone}</td>

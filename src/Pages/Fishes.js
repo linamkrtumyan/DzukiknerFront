@@ -18,7 +18,6 @@ function Fishes() {
   const updateFish = (fish) => {
     data.map((id1) => {
       if (id1.id == fish.id) {
-        console.log("updateFish");
         id1.name = fish.name;
         id1.description = fish.description;
 
@@ -32,18 +31,15 @@ function Fishes() {
       if (id1.id == fish) {
         const index = data.indexOf(id1);
         data.splice(index, 1);
-        console.log(id1);
+
         setData([...data]);
       }
     });
   };
 
-  console.log(data);
-
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("/info/fish/getFishes");
-      console.log(result.data.allFishes);
 
       setData(result.data.allFishes);
     };
@@ -94,7 +90,6 @@ function Fishes() {
             className="nav-link"
             id="contact-tab"
             data-toggle="tab"
-            // href="#contact"
             role="tab"
             aria-controls="contact"
             aria-selected="false"

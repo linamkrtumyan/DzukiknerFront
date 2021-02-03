@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 function PlusWeight({ data }) {
   const foods = useContext(FoodContext);
-  //   console.log(data);
   const [show, setShow] = useState(false);
   const [id, setId] = useState("");
   const [partners, setPartner] = useState([]);
@@ -22,7 +21,6 @@ function PlusWeight({ data }) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("/info/partner/getPartners");
-      console.log(result.data.allPartners);
       setPartner(result.data.allPartners);
     };
 
@@ -36,8 +34,6 @@ function PlusWeight({ data }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (evt) => {
-    console.log(id, weight, partnerid, description);
-    // { id, name, description, phone }
     axios
       .post(`/info/food/updateWeight`, {
         id,
@@ -47,7 +43,6 @@ function PlusWeight({ data }) {
       })
 
       .then((response) => {
-        console.log(response);
         if (response.data.success) {
           const food = {
             id: id,

@@ -9,7 +9,7 @@ export const DzukContext = React.createContext();
 function Partners() {
   let history = useHistory();
   const [data, setData] = useState([]);
-  // console.log(data);
+
   const addDzuk = (dzuk) => {
     data.push(dzuk);
     setData([...data]);
@@ -17,7 +17,6 @@ function Partners() {
   const updatePartner = (partner) => {
     data.map((id1) => {
       if (id1.id == partner.id) {
-        console.log("updatePartner");
         id1.name = partner.name;
         id1.description = partner.description;
         id1.phone = partner.phone;
@@ -31,28 +30,20 @@ function Partners() {
       if (id1.id == partner) {
         const index = data.indexOf(id1);
         data.splice(index, 1);
-        console.log(id1);
+
         setData([...data]);
       }
     });
   };
 
-  console.log(data);
-
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("/info/partner/getPartners");
-      console.log(result.data.allPartners);
 
       setData(result.data.allPartners);
-      //   console.log(result.data.allPools);
-      // console.log(data, '222');
-
-      // console.log(data.hits);
     };
 
     fetchData();
-    // console.log(data.hits);
   }, []);
   return (
     <div className="container" style={{ paddingTop: "130px" }}>
@@ -67,7 +58,6 @@ function Partners() {
             className="nav-link active "
             id="home-tab"
             data-toggle="tab"
-            // href="#home"
             role="tab"
             aria-controls="home"
             aria-selected="true"
@@ -85,7 +75,6 @@ function Partners() {
             className="nav-link "
             id="profile-tab"
             data-toggle="tab"
-            // href="#profile"
             role="tab"
             aria-controls="profile"
             aria-selected="false"
@@ -103,7 +92,6 @@ function Partners() {
             className="nav-link"
             id="contact-tab"
             data-toggle="tab"
-            // href="#contact"
             role="tab"
             aria-controls="contact"
             aria-selected="false"

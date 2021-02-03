@@ -1,7 +1,3 @@
-.reports {
-  display: block;
-}
-
 .month,
 .year {
   padding-left: 10px;
@@ -12,17 +8,11 @@
 }
 
 .previous-reports {
-  /* float: right; */
-  float: left;
+  float: right;
+  margin-right: 40px;
   display: flex;
-}
-
-.img-text-wrapper {
-  /* float: left; */
-  position: relative;
-  top: 0;
-  display: flex;
-  text-align: center;
+  cursor: pointer;
+  height: 38px;
 }
 
 .subtitle {
@@ -33,8 +23,8 @@
 }
 
 /* .img-text-wrapper:hover .subtitle {
-  color: black;
-  visibility: visible;
+color: black;
+visibility: visible;
 } */
 
 .logo-wrapper img {
@@ -43,12 +33,11 @@
 }
 
 .report-table {
-  /* margin-top: 100px; */
+  margin-top: 80px;
+  max-height: 300px;
+  overflow-x: scroll !important;
 }
 
-#datepicker {
-  cursor: pointer;
-}
 .rep_label {
   color: white;
 }
@@ -56,19 +45,59 @@
   width: 40px;
   background-color: transparent;
 }
+
+.img-text-wrapper {
+  /* / float: left; / */
+  position: relative;
+  top: 0;
+  display: flex;
+  text-align: center;
+}
+
 .download {
-  /* margin: 10px; */
   cursor: pointer;
   width: 130px;
+  height: 0px;
+  margin-top: 40px;
 }
 .download:hover {
-  /* margin: 10px; */
   cursor: pointer;
-  /* background-color: tomato; */
 }
 .download_title {
   padding: 10px 5px;
+  padding-top: 7px;
 }
 .report_title {
+  font-size: 11px !important;
+  padding-top: 5px;
+}
+
+.values-of-report td {
   font-size: 12px !important;
+  text-align: center;
+  padding: 0.3rem;
+  vertical-align: top;
+}
+
+.confirm-btn {
+  float: right;
+  margin-right: 30px;
+}
+#final-input {
+  width: 50px;
+}
+
+.my-custom-scrollbar {
+  position: relative;
+  max-height: 350px;
+  /* / height: 500px; / */
+  /* / max-width: 1350px; / */
+  overflow: auto;
+}
+.table-wrapper-scroll-y {
+  display: block;
+}
+
+.datepicker {
+  margin-right: 100px;
 }

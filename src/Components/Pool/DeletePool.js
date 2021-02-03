@@ -5,7 +5,6 @@ import { PoolContext } from "../../Pages/PoolPage";
 import { toast } from "react-toastify";
 
 function DeletePool({ data1, data }) {
-  // console.log(data1);
   const pool = useContext(PoolContext);
 
   const [show, setShow] = useState(false);
@@ -16,17 +15,10 @@ function DeletePool({ data1, data }) {
     setId(data1.id);
   });
 
-  // console.log(data1.id);
-
   const handleSubmit = (evt) => {
-    console.log(id, "bar");
-    console.log(data1, "data1y deleteic");
-    console.log(data, "datan deleteic");
     axios
       .post(`/pools/deletePool`, { id })
       .then((response) => {
-        // console.log("resp");
-        console.log(response.data.success);
         if (response.data.success == 1) {
           pool.deletePool(id);
           toast.success("Կատարված է");
@@ -38,9 +30,6 @@ function DeletePool({ data1, data }) {
         console.log("error");
         toast.error("Կատարված չէ");
       });
-    // console.log("object");
-    // window.location.reload(false);
-    // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
   return (
@@ -53,7 +42,6 @@ function DeletePool({ data1, data }) {
         <Modal.Header closeButton>
           <Modal.Title>Համոզվա՞ծ եք</Modal.Title>
         </Modal.Header>
-        {/* <Modal.Body>Համոզված եք</Modal.Body> */}
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Չեղարկել

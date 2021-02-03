@@ -30,9 +30,6 @@ function Login() {
   };
 
   const handleSubmit = (event) => {
-    console.log(mail);
-    console.log(password);
-    console.log(captcha);
     event.preventDefault();
 
     if (mail == "" && password == "") {
@@ -42,21 +39,17 @@ function Login() {
     axios
       .post(`/user/login`, { mail, password, captcha })
       .then((res) => {
-        console.log(res.data.success);
         if (res.data.success) {
-          console.log("Success is true!");
           toast.error(res.data);
           window.location.reload();
         } else {
-          console.log(res.data);
           //information given about wrong password or email.
           setClassame("form-control is-invalid");
           toast.error("Սխալ էլ․ փոստ կամ գաղտնաբառ");
         }
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -114,11 +107,5 @@ const mapStateToProps = (state) => {
     isLoggedIn: state.isLoggedIn,
   };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     login: () => dispatch(login()),
-//   };
-// };
 
 export default Login;

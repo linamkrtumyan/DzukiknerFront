@@ -24,24 +24,15 @@ function Correction({ data1, fishData }) {
   const handleShow = () => setShow(true);
 
   const handleSubmit = (evt) => {
-    console.log(id, quantity, "uxarkvoxnery");
-
     axios
       .post(`/pools/correct`, {
         id,
         quantity,
       })
       .then((response) => {
-        console.log(response);
-
         if (response.data.success) {
           const updPool = {
             id: id,
-            // name: name,
-            // fishType: fishType,
-            // height: height,
-            // width: width,
-            // maxweight: maxweight,
           };
           pool.correction(updPool);
           toast.success("Կատարված է");

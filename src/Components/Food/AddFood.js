@@ -5,22 +5,18 @@ import { FoodContext } from "../../Pages/Foods";
 import { toast } from "react-toastify";
 toast.configure();
 function AddFood() {
-  // name, height, width, maxweight
   const food = useContext(FoodContext);
-
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
   const [number, setNumber] = useState(null);
   const [weight, setWeight] = useState(null);
-  const [coefficient, setCoefficient] = useState("");
+
   const [error, setError] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSubmit = (evt) => {
-    // evt.preventDefault();
-    console.log(name, number, weight);
     if (name == "") {
       setError("form-control is-invalid ");
     } else {
@@ -29,16 +25,13 @@ function AddFood() {
           name,
           number,
           weight,
-          // coefficient,
         })
         .then((response) => {
-          console.log(response);
           if (response.data.success) {
             const food1 = {
               name: name,
               number: number,
               weight: weight,
-              // coefficient: coefficient,
             };
             handleClose();
             food.addFood(food1);
@@ -78,25 +71,17 @@ function AddFood() {
             <br />
             <Form.Label>Համար</Form.Label>
             <Form.Control
-              //   type="number"
+              type="number"
               placeholder=""
               onChange={(e) => setNumber(e.target.value)}
             />
             <br />
             <Form.Label>Քաշ</Form.Label>
             <Form.Control
-              //   type="number"
+              type="number"
               placeholder=""
               onChange={(e) => setWeight(e.target.value)}
             />
-            {/* <br />
-            <Form.Label>Գործակից</Form.Label>
-            <Form.Control
-              //   type="number"
-              placeholder=""
-              onChange={(e) => setCoefficient(e.target.value)}
-            />
-            <br /> */}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

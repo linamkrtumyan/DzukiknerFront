@@ -10,7 +10,7 @@ function Foods() {
   let history = useHistory();
   const [data, setData] = useState([]);
   const [coef, setCoef] = useState([]);
-  console.log(data);
+
   const addFood = (food) => {
     data.push(food);
     setData([...data]);
@@ -18,11 +18,9 @@ function Foods() {
   const updateFood = (food) => {
     data.map((id1) => {
       if (id1.id == food.id) {
-        console.log("updateFood");
         id1.name = food.name;
         id1.number = food.number;
         id1.weight = food.weight;
-        // id1.coefficient = food.coefficient;
         setData([...data]);
       }
     });
@@ -31,8 +29,6 @@ function Foods() {
   const plusFood = (food) => {
     data.map((id1) => {
       if (id1.id == food.id) {
-        console.log("plusFood");
-
         id1.weight = parseInt(id1.weight) + parseInt(food.weight);
 
         setData([...data]);
@@ -45,19 +41,15 @@ function Foods() {
       if (id1.id == fish) {
         const index = data.indexOf(id1);
         data.splice(index, 1);
-        console.log(id1);
         setData([...data]);
       }
     });
   };
 
-  console.log(data);
-
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("/info/food/getFoods");
       const coef = await axios("/pools/getPoolsAndDetails");
-      console.log(result.data.allFoods);
 
       setData(result.data.allFoods);
       setCoef(coef.data.allPools);

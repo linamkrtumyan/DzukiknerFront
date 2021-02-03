@@ -3,19 +3,25 @@ import { Button, Tab, Tabs, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
 function MoveHistory({ moveHistory }) {
-  console.log(moveHistory, "moveHistory fin");
-
   return (
     <>
-      <div className="container" style={{ paddingTop: "100px" }}>
+      <div
+        className="container"
+        style={{
+          paddingTop: "50px",
+          backgroundColor: "white",
+          height: "110vh",
+        }}
+      >
         <Table bordered hover style={{ backgroundColor: "white" }}>
           <thead>
             <tr>
-              <th>Կերի տեսակ</th>
-
-              <th>Քաշ </th>
-              <th>Գործակից</th>
-              {/* <th>Գործակից </th> */}
+              <th>Մուտք</th>
+              <th>Ելք</th>
+              <th>Քաշ</th>
+              <th>Միջին քաշ</th>
+              <th>Գործընկեր </th>
+              <th>Նկարագրություն</th>
               <th>Ամսաթիվ</th>
             </tr>
           </thead>
@@ -24,10 +30,13 @@ function MoveHistory({ moveHistory }) {
               moveHistory.map((move, index) => {
                 return (
                   <tr key={index}>
-                    {/* <td>{food.foodName}</td>
-                    <td>{food.weight}</td>
-                    <td>{food.coefficient}</td>
-                    <td>{food.insertedDate}</td> */}
+                    <td>{move.inQuantity}</td>
+                    <td>{move.outQuantity}</td>
+                    <td>{move.weight}</td>
+                    <td>{move.avgWeight}</td>
+                    <td>{move.partnerName}</td>
+                    <td>{move.description}</td>
+                    <td>{move.insertedDate}</td>
                   </tr>
                 );
               })

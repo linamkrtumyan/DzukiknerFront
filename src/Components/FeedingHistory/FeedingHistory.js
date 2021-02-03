@@ -1,21 +1,23 @@
-import React, { useState } from "react";
-import { Button, Tab, Tabs, Table } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+// import react from "react";
+import { Table } from "react-bootstrap";
 
 function FeedingHistory({ foodHistory }) {
-  console.log(foodHistory, "foodHistory fin");
-
   return (
     <>
-      <div className="container" style={{ paddingTop: "100px" }}>
+      <div
+        className="container"
+        style={{
+          paddingTop: "50px",
+          backgroundColor: "white",
+          height: "110vh",
+        }}
+      >
         <Table bordered hover style={{ backgroundColor: "white" }}>
           <thead>
             <tr>
               <th>Կերի տեսակ</th>
-
               <th>Քաշ </th>
               <th>Գործակից</th>
-              {/* <th>Գործակից </th> */}
               <th>Ամսաթիվ</th>
             </tr>
           </thead>
@@ -37,7 +39,7 @@ function FeedingHistory({ foodHistory }) {
               </tr>
             )}
           </tbody>
-        </Table>{" "}
+        </Table>
       </div>
     </>
   );

@@ -17,15 +17,10 @@ function DeleteFood({ data }) {
     setId(data.id);
   });
 
-  //   console.log(data);
-
   const handleSubmit = (evt) => {
-    // evt.preventDefault();
-    console.log(id, "delete food id");
     axios
       .post(`/info/food/deleteFood`, { id })
       .then((response) => {
-        console.log(response);
         if (response.data.success) {
           foods.deleteFood(id);
           toast.success("Կատարված է");
@@ -51,7 +46,6 @@ function DeleteFood({ data }) {
         <Modal.Header closeButton>
           <Modal.Title>Համոզվա՞ծ եք</Modal.Title>
         </Modal.Header>
-        {/* <Modal.Body>Համոզված եք</Modal.Body> */}
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Չեղարկել

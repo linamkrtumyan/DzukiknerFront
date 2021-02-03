@@ -6,10 +6,7 @@ import { PoolContext } from "../../Pages/PoolPage";
 // import { useFormik } from 'formik';
 
 function AddPool({ fishData }) {
-  console.log(fishData);
-  // name, height, width, maxweight
   const pool = useContext(PoolContext);
-  // const [fishData, setFishData] = useState("");
   const [id, setId] = useState("");
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
@@ -24,12 +21,10 @@ function AddPool({ fishData }) {
     fishData.map((fish1) => {
       if (fish1.id == fishName) {
         setFishType(fish1.name);
-        // console.log(fishType, "fishType");
       }
     });
   });
   const handleSubmit = (evt) => {
-    console.log(name, fishName);
     if (name == "") {
       setError("form-control is-invalid ");
     } else {
@@ -39,8 +34,6 @@ function AddPool({ fishData }) {
           fishName,
         })
         .then((response) => {
-          console.log(response);
-
           if (response.data.success) {
             const newPool = {
               id: response.data.id,
@@ -50,7 +43,6 @@ function AddPool({ fishData }) {
               fishQuantity: 0,
               fishWeight: 0,
             };
-            console.log(fishType, "fishtype newpool");
             pool.addNewPool(newPool);
             handleClose();
             toast.success("Կատարված է");

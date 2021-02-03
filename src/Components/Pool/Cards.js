@@ -15,8 +15,6 @@ function Cards({ data, fishData }) {
           />
         ))}
       </div>
-
-      {/* <PoolCard data={data} /> */}
     </>
   );
 }

@@ -9,8 +9,6 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 function Logout({ isLoggedIn }) {
-  console.log(isLoggedIn);
-
   let history = useHistory();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -18,22 +16,17 @@ function Logout({ isLoggedIn }) {
     axios
       .get(`/user/logout`)
       .then((res) => {
-        console.log(res.data.success);
         if (res.data.success) {
-          console.log("Success is true!");
           toast.error(res.data);
           // logout(false);
           // history.push("/login");
           window.location = "/login";
         } else {
-          console.log(res.data);
-
           toast.error(res.data);
         }
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -51,11 +44,5 @@ const mapStateToProps = (state) => {
     isLoggedIn: state.isLoggedIn,
   };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     logout: () => dispatch(logout()),
-//   };
-// };
 
 export default connect(mapStateToProps, null)(Logout);

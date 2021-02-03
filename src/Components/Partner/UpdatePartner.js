@@ -8,14 +8,12 @@ import "./partner.css";
 
 function UpdatePartner({ data }) {
   const dzukik = useContext(DzukContext);
-  //   console.log(data);
   const [show, setShow] = useState(false);
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
-  //   console.log(id, name, description, phone);
 
   const newDataFunc = () => {
     setId(data.id);
@@ -26,16 +24,12 @@ function UpdatePartner({ data }) {
 
   useEffect(() => {
     setId(data.id);
-    // console.log(id, "useeffect id");
   }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSubmit = (evt) => {
-    // evt.preventDefault();
-    console.log(id, name, description, phone);
-    // { id, name, description, phone }
     if (name == "") {
       setError("form-control is-invalid ");
     } else {
@@ -47,7 +41,6 @@ function UpdatePartner({ data }) {
           phone,
         })
         .then((response) => {
-          console.log(response);
           if (response.data.success) {
             const partner = {
               id: id,
@@ -74,14 +67,11 @@ function UpdatePartner({ data }) {
   return (
     <>
       <div
-        // className="edit_icon"
-        // variant="primary"
         onClick={() => {
           handleShow();
           newDataFunc();
         }}
       >
-        {/* ✎ */}
         <img
           className="partner_icon editik"
           src={require("../../img/pencil.svg").default}
@@ -94,14 +84,6 @@ function UpdatePartner({ data }) {
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
-            {/* <Form.Label>Ավազան</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder=""
-              value={id}
-              onChange={(e) => setId(e.target.value)}
-            />
-            <br /> */}
             <Form.Label>Անուն</Form.Label>
             <Form.Control
               type="text"

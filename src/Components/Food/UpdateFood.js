@@ -7,50 +7,41 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 function UpdateFood({ data }) {
   const foods = useContext(FoodContext);
-  //   console.log(data);
   const [show, setShow] = useState(false);
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [weight, setWeight] = useState("");
-  // const [coefficient, setCoefficient] = useState("");
 
   const newDataFunc = () => {
     setId(data.id);
     setName(data.name);
     setNumber(data.number);
     setWeight(data.weight);
-    // setCoefficient(data.coefficient);
   };
 
   useEffect(() => {
     setId(data.id);
-    // console.log(id, "useeffect id");
   }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (evt) => {
-    console.log(id, name, number, weight);
-    // { id, name, description, phone }
     axios
       .post(`/info/food/updateFood`, {
         id,
         name,
         number,
         weight,
-        // coefficient,
       })
 
       .then((response) => {
-        console.log(response);
         if (response.data.success) {
           const food = {
             id: id,
             name: name,
             number: number,
             weight: weight,
-            // coefficient: coefficient,
           };
           foods.updateFood(food);
           toast.success("Կատարված է");

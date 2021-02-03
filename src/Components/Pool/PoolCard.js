@@ -16,16 +16,10 @@ function PoolCard({ data, data1, fishData }) {
   const history = useHistory();
   const [feeding, setFeeding] = useState(false);
 
-  // useEffect(() => {
-  //   handleClick();
-  // }, [feeding]);
   function handleClick() {
-    // setFeeding(true);
     history.push(`/feeding-move-history/${data1.id}`);
   }
-  // if (feeding) {
-  //   return <FeedingMoveHistory id={data1.id} />;
-  // } else {
+
   return (
     <div
       style={{

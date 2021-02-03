@@ -1,6 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Table, InputGroup, FormControl, Form, Button } from "react-bootstrap";
-import AddFeeding from "./AddFeeding";
+import React, { useState, useEffect } from "react";
+import { Table, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
@@ -12,10 +11,9 @@ function Feeding() {
   let history = useHistory();
   const [data, setData] = useState([]);
   const [foods, setFoods] = useState([]);
-  const [coefficient, setCoefficient] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [sendDate, setSendDate] = useState("");
-  //   console.log(coefficient, "coef from page");
+
   useEffect(() => {
     setSendDate(
       selectedDate.getFullYear() +
@@ -34,58 +32,33 @@ function Feeding() {
   }, [selectedDate]);
 
   useEffect(() => {
-    console.log("object");
     const fetchData = async () => {
-      console.log("object2");
       const result = await axios("/pools/getPools");
-      console.log("object3");
-      const foodresult = await axios("/info/food/getFoods");
-      // const coefresult = await axios("/info/food/getCoefficient");
-      console.log(foodresult, "foodresult");
-      console.log(result.data.allPools, "result");
-      // console.log(result, "result");
 
-      // setCoefficient(coefresult.data.allCoef);
+      const foodresult = await axios("/info/food/getFoods");
+
       setData(result.data.allPools);
+      setAddFood(result.data.allPools);
       setFoods(foodresult.data.allFoods);
     };
 
     fetchData();
   }, []);
 
-  console.log(foods, "data feeding");
-  const [addFood, setAddFood] = useState(data);
-  // con
+  const [addFood, setAddFood] = useState("");
   const ExampleCustomInput = ({ value, onClick }) => (
     <Button className="example-custom-input" onClick={onClick}>
       {value}
     </Button>
   );
-  console.log(addFood, "addfood");
-  // console.log(sendDate, "sendDate");
-  // let sql = addFood.map(
-  //   (item) =>
-  //     `(${item.id}, ${item.coef}, ${item.count}, ${item.food}, ${item.name})`
-  // );
-
-  // console.log(sql, "sql");
 
   const handleSubmit = (evt) => {
-    // evt.target.reset();
-    // evt.preventDefault();
-    // setAddFood([...sendDate]);
-    // addFood.push(sendDate);
-    console.log(addFood);
-
     axios
       .post(`/feeding/addFeed`, {
         addFood,
       })
       .then((response) => {
-        // evt.target.reset();
-        console.log(response);
         if (response.data.success) {
-          // evt.target.reset();
           setAddFood("");
           toast.success("Կատարված է");
         } else {
@@ -165,15 +138,12 @@ function Feeding() {
               data.map((pool, index) => {
                 return (
                   <tr key={pool.id}>
-                    {/* <td>{partner.id}</td> */}
                     <td>{pool.name}</td>
                     <td>
                       <Form.Control
                         type="number"
                         min="0"
-                        // type="reset"
                         placeholder="Կերի քանակ"
-                        // name="count"
                         onChange={(e) => {
                           addFood[index] = {
                             ...data[index],
@@ -186,7 +156,6 @@ function Feeding() {
                       />
                     </td>
                     <td>
-                      {" "}
                       <Form.Control
                         as="select"
                         placeholder="Ընտրեք կերը"
@@ -194,7 +163,6 @@ function Feeding() {
                           addFood[index] = {
                             ...data[index],
                             ...addFood[index],
-                            // count: count,
                             food: e.target.value,
                           };
                           setAddFood([...addFood]);
@@ -225,23 +193,14 @@ function Feeding() {
 
                           setAddFood([...addFood]);
                         }}
-                      >
-                        {/* <option hidden value="">
-                        Ընտրեք գործակիցը
-                      </option>
-                      {data.map((coef) => (
-                        <option key={coef.id} value={coef.id}>
-                          {coef.coefficient}
-                        </option>
-                      ))} */}
-                      </Form.Control>
+                      ></Form.Control>
                     </td>
                   </tr>
                 );
               })
             ) : (
               <tr>
-                <td colSpan="5">Loading...</td>
+                <td colSpan="5">Տվյաներ չկան</td>
               </tr>
             )}
           </tbody>

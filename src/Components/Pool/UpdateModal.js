@@ -7,7 +7,6 @@ import "./style.css";
 
 function UpdateModal({ data1, fishData }) {
   const pool = useContext(PoolContext);
-  console.log(fishData, "fishData");
 
   const [show, setShow] = useState(false);
   const [id, setId] = useState("");
@@ -37,8 +36,6 @@ function UpdateModal({ data1, fishData }) {
   const handleShow = () => setShow(true);
 
   const handleSubmit = (evt) => {
-    console.log(id, name, fishName, "uxarkvoxnery");
-    console.log(fishName, "fishnamn a *****");
     axios
       .post(`/pools/updatePool`, {
         id,
@@ -46,16 +43,11 @@ function UpdateModal({ data1, fishData }) {
         fishName,
       })
       .then((response) => {
-        console.log(response);
-
         if (response.data.success) {
           const updPool = {
             id: id,
             name: name,
             fishType: fishType,
-            // height: height,
-            // width: width,
-            // maxweight: maxweight,
           };
           pool.updatePool(updPool);
           toast.success("Կատարված է");

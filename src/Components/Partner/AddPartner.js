@@ -9,7 +9,6 @@ import "./partner.css";
 toast.configure();
 
 function AddPartner() {
-  // name, height, width, maxweight
   const dzukik = useContext(DzukContext);
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
@@ -20,12 +19,7 @@ function AddPartner() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // useEffect(() => {
-  //   handleSubmit();
-  // }, []);
-
   const handleSubmit = (evt) => {
-    console.log(name, description, phone);
     if (name == "") {
       setError("form-control is-invalid ");
     } else {
@@ -37,9 +31,6 @@ function AddPartner() {
           phone,
         })
         .then((response) => {
-          console.log(response);
-          // toast.error("avelacav");
-          // window.location.reload(false);
           if (response.data.success) {
             const dzuk = {
               id: response.data.id,
@@ -60,13 +51,10 @@ function AddPartner() {
           toast.error("Կատարված չէ");
         });
     }
-
-    // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
   return (
     <div>
-      {/* <button onClick={notify}>Notify !</button> */}
       <ToastContainer />
       <Button variant="primary" onClick={handleShow}>
         Ավելացնել
@@ -84,7 +72,6 @@ function AddPartner() {
               className={error}
               onChange={(e) => setName(e.target.value)}
             />
-            {/* <small className="text-danger">Name is required.</small> */}
             <br />
             <Form.Label>Նկարագրություն</Form.Label>
             <Form.Control

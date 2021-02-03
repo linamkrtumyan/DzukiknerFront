@@ -24,7 +24,6 @@ function MovePool({ data, data1 }) {
   }, [weight, quantity]);
 
   const handleSubmit = (evt) => {
-    console.log(fromPoolid, toPoolid, quantity, weight, forSend, description);
     axios
       .post(`/pools/movement`, {
         fromPoolid,
@@ -35,7 +34,6 @@ function MovePool({ data, data1 }) {
         description,
       })
       .then((response) => {
-        console.log(response);
         if (response.data.success) {
           const move = {
             fromPoolid: fromPoolid,
@@ -68,7 +66,6 @@ function MovePool({ data, data1 }) {
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
             <Form.Label>Դեպի ուր</Form.Label>
-            {/* onChange={(e) => setId(e.target.value)} */}
             <Form.Control
               as="select"
               placeholder="Ընտրեք ավազանը"

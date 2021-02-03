@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 function UpdateFish({ data }) {
   const fishes = useContext(FishContext);
-  //   console.log(data);
   const [show, setShow] = useState(false);
   const [id, setId] = useState("");
   const [name, setName] = useState("");
@@ -22,16 +21,11 @@ function UpdateFish({ data }) {
 
   useEffect(() => {
     setId(data.id);
-    // console.log(id, "useeffect id");
   }, []);
-  //   console.log(id, name, description, phone);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (evt) => {
-    // evt.preventDefault();
-    console.log(id, name, description);
-    // { id, name, description, phone }
     if (name == "") {
       setError("form-control is-invalid ");
     } else {
@@ -42,7 +36,6 @@ function UpdateFish({ data }) {
           description,
         })
         .then((response) => {
-          console.log(response);
           if (response.data.success) {
             const fish = {
               id: id,

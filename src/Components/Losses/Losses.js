@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Table, InputGroup, FormControl, Form, Button } from "react-bootstrap";
-// import AddFeeding from "./AddFeeding";
+
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 function Losses() {
   let history = useHistory();
   const [data, setData] = useState([]);
-  const [addLosses, setAddLosses] = useState(data);
+  const [addLosses, setAddLosses] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [sendDate, setSendDate] = useState("");
   const ExampleCustomInput = ({ value, onClick }) => (
@@ -18,7 +18,6 @@ function Losses() {
       {value}
     </Button>
   );
-  //   console.log(coefficient, "coef from page");
   useEffect(() => {
     setSendDate(
       selectedDate.getFullYear() +
@@ -36,25 +35,21 @@ function Losses() {
     );
   }, [selectedDate]);
 
-  console.log(addLosses, "addLosses");
   useEffect(() => {
-    console.log("object");
     const fetchData = async () => {
       const result = await axios("/pools/getPools");
-
+      setAddLosses(result.data.allPools);
       setData(result.data.allPools);
     };
 
     fetchData();
   }, []);
   const handleSubmit = (evt) => {
-    console.log("sql");
     axios
       .post(`/losses/addLosse`, {
         addLosses,
       })
       .then((response) => {
-        console.log(response, "response");
         if (response.data.success) {
           toast.success("Կատարված է");
         } else {
@@ -133,9 +128,8 @@ function Losses() {
             <tr>
               <th>Ավազան</th>
               <th>Թափոն (հատ)</th>
-              {/* <th>Թափոն (կգ)</th> */}
+
               <th>Պիտանի (հատ)</th>
-              {/* <th>Պիտանի (կգ)</th>s */}
             </tr>
           </thead>
           <tbody>
@@ -143,10 +137,8 @@ function Losses() {
               data.map((pool, index) => {
                 return (
                   <tr key={pool.id}>
-                    {/* <td>{partner.id}</td> */}
                     <td>{pool.name}</td>
                     <td>
-                      {" "}
                       <Form.Control
                         type="number"
                         min="0"
@@ -163,26 +155,8 @@ function Losses() {
                         }}
                       ></Form.Control>
                     </td>
-                    {/* <td>
-                      
-                      <Form.Control
-                        type="number"
-                        min="0"
-                        placeholder="Թափոն (կգ)"
-                        onChange={(e) => {
-                          addLosses[index] = {
-                            ...data[index],
-                            ...addLosses[index],
-
-                            wasteweight: e.target.value,
-                          };
-                          setAddLosses([...addLosses]);
-                        }}
-                      ></Form.Control>
-                    </td> */}
 
                     <td>
-                      {" "}
                       <Form.Control
                         type="number"
                         min="0"
@@ -198,28 +172,12 @@ function Losses() {
                         }}
                       ></Form.Control>
                     </td>
-                    {/* <td>
-                      <Form.Control
-                        type="number"
-                        min="0"
-                        placeholder="Պիտանի (կգ)"
-                        onChange={(e) => {
-                          addLosses[index] = {
-                            ...data[index],
-                            ...addLosses[index],
-
-                            profitablewasteweight: e.target.value,
-                          };
-                          setAddLosses([...addLosses]);
-                        }}
-                      ></Form.Control>
-                    </td> */}
                   </tr>
                 );
               })
             ) : (
               <tr>
-                <td colSpan="5">Loading...</td>
+                <td colSpan="5">Տվյաներ չկան</td>
               </tr>
             )}
           </tbody>

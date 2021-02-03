@@ -16,7 +16,6 @@ import FeedingHistory from "../Components/FeedingHistory/FeedingHistory";
 import FeedingMoveHistory from "../Pages/FeedingMoveHistory";
 
 function Routes({ isLoggedIn }) {
-  console.log("isLoggedIn: ", isLoggedIn);
   if (isLoggedIn) {
     return (
       <div>
@@ -46,7 +45,7 @@ function Routes({ isLoggedIn }) {
       </div>
     );
   } else {
-    console.log("Routes, ", isLoggedIn);
+    // console.log("Routes, ", isLoggedIn);
     return (
       <Switch>
         <Route path="/login" component={Login} exact>

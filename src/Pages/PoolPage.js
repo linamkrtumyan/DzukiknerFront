@@ -14,7 +14,6 @@ toast.configure();
 function PoolPage() {
   const [data, setData] = useState([]);
   const [fishData, setFishData] = useState([]);
-  console.log(data, "pool page data");
   const [changeData, setChangeData] = useState([]);
 
   const addNewPool = (pool) => {
@@ -27,17 +26,13 @@ function PoolPage() {
       if (id1.id == pool) {
         const index = data.indexOf(id1);
         data.splice(index, 1);
-        // console.log(id1);
         setData([...data]);
-        console.log(data, "jnjeluc heto arrayy");
-        // setChangeData(data.filter((id1) => id1.id != pool));
       }
     });
   };
   const updatePool = (pool) => {
     data.map((id1) => {
       if (id1.id == pool.id) {
-        console.log("updatePool");
         id1.name = pool.name;
         id1.fishType = pool.fishType;
         setData([...data]);
@@ -48,7 +43,6 @@ function PoolPage() {
   const inPool = (pool) => {
     data.map((id1) => {
       if (id1.id == pool.id) {
-        console.log("inPool");
         id1.fishQuantity = parseInt(id1.fishQuantity) + parseInt(pool.quantity);
         id1.fishWeight = parseInt(id1.fishWeight) + parseInt(pool.weight);
         id1.fishAvgWeight =
@@ -60,7 +54,6 @@ function PoolPage() {
   const correction = (pool) => {
     data.map((id1) => {
       if (id1.id == pool.id) {
-        console.log("inPool");
         id1.fishQuantity = 0;
         id1.fishWeight = 0;
         id1.fishAvgWeight = 0;
@@ -72,7 +65,6 @@ function PoolPage() {
   const salePool = (pool) => {
     data.map((id1) => {
       if (id1.id == pool.id) {
-        console.log("salePool");
         id1.fishQuantity = parseInt(id1.fishQuantity) - parseInt(pool.quantity);
         id1.fishWeight = parseInt(id1.fishWeight) - parseInt(pool.weight);
         id1.fishAvgWeight =
@@ -80,8 +72,6 @@ function PoolPage() {
         if (id1.fishQuantity > 0 || id1.fishWeight > 0) {
           setData([...data]);
         } else {
-          toast.error("aaaaaaaa");
-          console.log("aaaaaaaaaaaaaaa");
         }
       }
     });
@@ -89,7 +79,6 @@ function PoolPage() {
   const movePool = (pool) => {
     data.map((id1) => {
       if (id1.id == pool.fromPoolid) {
-        console.log("movePool");
         id1.fishQuantity = parseInt(id1.fishQuantity) - parseInt(pool.quantity);
         id1.fishWeight = parseInt(id1.fishWeight) - parseInt(pool.weight);
         id1.fishAvgWeight = id1.fishWeight / id1.fishQuantity;
@@ -98,7 +87,6 @@ function PoolPage() {
     });
     data.map((id1) => {
       if (id1.id == pool.toPoolid) {
-        console.log("movePool");
         id1.fishQuantity = parseInt(id1.fishQuantity) + parseInt(pool.quantity);
         id1.fishWeight = parseInt(id1.fishWeight) + parseInt(pool.weight);
         id1.fishAvgWeight = id1.fishWeight / id1.fishQuantity;
@@ -112,7 +100,7 @@ function PoolPage() {
       const result = await axios("/pools/getPoolsAndDetails");
       const fishDatares = await axios("/info/fish/getFishes");
       setFishData(fishDatares.data.allFishes);
-      console.log(result, "gpollsdetails");
+
       setData(result.data.allPools);
     };
 
@@ -124,7 +112,7 @@ function PoolPage() {
       <div
         style={{
           padding: "10px 0px",
-          // fontWeight: "700",
+
           display: "flex",
           justifyContent: "space-between",
         }}
@@ -151,8 +139,6 @@ function PoolPage() {
       >
         <Cards fishData={fishData} data={data} />
       </PoolContext.Provider>
-
-      {/* <Cards /> */}
     </div>
   );
 }

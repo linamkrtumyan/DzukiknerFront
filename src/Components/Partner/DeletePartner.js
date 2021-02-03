@@ -24,7 +24,6 @@ function DeletePartner({ data }) {
     axios
       .post(`/info/partner/deletePartner`, { id })
       .then((response) => {
-        console.log(response);
         if (response.data.success) {
           dzukik.deletePartner(id);
           toast.success("Կատարված է");
@@ -35,8 +34,6 @@ function DeletePartner({ data }) {
       .catch((e) => {
         console.log("error");
       });
-    //   window.location.reload(false);
-    // const res = await axios.put('/pools/updatePool', { hello: 'world' });
   };
 
   return (
@@ -52,7 +49,6 @@ function DeletePartner({ data }) {
         <Modal.Header closeButton>
           <Modal.Title>Համոզվա՞ծ եք</Modal.Title>
         </Modal.Header>
-        {/* <Modal.Body>Համոզված եք</Modal.Body> */}
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Չեղարկել
