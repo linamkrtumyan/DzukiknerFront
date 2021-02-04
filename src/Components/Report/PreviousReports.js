@@ -41,7 +41,7 @@ export default function PreviousReports(props) {
 
     fetchData();
     setDate(sd);
-  }, [sd, reports]);
+  }, [sd]);
 
   const getPreviousReports = (e) => {
     e.preventDefault();
