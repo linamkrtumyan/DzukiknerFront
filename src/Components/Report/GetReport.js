@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Download from "./Download";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import PreviousReports from "./PreviousReports";
 
 export default function GetReports({ data }) {
   // console.log(data);
@@ -25,7 +26,8 @@ export default function GetReports({ data }) {
     const month = selectedDate.getMonth() + 1;
     const year = selectedDate.getFullYear();
     e.preventDefault();
-    history.push(`/report-for-month/${month}/${year}`);
+    history.push(`/report-for-month/${month}/${year}/${selectedDate}`);
+    <PreviousReports />;
   };
 
   const setFinal = (weight, r) => {

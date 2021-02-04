@@ -7,13 +7,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import Download from "./Download";
 
 export default function PreviousReports(props) {
-  const { month, year } = props.match.params;
-  console.log(month, year);
+  const { month, year, selectedDate } = props.match.params;
+  // const selectedDate = Date.parse(`${month}/${year}`)
+  const sd = Date.parse(selectedDate);
+  console.log(typeof selectedDate);
+  // console.log(month, year);
 
   console.log("previous");
 
   const [reports, setReports] = useState([]);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(sd);
 
   useEffect(() => {
     const fetchData = () => {
@@ -37,7 +40,8 @@ export default function PreviousReports(props) {
     };
 
     fetchData();
-  }, []);
+    setDate(sd);
+  }, [sd, reports]);
 
   const getPreviousReports = (e) => {
     e.preventDefault();
@@ -82,7 +86,7 @@ export default function PreviousReports(props) {
         <DatePicker
           className="datepicker"
           customInput={<ExampleCustomInput />}
-          //   selected={selectedDate}
+          // selected={selectedDate}
           selected={date}
           onChange={(date) => setDate(date)}
           dateFormat="MM/yyyy"

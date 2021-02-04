@@ -34,7 +34,7 @@ function Routes({ isLoggedIn }) {
           <Route path="/reports" component={Reports} exact />
           <Route path="/information/fishes" component={Fishes} exact />
           <Route
-            path="/report-for-month/:month/:year"
+            path="/report-for-month/:month/:year/:selectedDate"
             component={PreviousReports}
             exact
           />
