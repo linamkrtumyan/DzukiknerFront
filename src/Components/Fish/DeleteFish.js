@@ -29,7 +29,7 @@ function DeleteFish({ data }) {
         }
       })
       .catch((e) => {
-        console.log("error");
+        toast.error("Կատարված չէ");
       });
   };
 

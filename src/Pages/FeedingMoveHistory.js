@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Button, Tab, Tabs } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import FeedingHistory from "../Components/FeedingHistory/FeedingHistory";
 import MoveHistory from "../Components/MoveHistory/MoveHistory";
 
@@ -31,7 +33,7 @@ function FeedingMoveHistory(props) {
           }
         })
         .catch((e) => {
-          console.log("error");
+          toast.error("Կատարված չէ");
         });
     };
     const fetchData1 = async () => {
@@ -43,7 +45,7 @@ function FeedingMoveHistory(props) {
           setMoveHistory(response.data.fields);
         })
         .catch((e) => {
-          console.log("error");
+          toast.error("Կատարված չէ");
         });
     };
 

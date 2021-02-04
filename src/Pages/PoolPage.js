@@ -14,7 +14,7 @@ toast.configure();
 function PoolPage() {
   const [data, setData] = useState([]);
   const [fishData, setFishData] = useState([]);
-  const [changeData, setChangeData] = useState([]);
+  // const [changeData, setChangeData] = useState([]);
 
   const addNewPool = (pool) => {
     data.push(pool);

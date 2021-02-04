@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DzukContext } from "../../Pages/Partners";
@@ -17,8 +17,6 @@ function DeletePartner({ data }) {
     setId(data.id);
   });
 
-  //   console.log(data);
-
   const handleSubmit = (evt) => {
     // evt.preventDefault();
     axios
@@ -32,7 +30,7 @@ function DeletePartner({ data }) {
         }
       })
       .catch((e) => {
-        console.log("error");
+        toast.error("Կատարված չէ");
       });
   };
 

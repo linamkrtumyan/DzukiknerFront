@@ -55,7 +55,6 @@ function PlusWeight({ data }) {
         }
       })
       .catch((e) => {
-        console.log("error");
         toast.error("Կատարված չէ");
       });
   };

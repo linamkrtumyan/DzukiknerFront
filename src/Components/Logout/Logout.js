@@ -6,10 +6,10 @@ import { Button } from "react-bootstrap";
 // import auth from '../../Auth/Auth'
 
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 function Logout({ isLoggedIn }) {
-  let history = useHistory();
+  // let history = useHistory();
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -26,7 +26,7 @@ function Logout({ isLoggedIn }) {
         }
       })
       .catch((err) => {
-        // console.log(err);
+        toast.error("Կատարված չէ");
       });
   };
 

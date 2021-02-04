@@ -48,7 +48,6 @@ function MovePool({ data, data1 }) {
         }
       })
       .catch((e) => {
-        console.log("error");
         toast.error("Կատարված չէ");
       });
   };

@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Table, InputGroup, FormControl, Form, Button } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Table, Form, Button } from "react-bootstrap";
 
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -57,7 +57,6 @@ function Losses() {
         }
       })
       .catch((e) => {
-        console.log("error");
         toast.error("Կատարված չէ");
       });
   };
@@ -68,7 +67,6 @@ function Losses() {
         <li
           className="nav-item cursor"
           onClick={() => history.push("/feeding")}
-          className="nav-item cursor"
         >
           <a
             className="nav-link  "

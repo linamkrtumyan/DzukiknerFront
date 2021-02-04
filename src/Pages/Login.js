@@ -49,7 +49,7 @@ function Login() {
         }
       })
       .catch((err) => {
-        // console.log(err);
+        toast.error("Կատարված չէ");
       });
   };
 

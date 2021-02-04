@@ -53,7 +53,6 @@ function UpdateFish({ data }) {
         })
         .catch((e) => {
           handleClose();
-          console.log("error");
           toast.error("Կատարված չէ");
         });
       // const res = await axios.put('/pools/updatePool', { hello: 'world' });

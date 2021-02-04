@@ -50,7 +50,6 @@ function UpdateFood({ data }) {
         }
       })
       .catch((e) => {
-        console.log("error");
         toast.error("Կատարված չէ");
       });
   };

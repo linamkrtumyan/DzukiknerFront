@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Modal, Button, Form, Alert } from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -47,7 +47,6 @@ function AddPartner() {
           }
         })
         .catch((e) => {
-          console.log("error");
           toast.error("Կատարված չէ");
         });
     }

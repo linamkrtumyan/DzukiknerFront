@@ -2,19 +2,17 @@ import React, { useEffect, useState } from "react";
 import GetReport from "../Components/Report/GetReport";
 import axios from "axios";
 
-export const DzukContext = React.createContext();
-
 function Reports() {
   const [data, setData] = useState([]);
 
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     const fetchData = async () => {
       axios
-        .post(`/reports/getCurrentReports`, {})
+        .post(`/reports/getCurrentReports`)
         .then((response) => {
-          // console.log(response.data.reports);
+          console.log(response.data.reports);
           if (response.data.reports) {
             setData(response.data.reports);
           } else {

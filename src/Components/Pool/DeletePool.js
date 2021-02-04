@@ -27,7 +27,6 @@ function DeletePool({ data1, data }) {
         }
       })
       .catch((e) => {
-        console.log("error");
         toast.error("Կատարված չէ");
       });
   };

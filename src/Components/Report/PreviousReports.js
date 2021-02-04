@@ -5,56 +5,59 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Download from "./Download";
-import { useHistory } from "react-router-dom";
-import { toast } from "react-toastify";
 
-export default function GetReports({ data }) {
-  // console.log(data);
+export default function PreviousReports(props) {
+  const { month, year } = props.match.params;
+  console.log(month, year);
 
-  let history = useHistory();
+  console.log("previous");
 
-  let final = [];
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [reports, setReports] = useState(data);
+  const [reports, setReports] = useState([]);
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    setReports(data);
-  }, [data]);
+    const fetchData = () => {
+      axios
+        .post(`/reports/getReportsForMonth`, {
+          month,
+          year,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.data.reports) {
+            setReports(response.data.reports);
+            console.log("++++++", reports);
+          } else {
+            console.log(response.data.errorMessage);
+          }
+        })
+        .catch((e) => {
+          console.log("error:", e);
+        });
+    };
+
+    fetchData();
+  }, []);
 
   const getPreviousReports = (e) => {
-    const month = selectedDate.getMonth() + 1;
-    const year = selectedDate.getFullYear();
     e.preventDefault();
-    history.push(`/report-for-month/${month}/${year}`);
-  };
 
-  const setFinal = (weight, r) => {
-    // e.preventDefault()
-    final.push({
-      poolid: r.PoolId,
-      weight: weight,
-    });
-    console.log("final::::", final);
-  };
-
-  const confirmReport = (e) => {
-    e.preventDefault();
-    console.log("final: ", final);
     axios
-      .post("/reports/confirmReport", { final })
+      .post(`/reports/getReportsForMonth`, {
+        month: date.getMonth() + 1,
+        year: date.getFullYear(),
+      })
       .then((response) => {
         console.log(response);
-        if (response.data.success) {
-          console.log("saveReports: ", response.data.success);
-          toast.success("Կատարված է");
+        if (response.data.reports) {
+          setReports(response.data.reports);
+          console.log("++++++", reports);
         } else {
-          console.log("saveReports: failed", response.data.success);
-          toast.success("Չհաջողվեց հաստատել");
+          console.log(response.data.errorMessage);
         }
       })
       .catch((e) => {
         console.log("error:", e);
-        toast.success("Չհաջողվեց հաստատել");
       });
   };
 
@@ -69,15 +72,19 @@ export default function GetReports({ data }) {
   );
 
   return (
-    <div style={{ marginTop: "30px", display: "block" }}>
+    <div
+      style={{ paddingTop: "70px", display: "block" }}
+      // style={{ display: "absolute" }}
+    >
       <Download reports={reports} />
 
-      <div className="previous-reports">
+      <div className="report-for-month">
         <DatePicker
           className="datepicker"
           customInput={<ExampleCustomInput />}
-          selected={selectedDate}
-          onChange={(date) => setSelectedDate(date)}
+          //   selected={selectedDate}
+          selected={date}
+          onChange={(date) => setDate(date)}
           dateFormat="MM/yyyy"
           showMonthYearPicker
           closeOnScroll={true}
@@ -98,7 +105,7 @@ export default function GetReports({ data }) {
         bordered
         hover
         style={{ backgroundColor: "white", className: "values-of-report td" }}
-        className="report-table table-wrapper-scroll-y my-custom-scrollbar"
+        className="report-for-month-table table-wrapper-scroll-y my-custom-scrollbar"
       >
         <thead>
           <tr className="values-of-report td">
@@ -137,7 +144,9 @@ export default function GetReports({ data }) {
             <th>Գործակից</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody
+        // className="table-wrapper-scroll-y my-custom-scrollbar"
+        >
           {reports.length > 0 ? (
             reports.map((report, index) => {
               return (
@@ -155,21 +164,14 @@ export default function GetReports({ data }) {
                   <td>{parseFloat(report.MoveWeight).toFixed(1)}</td>
                   <td>{report.DeadQuantity}</td>
                   <td>{parseFloat(report.DeadWeight).toFixed(1)}</td>
-                  <td>
-                    <input
-                      id="final-input"
-                      onChange={(e) => {
-                        setFinal(e.target.value, report);
-                      }}
-                    />
-                  </td>
+                  <td>{report.FinalAvgWeight}</td>
                   <td>{report.FinalQuantity}</td>
-                  <td>{final.length > 0 ? "nnn" : "-"}</td>
+                  <td>{report.FinalWeight}</td>
                   <td>{report.PlusOrMinusQuantity}</td>
                   <td>{parseFloat(report.PlusOrMinusWeight).toFixed(1)}</td>
                   <td>{report.Food}</td>
-                  <td>-{/* {parseFloat(report.WeightGrow).toFixed(1)}*/}</td>
-                  <td>-{/* {parseFloat(report.Coefficient).toFixed(1)} */}</td>
+                  <td>{parseFloat(report.WeightGrow).toFixed(1)}</td>
+                  <td>{parseFloat(report.Coefficient).toFixed(1)}</td>
                 </tr>
               );
             })
@@ -180,10 +182,6 @@ export default function GetReports({ data }) {
           )}
         </tbody>
       </Table>
-
-      <Button onClick={confirmReport} className="confirm-btn" variant="primary">
-        Հաստատել
-      </Button>
     </div>
   );
 }

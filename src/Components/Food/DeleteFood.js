@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FoodContext } from "../../Pages/Foods";
@@ -29,7 +29,7 @@ function DeleteFood({ data }) {
         }
       })
       .catch((e) => {
-        console.log("error");
+        toast.error("Կատարված չէ");
       });
   };
 

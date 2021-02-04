@@ -42,7 +42,6 @@ function AddFood() {
           }
         })
         .catch((e) => {
-          console.log("error");
           handleClose();
           toast.error("Կատարված չէ");
         });

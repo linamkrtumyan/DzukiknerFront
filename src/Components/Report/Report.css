@@ -34,7 +34,7 @@ visibility: visible;
 
 .report-table {
   margin-top: 80px;
-  max-height: 300px;
+  /* max-height: 300px; */
   overflow-x: scroll !important;
 }
 
@@ -47,7 +47,7 @@ visibility: visible;
 }
 
 .img-text-wrapper {
-  /* / float: left; / */
+  /*  float: left;  */
   position: relative;
   top: 0;
   display: flex;
@@ -58,7 +58,7 @@ visibility: visible;
   cursor: pointer;
   width: 130px;
   height: 0px;
-  margin-top: 40px;
+  padding-top: 40px;
 }
 .download:hover {
   cursor: pointer;
@@ -89,9 +89,10 @@ visibility: visible;
 
 .my-custom-scrollbar {
   position: relative;
-  max-height: 350px;
-  /* / height: 500px; / */
-  /* / max-width: 1350px; / */
+  /* max-height: 200px; */
+  max-height: 100vh;
+  /* height: 500px; */
+  max-width: 1350px;
   overflow: auto;
 }
 .table-wrapper-scroll-y {
@@ -100,4 +101,14 @@ visibility: visible;
 
 .datepicker {
   margin-right: 100px;
+}
+
+.report-for-month {
+  /* padding-top: 100px; */
+  position: relative;
+  float: right;
+}
+
+.report-for-month-table {
+  margin-top: 50px;
 }

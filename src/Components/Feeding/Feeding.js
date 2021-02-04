@@ -66,7 +66,6 @@ function Feeding() {
         }
       })
       .catch((e) => {
-        console.log("error");
         toast.error("Կատարված չէ");
       });
   };

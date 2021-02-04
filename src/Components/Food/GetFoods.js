@@ -1,11 +1,11 @@
 import React from "react";
-import { Table, Button, Form } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import DeleteFood from "./DeleteFood";
 import PlusWeight from "./PlusWeight";
 
 import UpdateFood from "./UpdateFood";
 
-function GetFoods({ data, coef }) {
+function GetFoods({ data }) {
   return (
     <div>
       <Table bordered hover style={{ backgroundColor: "white" }}>
