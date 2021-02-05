@@ -1,5 +1,6 @@
 import React from "react";
-import excelLogo from "../../img/download-icon3.svg";
+import { Button } from "react-bootstrap";
+import excelLogo from "../../img/download.svg";
 import axios from "axios";
 import FileSaver from "file-saver";
 import "./Report.css";
@@ -28,21 +29,22 @@ export default function DownloadReport({ reports }) {
 
   return (
     <div
-      style={{ marginLeft: "50px", paddingTop: "20px" }}
-      className="img-text-wrapper download"
+      style={{ marginLeft: "50px", marginTop: "6s0px" }}
+
+      // className="img-text-wrapper download"
     >
-      <div onClick={downloadReports}>
+      <Button variant="primary" onClick={downloadReports}>
         <img
           src={excelLogo}
-          className="excelIcon"
+          className="partner_icon"
           alt=".xlsx"
           title="Ներբեռնել հաշվետվությունը"
         />
-      </div>
-      <p className="download_title">
-        <b>Ներբեռնել</b>
-      </p>
-      <label className="subtitle">Ներբեռնել հաշվետվությունը</label>
+        {/* <p className="download_title"> */}
+        Ներբեռնել
+        {/* </p> */}
+        {/* <p className="subtitle">Ներբեռնել հաշվետվությունը</p> */}
+      </Button>
     </div>
   );
 }

@@ -30,7 +30,7 @@ function Routes({ isLoggedIn }) {
           <Route path="/information/foods" component={Foods} exact />
           {/* <Route path="/information/partners" component={Information} exact /> */}
           <Route path="/feeding" component={Feeding} exact />
-          <Route path="/losses" component={Losses} exact />
+          <Route path="/feeding/losses" component={Losses} exact />
           <Route path="/reports" component={Reports} exact />
           <Route path="/information/fishes" component={Fishes} exact />
           <Route
@@ -40,7 +40,7 @@ function Routes({ isLoggedIn }) {
           />
           {/* <Route path="feeding-history" component={FeedingHistory} exact /> */}
           <Route
-            path="/feeding-move-history/:id"
+            path="/pools/feeding-move-history/:id"
             component={FeedingMoveHistory}
             exact
           />

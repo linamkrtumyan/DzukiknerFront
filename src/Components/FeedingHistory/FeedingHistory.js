@@ -27,8 +27,8 @@ function FeedingHistory({ foodHistory }) {
                 return (
                   <tr key={index}>
                     <td>{food.foodName}</td>
-                    <td>{food.weight}</td>
-                    <td>{food.coefficient}</td>
+                    <td>{Math.round(food.weight * 10000) / 10000}</td>
+                    <td>{Math.round(food.coefficient * 10000) / 10000}</td>
                     <td>{food.insertedDate}</td>
                   </tr>
                 );

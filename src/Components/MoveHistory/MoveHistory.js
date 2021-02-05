@@ -32,8 +32,8 @@ function MoveHistory({ moveHistory }) {
                   <tr key={index}>
                     <td>{move.inQuantity}</td>
                     <td>{move.outQuantity}</td>
-                    <td>{move.weight}</td>
-                    <td>{move.avgWeight}</td>
+                    <td> {Math.round(move.weight * 10000) / 10000}</td>
+                    <td>{Math.round(move.avgWeight * 10000) / 10000}</td>
                     <td>{move.partnerName}</td>
                     <td>{move.description}</td>
                     <td>{move.insertedDate}</td>

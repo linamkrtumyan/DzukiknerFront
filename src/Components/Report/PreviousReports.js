@@ -5,64 +5,49 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Download from "./Download";
+import { toast } from "react-toastify";
 
 export default function PreviousReports(props) {
   const { month, year, selectedDate } = props.match.params;
-  // const selectedDate = Date.parse(`${month}/${year}`)
   const sd = Date.parse(selectedDate);
-  console.log(typeof selectedDate);
-  // console.log(month, year);
-
-  console.log("previous");
 
   const [reports, setReports] = useState([]);
   const [date, setDate] = useState(sd);
 
   useEffect(() => {
-    const fetchData = () => {
-      axios
-        .post(`/reports/getReportsForMonth`, {
-          month,
-          year,
-        })
-        .then((response) => {
-          console.log(response);
-          if (response.data.reports) {
-            setReports(response.data.reports);
-            console.log("++++++", reports);
-          } else {
-            console.log(response.data.errorMessage);
-          }
-        })
-        .catch((e) => {
-          console.log("error:", e);
-        });
-    };
-
-    fetchData();
-    setDate(sd);
-  }, [sd]);
-
-  const getPreviousReports = (e) => {
-    e.preventDefault();
-
     axios
       .post(`/reports/getReportsForMonth`, {
-        month: date.getMonth() + 1,
-        year: date.getFullYear(),
+        month,
+        year,
       })
       .then((response) => {
-        console.log(response);
         if (response.data.reports) {
           setReports(response.data.reports);
-          console.log("++++++", reports);
         } else {
-          console.log(response.data.errorMessage);
+          toast.error(`${response.data.errorMessage}`);
         }
       })
       .catch((e) => {
-        console.log("error:", e);
+        console.log(e);
       });
+
+    setDate(sd);
+  }, [sd]);
+
+  const getPreviousReports = (d) => {
+    axios
+      .post(`/reports/getReportsForMonth`, {
+        month: d.getMonth() + 1,
+        year: d.getFullYear(),
+      })
+      .then((response) => {
+        if (response.data.reports) {
+          setReports(response.data.reports);
+        } else {
+          toast.error(`${response.data.errorMessage}`);
+        }
+      });
+    // .catch(toast.error("Տվյալներ չեն գտնվել"));
   };
 
   const ExampleCustomInput = ({ value, onClick }) => (
@@ -80,29 +65,21 @@ export default function PreviousReports(props) {
       style={{ paddingTop: "70px", display: "block" }}
       // style={{ display: "absolute" }}
     >
-      <Download reports={reports} />
+      <div style={{ display: "flex", paddingTop: "30px" }}>
+        <Download reports={reports} />
 
-      <div className="report-for-month">
-        <DatePicker
-          className="datepicker"
-          customInput={<ExampleCustomInput />}
-          // selected={selectedDate}
-          selected={date}
-          onChange={(date) => setDate(date)}
-          dateFormat="MM/yyyy"
-          showMonthYearPicker
-          closeOnScroll={true}
-          maxDate={new Date()}
-        />
-
-        <Button
-          style={{ width: "130px", fontSize: "16px", cursor: "pointer" }}
-          variant="primary"
-          onClick={getPreviousReports}
-          id="reportBtn"
-        >
-          Փնտրել
-        </Button>
+        <div className="report-for-month">
+          <DatePicker
+            className="datepicker"
+            customInput={<ExampleCustomInput />}
+            selected={date}
+            onChange={(d) => getPreviousReports(d)}
+            dateFormat="MM/yyyy"
+            showMonthYearPicker
+            closeOnScroll={true}
+            maxDate={new Date()}
+          />
+        </div>
       </div>
 
       <Table

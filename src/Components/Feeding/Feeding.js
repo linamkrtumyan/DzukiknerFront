@@ -85,7 +85,10 @@ function Feeding() {
             Կերակրում
           </a>
         </li>
-        <li onClick={() => history.push("/losses")} className="nav-item cursor">
+        <li
+          onClick={() => history.push("/feeding/losses")}
+          className="nav-item cursor"
+        >
           <a
             className="nav-link "
             id="profile-tab"

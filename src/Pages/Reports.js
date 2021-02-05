@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from "react";
 import GetReport from "../Components/Report/GetReport";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function Reports() {
   const [data, setData] = useState([]);
-
-  // console.log(data);
 
   useEffect(() => {
     const fetchData = async () => {
       axios
         .post(`/reports/getCurrentReports`)
         .then((response) => {
-          console.log(response.data.reports);
           if (response.data.reports) {
             setData(response.data.reports);
           } else {
-            console.log(response.data.errorMessage);
+            toast.error("Չհաջողվեց բեռնել տվյալները");
           }
         })
         .catch((e) => {
-          console.log("error");
+          console.log(e);
         });
     };
 

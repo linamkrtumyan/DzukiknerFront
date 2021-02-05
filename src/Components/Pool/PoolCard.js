@@ -17,7 +17,7 @@ function PoolCard({ data, data1, fishData }) {
   const [feeding, setFeeding] = useState(false);
 
   function handleClick() {
-    history.push(`/feeding-move-history/${data1.id}`);
+    history.push(`/pools/feeding-move-history/${data1.id}`);
   }
 
   return (

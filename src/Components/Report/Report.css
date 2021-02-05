@@ -106,7 +106,7 @@ visibility: visible;
 .report-for-month {
   /* padding-top: 100px; */
   position: relative;
-  float: right;
+  /* float: right; */
 }
 
 .report-for-month-table {

@@ -10,52 +10,44 @@ import { toast } from "react-toastify";
 import PreviousReports from "./PreviousReports";
 
 export default function GetReports({ data }) {
-  // console.log(data);
-
   let history = useHistory();
 
-  let final = [];
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [reports, setReports] = useState(data);
+  const [finalReport, setFinalReports] = useState([]);
+  const [finalMijin, setFinalMijin] = useState([]);
 
   useEffect(() => {
     setReports(data);
+    for (let i = 0; i < data.length; i++) {
+      finalMijin.push({
+        id: data[i].PoolId,
+        weight: null,
+      });
+    }
+    setFinalReports(finalMijin);
   }, [data]);
 
-  const getPreviousReports = (e) => {
-    const month = selectedDate.getMonth() + 1;
-    const year = selectedDate.getFullYear();
-    e.preventDefault();
-    history.push(`/report-for-month/${month}/${year}/${selectedDate}`);
+  const getPreviousReports = (date) => {
+    setSelectedDate(date);
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    history.push(`/report-for-month/${month}/${year}/${date}`);
     <PreviousReports />;
-  };
-
-  const setFinal = (weight, r) => {
-    // e.preventDefault()
-    final.push({
-      poolid: r.PoolId,
-      weight: weight,
-    });
-    console.log("final::::", final);
   };
 
   const confirmReport = (e) => {
     e.preventDefault();
-    console.log("final: ", final);
     axios
-      .post("/reports/confirmReport", { final })
+      .post("/reports/confirmReport", { final: finalReport })
       .then((response) => {
-        console.log(response);
         if (response.data.success) {
-          console.log("saveReports: ", response.data.success);
           toast.success("Կատարված է");
         } else {
-          console.log("saveReports: failed", response.data.success);
           toast.success("Չհաջողվեց հաստատել");
         }
       })
       .catch((e) => {
-        console.log("error:", e);
         toast.success("Չհաջողվեց հաստատել");
       });
   };
@@ -70,6 +62,12 @@ export default function GetReports({ data }) {
     </Button>
   );
 
+  const handleSetFinalMijin = (e, i) => {
+    let newarr = [...finalMijin];
+    newarr[i].weight = e;
+    setFinalMijin(newarr);
+  };
+
   return (
     <div style={{ marginTop: "30px", display: "block" }}>
       <Download reports={reports} />
@@ -79,21 +77,12 @@ export default function GetReports({ data }) {
           className="datepicker"
           customInput={<ExampleCustomInput />}
           selected={selectedDate}
-          onChange={(date) => setSelectedDate(date)}
+          onChange={(date) => getPreviousReports(date)}
           dateFormat="MM/yyyy"
           showMonthYearPicker
           closeOnScroll={true}
           maxDate={new Date()}
         />
-
-        <Button
-          style={{ width: "130px", fontSize: "16px", cursor: "pointer" }}
-          variant="primary"
-          onClick={getPreviousReports}
-          id="reportBtn"
-        >
-          Փնտրել
-        </Button>
       </div>
 
       <Table
@@ -146,7 +135,7 @@ export default function GetReports({ data }) {
                 <tr key={index} className="values-of-report">
                   <td>{report.PoolName}</td>
                   <td>{report.FishName}</td>
-                  <td>{parseFloat(report.InitialAvgWeight).toFixed(1)}</td>
+                  <td>{report.InitialAvgWeight}</td>
                   <td>{report.InitialQuantity}</td>
                   <td>{parseFloat(report.InitialWeight).toFixed(1)}</td>
                   <td>{report.InQuantity}</td>
@@ -159,19 +148,56 @@ export default function GetReports({ data }) {
                   <td>{parseFloat(report.DeadWeight).toFixed(1)}</td>
                   <td>
                     <input
-                      id="final-input"
+                      value={
+                        finalMijin[index].weight ? finalMijin[index].weight : ""
+                      }
                       onChange={(e) => {
-                        setFinal(e.target.value, report);
+                        handleSetFinalMijin(e.target.value, index);
                       }}
                     />
                   </td>
                   <td>{report.FinalQuantity}</td>
-                  <td>{final.length > 0 ? "nnn" : "-"}</td>
+                  <td>
+                    {finalMijin[index].weight
+                      ? report.FinalQuantity * finalMijin[index].weight
+                      : "-"}
+                  </td>
                   <td>{report.PlusOrMinusQuantity}</td>
                   <td>{parseFloat(report.PlusOrMinusWeight).toFixed(1)}</td>
-                  <td>{report.Food}</td>
-                  <td>-{/* {parseFloat(report.WeightGrow).toFixed(1)}*/}</td>
-                  <td>-{/* {parseFloat(report.Coefficient).toFixed(1)} */}</td>
+                  <td>{parseFloat(report.Food)}</td>
+                  <td>
+                    {finalMijin[index].weight
+                      ? Number(report.FinalQuantity) *
+                        (Number(finalMijin[index].weight) +
+                          Number(report.SaleWeight) -
+                          Number(report.InitialWeight) +
+                          Number(report.MoveWeight) +
+                          Number(report.DeadWeight) -
+                          Number(report.InWeight))
+                      : "-"}
+                  </td>
+
+                  <td>
+                    {finalMijin[index].weight
+                      ? Number(report.Food) /
+                        (Number(report.FinalQuantity) *
+                          Number(finalMijin[index].weight) +
+                          Number(report.SaleWeight) -
+                          Number(report.InitialWeight) +
+                          Number(report.MoveWeight) +
+                          Number(report.DeadWeight) -
+                          Number(report.InWeight) ==
+                        0
+                          ? 1
+                          : Number(report.FinalQuantity) *
+                              Number(finalMijin[index].weight) +
+                            Number(report.SaleWeight) -
+                            Number(report.InitialWeight) +
+                            Number(report.MoveWeight) +
+                            Number(report.DeadWeight) -
+                            Number(report.InWeight))
+                      : "-"}
+                  </td>
                 </tr>
               );
             })
