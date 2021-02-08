@@ -89,17 +89,20 @@ export default function PreviousReports(props) {
         className="report-for-month-table table-wrapper-scroll-y my-custom-scrollbar"
       >
         <thead>
-          <tr className="values-of-report td">
-            <td colSpan="2"></td>
-            <td colSpan="3">Սկզբնական</td>
-            <td colSpan="2">Մուտք</td>
-            <td colSpan="2">Վաճառք</td>
-            <td colSpan="2">Տեղափոխություն</td>
-            <td colSpan="2">Անկում</td>
-            <td colSpan="3">Վերջնական</td>
-            <td colSpan="2">Ավելցուկ/պակասորդ</td>
-            <td colSpan="1"></td>
-            <td colSpan="2"></td>
+          <tr
+            style={{ fontSize: "12px", fontWeight: "700" }}
+            className="values-of-report td"
+          >
+            <th colSpan="2"></th>
+            <th colSpan="3">Սկզբնական</th>
+            <th colSpan="2">Մուտք</th>
+            <th colSpan="2">Վաճառք</th>
+            <th colSpan="2">Տեղափոխություն</th>
+            <th colSpan="2">Անկում</th>
+            <th colSpan="3">Վերջնական</th>
+            <th colSpan="2">Ավելցուկ/պակասորդ</th>
+            <th colSpan="1"></th>
+            <th colSpan="2"></th>
           </tr>
           <tr className="report_title">
             <th>Ավազաններ</th>

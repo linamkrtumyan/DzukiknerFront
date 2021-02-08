@@ -69,20 +69,28 @@ export default function GetReports({ data }) {
   };
 
   return (
-    <div style={{ marginTop: "30px", display: "block" }}>
-      <Download reports={reports} />
+    <div
+      style={{
+        marginTop: "30px",
+        display: "block",
+        // , padding: "0px 20px"
+      }}
+    >
+      <div style={{ paddingTop: "30px", display: "flex" }}>
+        <Download reports={reports} />
 
-      <div className="previous-reports">
-        <DatePicker
-          className="datepicker"
-          customInput={<ExampleCustomInput />}
-          selected={selectedDate}
-          onChange={(date) => getPreviousReports(date)}
-          dateFormat="MM/yyyy"
-          showMonthYearPicker
-          closeOnScroll={true}
-          maxDate={new Date()}
-        />
+        <div className="previous-reports">
+          <DatePicker
+            className="datepicker"
+            customInput={<ExampleCustomInput />}
+            selected={selectedDate}
+            onChange={(date) => getPreviousReports(date)}
+            dateFormat="MM/yyyy"
+            showMonthYearPicker
+            closeOnScroll={true}
+            maxDate={new Date()}
+          />
+        </div>
       </div>
 
       <Table
@@ -92,17 +100,20 @@ export default function GetReports({ data }) {
         className="report-table table-wrapper-scroll-y my-custom-scrollbar"
       >
         <thead>
-          <tr className="values-of-report td">
-            <td colSpan="2"></td>
-            <td colSpan="3">Սկզբնական</td>
-            <td colSpan="2">Մուտք</td>
-            <td colSpan="2">Վաճառք</td>
-            <td colSpan="2">Տեղափոխություն</td>
-            <td colSpan="2">Անկում</td>
-            <td colSpan="3">Վերջնական</td>
-            <td colSpan="2">Ավելցուկ/պակասորդ</td>
-            <td colSpan="1"></td>
-            <td colSpan="2"></td>
+          <tr
+            style={{ fontSize: "12px", fontWeight: "700" }}
+            className="values-of-report td"
+          >
+            <th colSpan="2"></th>
+            <th colSpan="3">Սկզբնական</th>
+            <th colSpan="2">Մուտք</th>
+            <th colSpan="2">Վաճառք</th>
+            <th colSpan="2">Տեղափոխություն</th>
+            <th colSpan="2">Անկում</th>
+            <th colSpan="3">Վերջնական</th>
+            <th colSpan="2">Ավելցուկ/պակասորդ</th>
+            <th colSpan="1"></th>
+            <th colSpan="2"></th>
           </tr>
           <tr className="report_title">
             <th>Ավազաններ</th>
