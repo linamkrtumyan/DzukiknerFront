@@ -10,7 +10,7 @@ function PlusWeight({ data }) {
   const [show, setShow] = useState(false);
   const [id, setId] = useState("");
   const [partners, setPartner] = useState([]);
-  const [partnerid, setPartnerId] = useState("");
+  const [partnerid, setPartnerId] = useState(null);
   const [description, setDesc] = useState(null);
   const [weight, setWeight] = useState("");
 
