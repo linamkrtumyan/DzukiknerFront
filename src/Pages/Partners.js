@@ -68,7 +68,9 @@ function Partners() {
         <li
           className="nav-item cursor"
           onClick={() =>
-            history.push("/information/fishes", { from: "Information" })
+            history.push("/information/partners/fishes", {
+              from: "Information",
+            })
           }
         >
           <a
@@ -85,7 +87,7 @@ function Partners() {
         <li
           className="nav-item cursor"
           onClick={() =>
-            history.push("/information/foods", { from: "Information" })
+            history.push("/information/partners/foods", { from: "Information" })
           }
         >
           <a

@@ -83,7 +83,7 @@ function Fishes() {
         <li
           className="nav-item cursor"
           onClick={() =>
-            history.push("/information/foods", { from: "Information" })
+            history.push("/information/partners/foods", { from: "Information" })
           }
         >
           <a

@@ -32,7 +32,7 @@ export default function GetReports({ data }) {
     setSelectedDate(date);
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    history.push(`/report-for-month/${month}/${year}/${date}`);
+    history.push(`/reports/report-for-month/${month}/${year}/${date}`);
     <PreviousReports />;
   };
 

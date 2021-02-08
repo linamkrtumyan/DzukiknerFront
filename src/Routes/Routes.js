@@ -27,14 +27,14 @@ function Routes({ isLoggedIn }) {
           <Route path="/pools" component={PoolPage} exact />
           <Route path="/information/partners" component={Partners} exact />
           {/* <Route path="/fishes" component={Fishes} exact /> */}
-          <Route path="/information/foods" component={Foods} exact />
+          <Route path="/information/partners/foods" component={Foods} exact />
           {/* <Route path="/information/partners" component={Information} exact /> */}
           <Route path="/feeding" component={Feeding} exact />
           <Route path="/feeding/losses" component={Losses} exact />
           <Route path="/reports" component={Reports} exact />
-          <Route path="/information/fishes" component={Fishes} exact />
+          <Route path="/information/partners/fishes" component={Fishes} exact />
           <Route
-            path="/report-for-month/:month/:year/:selectedDate"
+            path="/reports/report-for-month/:month/:year/:selectedDate"
             component={PreviousReports}
             exact
           />

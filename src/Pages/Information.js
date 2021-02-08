@@ -33,7 +33,9 @@ function Information() {
         <li
           className="nav-item"
           onClick={() =>
-            history.push("/information/fishes", { from: "Information" })
+            history.push("/information/partners/fishes", {
+              from: "Information",
+            })
           }
         >
           <a
@@ -50,7 +52,7 @@ function Information() {
         <li
           className="nav-item"
           onClick={() =>
-            history.push("/information/foods", { from: "Information" })
+            history.push("/information/partners/foods", { from: "Information" })
           }
         >
           <a
