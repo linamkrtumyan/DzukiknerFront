@@ -14,7 +14,6 @@ export default function DownloadReport({ reports }) {
       method: "POST",
       data: reports, // Important
     }).then((res) => {
-      console.log(res);
       axios
         .get("/reports/download", { responseType: "arraybuffer" })
         .then((response) => {
@@ -22,7 +21,10 @@ export default function DownloadReport({ reports }) {
             type:
               "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
           });
-          FileSaver.saveAs(blob, "Հաշվետվություններ.xlsx");
+          return blob;
+        })
+        .then((b) => {
+          FileSaver.saveAs(b, "Հաշվետվություններ.xlsx");
         });
     });
   };

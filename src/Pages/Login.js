@@ -40,7 +40,6 @@ function Login() {
       .post(`/user/login`, { mail, password, captcha })
       .then((res) => {
         if (res.data.success) {
-          toast.error(res.data);
           window.location.reload();
         } else {
           //information given about wrong password or email.
@@ -80,11 +79,6 @@ function Login() {
           }}
         />
       </FormGroup>
-
-      <FormGroup check="true">
-        <Form.Check type="checkbox" label="Հիշիր ինձ" />
-      </FormGroup>
-      <FormGroup></FormGroup>
 
       <hr />
 
