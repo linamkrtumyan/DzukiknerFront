@@ -29,7 +29,7 @@ function Feeding() {
         selectedDate.getSeconds(),
       "selectedDate"
     );
-  }, [selectedDate]);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,13 +53,15 @@ function Feeding() {
   );
 
   const handleSubmit = (evt) => {
+    // console.log(addFood, "uxarkvoxy");
     axios
       .post(`/feeding/addFeed`, {
         addFood,
       })
       .then((response) => {
+        // console.log(response);
         if (response.data.success) {
-          setAddFood("");
+          // setAddFood();
           toast.success("Կատարված է");
         } else {
           toast.error(response.data.errorMessage);
@@ -103,7 +105,11 @@ function Feeding() {
       </ul>
       <div
         className="container"
-        style={{ backgroundColor: "white", padding: "30px", height: "110vh" }}
+        style={{
+          backgroundColor: "white",
+          padding: "50px 30px",
+          height: "100%",
+        }}
       >
         <DatePicker
           style={{
@@ -151,7 +157,18 @@ function Feeding() {
                             ...data[index],
                             ...addFood[index],
                             count: e.target.value,
-                            date: sendDate,
+                            date:
+                              selectedDate.getFullYear() +
+                              "-" +
+                              (selectedDate.getMonth() + 1) +
+                              "-" +
+                              selectedDate.getDate() +
+                              " " +
+                              selectedDate.getHours() +
+                              ":" +
+                              selectedDate.getMinutes() +
+                              ":" +
+                              selectedDate.getSeconds(),
                           };
                           setAddFood([...addFood]);
                         }}

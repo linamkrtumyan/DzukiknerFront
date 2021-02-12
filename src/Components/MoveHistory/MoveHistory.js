@@ -8,9 +8,9 @@ function MoveHistory({ moveHistory }) {
       <div
         className="container"
         style={{
-          paddingTop: "50px",
           backgroundColor: "white",
-          height: "110vh",
+          padding: "50px 30px",
+          height: "100%",
         }}
       >
         <Table bordered hover style={{ backgroundColor: "white" }}>

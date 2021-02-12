@@ -3,17 +3,26 @@ import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { PoolContext } from "../../Pages/PoolPage";
-import { useFormik } from "formik";
+import DatePicker from "react-datepicker";
 
 function InPool({ data, data1 }) {
   const pool = useContext(PoolContext);
   const [show, setShow] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const [fishType, setFishType] = useState([]);
   const [partners, setPartners] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [date, setDate] = useState(
+    selectedDate.getFullYear() +
+      "-" +
+      (selectedDate.getMonth() + 1) +
+      "-" +
+      selectedDate.getDate()
+  );
 
   const [toPoolid, setToPoolId] = useState(data1.id);
   const [quantity, setQuantity] = useState("");
@@ -24,6 +33,21 @@ function InPool({ data, data1 }) {
   const [description, setDescription] = useState(null);
   const [allQuantity, setAllQuantity] = useState(0);
   const errors = [];
+  const ExampleCustomInput = ({ value, onClick }) => (
+    <Button className="example-custom-input" onClick={onClick}>
+      {value}
+    </Button>
+  );
+
+  useEffect(() => {
+    setDate(
+      selectedDate.getFullYear() +
+        "-" +
+        (selectedDate.getMonth() + 1) +
+        "-" +
+        selectedDate.getDate()
+    );
+  }, [selectedDate]);
 
   useEffect(() => {
     setforSend(Number(weight) / Number(quantity));
@@ -41,16 +65,27 @@ function InPool({ data, data1 }) {
   }, []);
 
   const handleSubmit = (evt) => {
+    // console.log(
+    //   toPoolid,
+    //   quantity,
+    //   weight,
+    //   forSend,
+    //   partnerId,
+    //   description,
+    //   date
+    // );
     axios
       .post(`/pools/inPool`, {
         toPoolid,
         quantity,
         weight,
-        forSend,
+        // forSend,
         partnerId,
         description,
+        date,
       })
       .then((response) => {
+        // console.log(response);
         if (response.data.success) {
           const inPool = {
             id: toPoolid,
@@ -86,6 +121,27 @@ function InPool({ data, data1 }) {
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
+            <DatePicker
+              style={{
+                width: "150px",
+                margin: "10px",
+                cursor: "pointer",
+              }}
+              selected={selectedDate}
+              onChange={(date) => {
+                setSelectedDate(date);
+              }}
+              dateFormat="yyyy/MM/dd"
+              maxDate={new Date()}
+              closeOnScroll={true}
+              scrollableMonthYearDropdown
+              showMonthDropdown
+              showYearDropdown
+              customInput={<ExampleCustomInput />}
+              // placeholderText="Տարի/Ամիս/Օր        🔽"
+              mode="date"
+            />
+            <br />
             <Form.Label>Քանակ (հատ)</Form.Label>
             <Form.Control
               type="number"

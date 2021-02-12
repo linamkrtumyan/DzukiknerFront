@@ -4,6 +4,8 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { PoolContext } from "../../Pages/PoolPage";
 
+import DatePicker from "react-datepicker";
+
 function MovePool({ data, data1 }) {
   const pool = useContext(PoolContext);
   const [show, setShow] = useState(false);
@@ -18,20 +20,44 @@ function MovePool({ data, data1 }) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [date, setDate] = useState(
+    selectedDate.getFullYear() +
+      "-" +
+      (selectedDate.getMonth() + 1) +
+      "-" +
+      selectedDate.getDate()
+  );
+  const ExampleCustomInput = ({ value, onClick }) => (
+    <Button className="example-custom-input" onClick={onClick}>
+      {value}
+    </Button>
+  );
+  useEffect(() => {
+    setDate(
+      selectedDate.getFullYear() +
+        "-" +
+        (selectedDate.getMonth() + 1) +
+        "-" +
+        selectedDate.getDate()
+    );
+  }, [selectedDate]);
 
   useEffect(() => {
     setforSend(Number(weight) / Number(quantity));
   }, [weight, quantity]);
 
   const handleSubmit = (evt) => {
+    console.log(date);
     axios
       .post(`/pools/movement`, {
         fromPoolid,
         toPoolid,
         quantity,
         weight,
-        forSend,
+
         description,
+        date,
       })
       .then((response) => {
         if (response.data.success) {
@@ -64,6 +90,27 @@ function MovePool({ data, data1 }) {
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
+            <DatePicker
+              style={{
+                width: "150px",
+                margin: "10px",
+                cursor: "pointer",
+              }}
+              selected={selectedDate}
+              onChange={(date) => {
+                setSelectedDate(date);
+              }}
+              dateFormat="yyyy/MM/dd"
+              maxDate={new Date()}
+              closeOnScroll={true}
+              scrollableMonthYearDropdown
+              showMonthDropdown
+              showYearDropdown
+              customInput={<ExampleCustomInput />}
+              // placeholderText="Տարի/Ամիս/Օր        🔽"
+              mode="date"
+            />
+            <br />
             <Form.Label>Դեպի ուր</Form.Label>
             <Form.Control
               as="select"

@@ -3,7 +3,8 @@ import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { PoolContext } from "../../Pages/PoolPage";
-import { useFormik } from "formik";
+
+import DatePicker from "react-datepicker";
 
 function SalePool({ data, data1 }) {
   const pool = useContext(PoolContext);
@@ -25,6 +26,28 @@ function SalePool({ data, data1 }) {
   const [description, setDescription] = useState(null);
   const [allQuantity, setAllQuantity] = useState(0);
   const errors = [];
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [date, setDate] = useState(
+    selectedDate.getFullYear() +
+      "-" +
+      (selectedDate.getMonth() + 1) +
+      "-" +
+      selectedDate.getDate()
+  );
+  const ExampleCustomInput = ({ value, onClick }) => (
+    <Button className="example-custom-input" onClick={onClick}>
+      {value}
+    </Button>
+  );
+  useEffect(() => {
+    setDate(
+      selectedDate.getFullYear() +
+        "-" +
+        (selectedDate.getMonth() + 1) +
+        "-" +
+        selectedDate.getDate()
+    );
+  }, [selectedDate]);
 
   useEffect(() => {
     setforSend(Number(weight) / Number(quantity));
@@ -42,11 +65,12 @@ function SalePool({ data, data1 }) {
   }, []);
 
   const handleSubmit = (evt) => {
+    console.log(date);
     if (partnerId == null) {
       setError("form-control is-invalid ");
     } else {
       if (data1.fishQuantity - quantity < 0) {
-        toast.error("edqan chka");
+        // toast.error("edqan chka");
         errors.push("Name can't be empty");
       } else {
         axios
@@ -54,11 +78,12 @@ function SalePool({ data, data1 }) {
             fromPoolid,
             quantity,
             weight,
-            forSend,
             partnerId,
             description,
+            date,
           })
           .then((response) => {
+            console.log(response);
             if (response.data.success) {
               const salePool = {
                 id: fromPoolid,
@@ -98,6 +123,27 @@ function SalePool({ data, data1 }) {
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
+            <DatePicker
+              style={{
+                width: "150px",
+                margin: "10px",
+                cursor: "pointer",
+              }}
+              selected={selectedDate}
+              onChange={(date) => {
+                setSelectedDate(date);
+              }}
+              dateFormat="yyyy/MM/dd"
+              maxDate={new Date()}
+              closeOnScroll={true}
+              scrollableMonthYearDropdown
+              showMonthDropdown
+              showYearDropdown
+              customInput={<ExampleCustomInput />}
+              // placeholderText="Տարի/Ամիս/Օր        🔽"
+              mode="date"
+            />
+            <br />
             <Form.Label>Քանակ (հատ)</Form.Label>
             <Form.Control
               type="number"

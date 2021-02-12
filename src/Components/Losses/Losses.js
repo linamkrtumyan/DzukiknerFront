@@ -33,7 +33,7 @@ function Losses() {
         selectedDate.getSeconds(),
       "selectedDate"
     );
-  }, [selectedDate]);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,11 +45,13 @@ function Losses() {
     fetchData();
   }, []);
   const handleSubmit = (evt) => {
+    console.log(addLosses, "addLosses");
     axios
       .post(`/losses/addLosse`, {
         addLosses,
       })
       .then((response) => {
+        console.log(response);
         if (response.data.success) {
           toast.success("Կատարված է");
         } else {
@@ -94,7 +96,11 @@ function Losses() {
       </ul>
       <div
         className="container"
-        style={{ backgroundColor: "white", padding: "30px", height: "110vh" }}
+        style={{
+          backgroundColor: "white",
+          padding: "50px 30px",
+          height: "100%",
+        }}
       >
         {" "}
         <DatePicker
@@ -147,7 +153,18 @@ function Losses() {
                             ...addLosses[index],
 
                             wastequantity: e.target.value,
-                            date: sendDate,
+                            date:
+                              selectedDate.getFullYear() +
+                              "-" +
+                              (selectedDate.getMonth() + 1) +
+                              "-" +
+                              selectedDate.getDate() +
+                              " " +
+                              selectedDate.getHours() +
+                              ":" +
+                              selectedDate.getMinutes() +
+                              ":" +
+                              selectedDate.getSeconds(),
                           };
                           setAddLosses([...addLosses]);
                         }}
