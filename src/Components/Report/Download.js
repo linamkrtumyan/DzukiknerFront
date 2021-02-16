@@ -17,7 +17,7 @@ export default function DownloadReport({ reports }) {
       console.log("ress");
       console.log(res);
       if (res.data.success) {
-        window.open("http://192.168.88.17:3000/reports/download", "__blank");
+        window.open("http://192.168.32.45:5000/reports/download", "__blank");
       }
     });
   };
