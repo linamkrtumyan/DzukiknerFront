@@ -33,9 +33,8 @@ visibility: visible;
 }
 
 .report-table {
-  margin-top: 80px;
-  /* max-height: 300px; */
-  overflow-x: scroll !important;
+  /* margin-top: 80px; */
+  /* overflow-x: scroll !important; */
 }
 
 .rep_label {
@@ -47,7 +46,7 @@ visibility: visible;
 }
 
 .img-text-wrapper {
-  /*  float: left;  */
+  /* / float: left; / */
   position: relative;
   top: 0;
   display: flex;
@@ -89,14 +88,10 @@ visibility: visible;
 
 .my-custom-scrollbar {
   position: relative;
-  /* max-height: 200px; */
-  max-height: 100vh;
-  /* height: 500px; */
-  max-width: 1350px;
   overflow: auto;
 }
 .table-wrapper-scroll-y {
-  display: block;
+  /* display: block; */
 }
 
 .datepicker {
@@ -104,11 +99,37 @@ visibility: visible;
 }
 
 .report-for-month {
-  /* padding-top: 100px; */
+  /* / padding-top: 100px; / */
   position: relative;
-  /* float: right; */
+  /* / float: right; / */
 }
 
 .report-for-month-table {
   margin-top: 50px;
+}
+.report_input {
+  width: 50px;
+}
+tbody {
+  height: 100px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.scroll {
+  overflow: scroll !important;
+  max-height: 100vh;
+  background-color: white !important;
+  margin-top: 80px;
+}
+.fix {
+  /* position: sticky; */
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+}
+thead tr > th {
+  position: sticky;
+  top: 0;
 }
