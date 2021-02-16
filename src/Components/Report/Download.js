@@ -14,18 +14,11 @@ export default function DownloadReport({ reports }) {
       method: "POST",
       data: reports, // Important
     }).then((res) => {
-      axios
-        .get("/reports/download", { responseType: "arraybuffer" })
-        .then((response) => {
-          var blob = new Blob([response.data], {
-            type:
-              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-          });
-          return blob;
-        })
-        .then((b) => {
-          FileSaver.saveAs(b, "Հաշվետվություններ.xlsx");
-        });
+      console.log("ress");
+      console.log(res);
+      if (res.data.success) {
+        window.open("http://192.168.88.17:3000/reports/download", "__blank");
+      }
     });
   };
 
