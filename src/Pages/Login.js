@@ -39,8 +39,9 @@ function Login() {
     axios
       .post(`/user/login`, { mail, password, captcha })
       .then((res) => {
+        console.log(res);
         if (res.data.success) {
-          window.location.reload();
+          // window.location.reload();
         } else {
           //information given about wrong password or email.
           setClassame("form-control is-invalid");

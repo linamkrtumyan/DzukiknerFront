@@ -10,8 +10,8 @@ document.body.style = "background:  #f8f9fa;";
 export const DzukContext = React.createContext();
 
 function App({ token, ready, fetchUser, loading }) {
-  console.log = console.warn = console.error = () => {};
-  console.error("Something bad happened.");
+  // console.log = console.warn = console.error = () => {};
+  // console.error("Something bad happened.");
 
   useEffect(() => {
     fetchUser();

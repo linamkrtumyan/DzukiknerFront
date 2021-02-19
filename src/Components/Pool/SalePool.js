@@ -65,7 +65,7 @@ function SalePool({ data, data1 }) {
   }, []);
 
   const handleSubmit = (evt) => {
-    console.log(date);
+    // console.log(date);
     if (partnerId == null) {
       setError("form-control is-invalid ");
     } else {
@@ -83,7 +83,7 @@ function SalePool({ data, data1 }) {
             date,
           })
           .then((response) => {
-            console.log(response);
+            // console.log(response);
             if (response.data.success) {
               const salePool = {
                 id: fromPoolid,

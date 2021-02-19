@@ -48,7 +48,7 @@ function MovePool({ data, data1 }) {
   }, [weight, quantity]);
 
   const handleSubmit = (evt) => {
-    console.log(date);
+    // console.log(date);
     axios
       .post(`/pools/movement`, {
         fromPoolid,

@@ -28,7 +28,7 @@ export default function PreviousReports(props) {
         }
       })
       .catch((e) => {
-        console.log(e);
+        toast.error("Կատարված չէ");
       });
 
     setDate(sd);

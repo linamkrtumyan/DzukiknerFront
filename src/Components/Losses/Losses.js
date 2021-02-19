@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { set } from "js-cookie";
 
 function Losses() {
   let history = useHistory();
@@ -13,6 +14,7 @@ function Losses() {
   const [addLosses, setAddLosses] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [sendDate, setSendDate] = useState("");
+  const [waste, setWaste] = useState("");
   const ExampleCustomInput = ({ value, onClick }) => (
     <Button className="example-custom-input" onClick={onClick}>
       {value}
@@ -44,14 +46,26 @@ function Losses() {
 
     fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   data.map((losse) => setWaste(Number(losse.profitablewastequantity)));
+  //   // addLosses.map()
+  // }, [data]);
   const handleSubmit = (evt) => {
-    console.log(addLosses, "addLosses");
+    addLosses.map(
+      (losse) =>
+        (losse.wastequantity = String(
+          losse.wastequantity - losse.profitablewastequantity
+        ))
+    );
+    // addLosses.map((losse) => console.log(losse.wastequantity));
+    // console.log(addLosses, "addLosses");
     axios
       .post(`/losses/addLosse`, {
         addLosses,
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         if (response.data.success) {
           toast.success("Կատարված է");
         } else {
@@ -114,16 +128,12 @@ function Losses() {
             setSelectedDate(date);
           }}
           dateFormat="yyyy/MM/dd"
-          // minDate={'2021/01/01'}
           maxDate={new Date()}
-          // isClearable
           closeOnScroll={true}
           scrollableMonthYearDropdown
-          // peekNextMonth
           showMonthDropdown
           showYearDropdown
           customInput={<ExampleCustomInput />}
-          // dropdownMode="select"
           placeholderText="Տարի/Ամիս/Օր        🔽"
           mode="date"
         />
@@ -131,8 +141,7 @@ function Losses() {
           <thead>
             <tr>
               <th>Ավազան</th>
-              <th>Թափոն (հատ)</th>
-
+              <th>Ընդհանուր (հատ)</th>
               <th>Պիտանի (հատ)</th>
             </tr>
           </thead>
@@ -146,7 +155,7 @@ function Losses() {
                       <Form.Control
                         type="number"
                         min="0"
-                        placeholder="Թափոն (հատ)"
+                        placeholder="Ընդհանուր (հատ)"
                         onChange={(e) => {
                           addLosses[index] = {
                             ...data[index],

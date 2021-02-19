@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Button, Tab, Tabs, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import DeleteMoveHistory from "./DeleteMoveHistory";
 
 function MoveHistory({ moveHistory }) {
+  // console.log(moveHistory);
   return (
     <>
       <div
@@ -23,13 +25,14 @@ function MoveHistory({ moveHistory }) {
               <th>Գործընկեր </th>
               <th>Նկարագրություն</th>
               <th>Ամսաթիվ</th>
+              <th>Գործողություն</th>
             </tr>
           </thead>
           <tbody>
             {moveHistory.length > 0 ? (
               moveHistory.map((move, index) => {
                 return (
-                  <tr key={index}>
+                  <tr key={move.id}>
                     <td>{move.inQuantity}</td>
                     <td>{move.outQuantity}</td>
                     <td> {Math.round(move.weight * 10000) / 10000}</td>
@@ -37,6 +40,9 @@ function MoveHistory({ moveHistory }) {
                     <td>{move.partnerName}</td>
                     <td>{move.description}</td>
                     <td>{move.insertedDate}</td>
+                    <td>
+                      <DeleteMoveHistory move={move} />
+                    </td>
                   </tr>
                 );
               })

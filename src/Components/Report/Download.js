@@ -7,17 +7,17 @@ import "./Report.css";
 
 export default function DownloadReport({ reports }) {
   const downloadReports = async (e) => {
-    console.log("reports:", reports);
+    // console.log("reports:", reports);
     e.preventDefault();
     axios({
       url: "/reports/download",
       method: "POST",
       data: reports, // Important
-    }).then((res) => {
-      console.log("ress");
-      console.log(res);
+    }).then(async (res) => {
+      // console.log(res);
       if (res.data.success) {
-        window.open("http://192.168.32.45:5000/reports/download", "__blank");
+        window.location.href =
+          "https://192.168.32.45/reports/download/" + res.data.id;
       }
     });
   };

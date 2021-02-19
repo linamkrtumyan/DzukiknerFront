@@ -7,6 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import FeedingHistory from "../Components/FeedingHistory/FeedingHistory";
 import MoveHistory from "../Components/MoveHistory/MoveHistory";
 
+export const MoveHistoryContext = React.createContext();
+
 function FeedingMoveHistory(props) {
   const [key, setKey] = useState("feeding-move-history");
   const history = useHistory();
@@ -18,6 +20,17 @@ function FeedingMoveHistory(props) {
   function handleClick() {
     history.goBack();
   }
+
+  const deleteMoveHistory = (moveitem) => {
+    moveHistory.map((id1) => {
+      if (id1.id == moveitem) {
+        const index = moveHistory.indexOf(id1);
+        moveHistory.splice(index, 1);
+
+        setMoveHistory([...moveHistory]);
+      }
+    });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +51,7 @@ function FeedingMoveHistory(props) {
     };
     const fetchData1 = async () => {
       axios
-        .post(`/info/food/moveHistory`, {
+        .post(`/info/fish/moveHistory`, {
           id,
         })
         .then((response) => {
@@ -72,7 +85,11 @@ function FeedingMoveHistory(props) {
             <FeedingHistory foodHistory={foodHistory} />
           </Tab>
           <Tab eventKey="profile" title="Տեղափոխության պատմություն">
-            <MoveHistory moveHistory={moveHistory} />
+            <MoveHistoryContext.Provider
+              value={{ moveHistory, setMoveHistory, deleteMoveHistory }}
+            >
+              <MoveHistory moveHistory={moveHistory} />
+            </MoveHistoryContext.Provider>
           </Tab>
         </Tabs>
       </div>
