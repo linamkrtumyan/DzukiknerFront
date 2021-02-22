@@ -2,7 +2,8 @@ import "./App.css";
 import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { connect } from "react-redux";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Routes from "./Routes/Routes";
 import { fetchUser } from "./redux";
 
@@ -23,6 +24,7 @@ function App({ token, ready, fetchUser, loading }) {
     return (
       <div className="background">
         <Routes isLoggedIn={token} />
+        <ToastContainer style={{ zIndex: 10000000000 }} autoClose={4000} />
       </div>
     );
   }

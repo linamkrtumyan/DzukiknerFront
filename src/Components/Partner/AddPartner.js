@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, Alert } from "react-bootstrap";
 import axios from "axios";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DzukContext } from "../../Pages/Partners";
 import "./partner.css";
@@ -18,6 +18,12 @@ function AddPartner() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [showA, setShowA] = useState(true);
+  // const [showB, setShowB] = useState(true);
+
+  const toggleShowA = () => setShowA(!showA);
+  // const toggleShowB = () => setShowB(!showB);
 
   const handleSubmit = (evt) => {
     if (name == "") {
@@ -54,7 +60,13 @@ function AddPartner() {
 
   return (
     <div>
-      <ToastContainer />
+      {/* <Toast show={showA} onClose={toggleShowA}>
+        <Toast.Header>
+
+        </Toast.Header>
+        <Toast.Body>Կատարված է</Toast.Body>
+      </Toast> */}
+      {/* <Alert variant="success">This is a success alert—check it out!</Alert> */}
       <Button variant="primary" onClick={handleShow}>
         Ավելացնել
       </Button>

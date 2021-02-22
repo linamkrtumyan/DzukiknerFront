@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Tab, Tabs } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FeedingHistory from "../Components/FeedingHistory/FeedingHistory";
 import MoveHistory from "../Components/MoveHistory/MoveHistory";

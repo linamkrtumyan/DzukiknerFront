@@ -173,7 +173,9 @@ export default function GetReports({ data }) {
                     <td>{report.FinalQuantity}</td>
                     <td>
                       {finalMijin[index].weight
-                        ? report.FinalQuantity * finalMijin[index].weight
+                        ? parseFloat(
+                            report.FinalQuantity * finalMijin[index].weight
+                          ).toFixed(4)
                         : "-"}
                     </td>
                     <td>{report.PlusOrMinusQuantity}</td>
@@ -181,35 +183,36 @@ export default function GetReports({ data }) {
                     <td>{parseFloat(report.Food)}</td>
                     <td>
                       {finalMijin[index].weight
-                        ? Number(report.FinalQuantity) *
-                          (Number(finalMijin[index].weight) +
-                            Number(report.SaleWeight) -
-                            Number(report.InitialWeight) +
-                            Number(report.MoveWeight) +
-                            Number(report.DeadWeight) -
-                            Number(report.InWeight))
+                        ? parseFloat(
+                            parseFloat(finalMijin[index].weight) +
+                              parseFloat(report.SaleWeight) -
+                              parseFloat(report.InitialWeight) +
+                              parseFloat(report.MoveWeight) +
+                              parseFloat(report.DeadWeight) -
+                              parseFloat(report.InWeight)
+                          ).toFixed(4)
                         : "-"}
                     </td>
 
                     <td>
                       {finalMijin[index].weight
-                        ? Number(report.Food) /
-                          (Number(report.FinalQuantity) *
-                            Number(finalMijin[index].weight) +
-                            Number(report.SaleWeight) -
-                            Number(report.InitialWeight) +
-                            Number(report.MoveWeight) +
-                            Number(report.DeadWeight) -
-                            Number(report.InWeight) ==
-                          0
-                            ? 1
-                            : Number(report.FinalQuantity) *
-                                Number(finalMijin[index].weight) +
-                              Number(report.SaleWeight) -
-                              Number(report.InitialWeight) +
-                              Number(report.MoveWeight) +
-                              Number(report.DeadWeight) -
-                              Number(report.InWeight))
+                        ? report.Food == 0 ||
+                          parseFloat(finalMijin[index].weight) +
+                            report.SaleWeight -
+                            report.InitialWeight +
+                            report.MoveWeight +
+                            report.DeadWeight -
+                            report.InWeight ==
+                            0
+                          ? 0
+                          : parseFloat(
+                              parseFloat(finalMijin[index].weight) +
+                                parseFloat(report.SaleWeight) -
+                                parseFloat(report.InitialWeight) +
+                                parseFloat(report.MoveWeight) +
+                                parseFloat(report.DeadWeight) -
+                                parseFloat(report.InWeight)
+                            ).toFixed(4)
                         : "-"}
                     </td>
                   </tr>
