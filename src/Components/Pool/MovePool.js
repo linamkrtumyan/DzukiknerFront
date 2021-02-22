@@ -39,7 +39,13 @@ function MovePool({ data, data1 }) {
         "-" +
         (selectedDate.getMonth() + 1) +
         "-" +
-        selectedDate.getDate()
+        selectedDate.getDate() +
+        " " +
+        selectedDate.getHours() +
+        ":" +
+        selectedDate.getMinutes() +
+        ":" +
+        selectedDate.getSeconds()
     );
   }, [selectedDate]);
 

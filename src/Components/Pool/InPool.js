@@ -45,7 +45,13 @@ function InPool({ data, data1 }) {
         "-" +
         (selectedDate.getMonth() + 1) +
         "-" +
-        selectedDate.getDate()
+        selectedDate.getDate() +
+        " " +
+        selectedDate.getHours() +
+        ":" +
+        selectedDate.getMinutes() +
+        ":" +
+        selectedDate.getSeconds()
     );
   }, [selectedDate]);
 
@@ -74,6 +80,7 @@ function InPool({ data, data1 }) {
     //   description,
     //   date
     // );
+    // console.log(date);
     axios
       .post(`/pools/inPool`, {
         toPoolid,
