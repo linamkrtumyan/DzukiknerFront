@@ -28,7 +28,7 @@ function Reports() {
     <div
       style={{
         marginTop: "0px",
-        padding: "40px 0px",
+        // padding: "40px 0px",
       }}
     >
       <GetReport data={data} />

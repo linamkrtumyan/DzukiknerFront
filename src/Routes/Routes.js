@@ -13,6 +13,7 @@ import NavbarPage from "../Navbar/Navbar";
 import Feeding from "../Components/Feeding/Feeding";
 import Losses from "../Components/Losses/Losses";
 import FeedingMoveHistory from "../Pages/FeedingMoveHistory";
+import FilterReport from "../Pages/FilterReport";
 
 function Routes({ isLoggedIn }) {
   if (isLoggedIn) {
@@ -31,7 +32,8 @@ function Routes({ isLoggedIn }) {
           {/* <Route path="/information/partners" component={Information} exact /> */}
           <Route path="/feeding" component={Feeding} exact />
           <Route path="/feeding/losses" component={Losses} exact />
-          <Route path="/reports" component={Reports} exact />
+          {/* <Route path="/reports" component={Reports} exact /> */}
+          <Route path="/reports" component={FilterReport} exact />
           <Route path="/information/partners/fishes" component={Fishes} exact />
           <Route
             path="/reports/report-for-month/:month/:year/:selectedDate"

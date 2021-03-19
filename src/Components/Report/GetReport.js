@@ -71,12 +71,14 @@ export default function GetReports({ data }) {
   return (
     <div
       style={{
-        marginTop: "30px",
+        // marginTop: "30px",
         display: "block",
         // , padding: "0px 20px"
       }}
     >
-      <div style={{ paddingTop: "30px", display: "flex" }}>
+      <div
+        style={{ paddingTop: "20px", paddingBottom: "20px", display: "flex" }}
+      >
         <Download reports={reports} />
 
         <div className="previous-reports">
