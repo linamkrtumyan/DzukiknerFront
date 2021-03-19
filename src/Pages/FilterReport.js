@@ -14,7 +14,7 @@ function FilterReport() {
       style={{ padding: "80px 0px" }}
     >
       <Tabs
-        style={{ paddingTop: "50px " }}
+        // style={{ paddingTop: "50px " }}
         defaultactivekey="partners"
         id="uncontrolled-tab-example"
       >

@@ -178,20 +178,22 @@ function Filter() {
                 className="values-of-report td "
               >
                 <th colSpan="2"></th>
-                <th colSpan="3">Սկզբնական</th>
+                {/* <th colSpan="3">Սկզբնական</th> */}
                 <th colSpan="2">Մուտք</th>
                 <th colSpan="2">Վաճառք</th>
                 <th colSpan="2">Տեղափոխություն</th>
                 <th colSpan="2">Անկում</th>
-                <th colSpan="3">Վերջնական</th>
-                <th colSpan="2">Ավելցուկ/պակասորդ</th>
+                {/* <th colSpan="3">Վերջնական</th> */}
+                <th colSpan="2">Ճշգրտում</th>
                 <th colSpan="1"></th>
-                <th colSpan="2"></th>
+                {/* <th colSpan="2"></th> */}
               </tr>
               <tr className="report_title">
                 <th>Ավազաններ</th>
                 <th>Ձկան տեսակ</th>
-                <th>միջ․քաշ /գ/</th>
+                {/* <th>միջ․քաշ /գ/</th>
+                <th>քանակ /հատ/</th>
+                <th>քաշ /կգ/</th> */}
                 <th>քանակ /հատ/</th>
                 <th>քաշ /կգ/</th>
                 <th>քանակ /հատ/</th>
@@ -200,16 +202,14 @@ function Filter() {
                 <th>քաշ /կգ/</th>
                 <th>քանակ /հատ/</th>
                 <th>քաշ /կգ/</th>
-                <th>քանակ /հատ/</th>
-                <th>քաշ /կգ/</th>
-                <th>միջ․քաշ</th>
+                {/* <th>միջ․քաշ</th>
                 <th>քանակ</th>
-                <th>քաշ</th>
+                <th>քաշ</th> */}
                 <th>քանակ /հատ/</th>
                 <th>քաշ /կգ/</th>
                 <th>Կեր</th>
-                <th>Քաշաճ</th>
-                <th>Գործակից</th>
+                {/* <th>Քաշաճ</th>
+                <th>Գործակից</th> */}
               </tr>
             </thead>
             <tbody>
@@ -219,9 +219,10 @@ function Filter() {
                     <tr key={index} className="values-of-report">
                       <td>{report.PoolName}</td>
                       <td>{report.FishName}</td>
-                      <td>{report.InitialAvgWeight}</td>
+
+                      {/* <td>{report.InitialAvgWeight}</td>
                       <td>{report.InitialQuantity}</td>
-                      <td>{parseFloat(report.InitialWeight).toFixed(1)}</td>
+                      <td>{parseFloat(report.InitialWeight).toFixed(1)}</td> */}
 
                       <td>{report.InQuantity}</td>
                       <td>{parseFloat(report.InWeight).toFixed(1)}</td>
@@ -235,17 +236,17 @@ function Filter() {
                       <td>{report.DeadQuantity}</td>
                       <td>{parseFloat(report.DeadWeight).toFixed(1)}</td>
 
-                      <td>{report.FinalAvgWeight}</td>
+                      {/* <td>{report.FinalAvgWeight}</td>
                       <td>{report.FinalQuantity}</td>
-                      <td>{report.FinalWeight}</td>
+                      <td>{report.FinalWeight}</td> */}
 
-                      <td>{report.PlusOrMinusQuantity}</td>
-                      <td>{parseFloat(report.PlusOrMinusWeight).toFixed(1)}</td>
+                      <td>{report.CorrectionQuantity}</td>
+                      <td>{parseFloat(report.CorrectionWeight).toFixed(1)}</td>
 
                       <td>{parseFloat(report.Food)}</td>
 
-                      <td>{report.WeightGrow}</td>
-                      <td>{report.Coefficient}</td>
+                      {/* <td>{report.WeightGrow}</td>
+                      <td>{report.Coefficient}</td> */}
                     </tr>
                   );
                 })
