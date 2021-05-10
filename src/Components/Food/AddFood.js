@@ -70,7 +70,7 @@ function AddFood() {
             <br />
             <Form.Label>Համար</Form.Label>
             <Form.Control
-              type="number"
+              type="text"
               placeholder=""
               onChange={(e) => setNumber(e.target.value)}
             />

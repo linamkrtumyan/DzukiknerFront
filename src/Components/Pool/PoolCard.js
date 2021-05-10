@@ -74,7 +74,7 @@ function PoolCard({ data, data1, fishData }) {
             <div className="pool_card_item">
               <div style={{ textAlign: "center" }}>
                 {Math.round(data1.fishAvgWeight * 100) / 100}
-                <p style={{}}>Կգ/Հատ</p>
+                <p style={{}}>Գ/Հատ</p>
               </div>
             </div>
           </div>
