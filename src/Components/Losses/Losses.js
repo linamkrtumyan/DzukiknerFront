@@ -52,12 +52,27 @@ function Losses() {
   //   // addLosses.map()
   // }, [data]);
   const handleSubmit = (evt) => {
-    addLosses.map(
-      (losse) =>
-        (losse.wastequantity = String(
+    addLosses.map((losse) => {
+      console.log(losse, "losse");
+      // if (
+      //   (losse.wastequantity == "NaN" &&
+      //     losse.profitablewastequantity != "Nan") ||
+      //   (losse.profitablewastequantity == "NaN" && losse.wastequantity == "NaN")
+      // ) {
+      //   losse.wastequantity = 0;
+      //   losse.profitablewastequantity = 0;
+      // } else {
+      if (losse.profitablewastequantity) {
+        losse.wastequantity = String(
           losse.wastequantity - losse.profitablewastequantity
-        ))
-    );
+        );
+      } else {
+        losse.profitablewastequantity = "0";
+      }
+
+      // }
+    });
+
     // addLosses.map((losse) => console.log(losse.wastequantity));
     // console.log(addLosses, "addLosses");
     axios
@@ -156,6 +171,7 @@ function Losses() {
                         type="number"
                         min="0"
                         placeholder="Ընդհանուր (հատ)"
+                        // value="0"
                         onChange={(e) => {
                           addLosses[index] = {
                             ...data[index],

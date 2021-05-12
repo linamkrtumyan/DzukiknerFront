@@ -21,7 +21,7 @@ function Filter() {
   const [reports, setReports] = useState([]);
 
   useEffect(() => {
-    console.log(startDate, endDate, send);
+    // console.log(startDate, endDate, send);
     axios
       .post(`/reports/filterReports`, {
         startDate,
@@ -30,8 +30,8 @@ function Filter() {
         // addFood,
       })
       .then((response) => {
-        console.log("object");
-        console.log(response, "**********");
+        // console.log("object");
+        // console.log(response, "**********");
         setReports(response.data.data);
         // console.log(response);
         if (response.data.success) {
@@ -49,7 +49,7 @@ function Filter() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("/pools/getPoolsForFilter");
-      console.log(result, "88888");
+      // console.log(result, "88888");
       setOptions(result.data.allPools);
     };
     fetchData();

@@ -13,6 +13,7 @@ function Feeding() {
   const [foods, setFoods] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [sendDate, setSendDate] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setSendDate(
@@ -45,14 +46,42 @@ function Feeding() {
     fetchData();
   }, []);
 
-  const [addFood, setAddFood] = useState("");
+  const [addFood, setAddFood] = useState([]);
   const ExampleCustomInput = ({ value, onClick }) => (
     <Button className="example-custom-input" onClick={onClick}>
       {value}
     </Button>
   );
 
+  // useEffect(() => {
+  //   effect
+  //   return () => {
+  //     cleanup
+  //   }
+  // }, [addFood])
+
   const handleSubmit = (evt) => {
+    // console.log(addFood);
+    for (let i = 0; i < addFood.length; i++) {
+      // console.log(addFood[i], "addFoodik");
+      // if (!addFoodik.food) {
+      //   addFoodik.food = "0";
+      // }
+
+      // if (!addFoodik.coef) {
+      //   addFoodik.coef = "0";
+      // }
+
+      if (addFood[i].count && !addFood[i].coef) {
+        setError("form-control is-invalid ");
+        return;
+      }
+      if (addFood[i].count && !addFood[i].food) {
+        setError("form-control is-invalid ");
+        return;
+      }
+    }
+
     // console.log(addFood, "uxarkvoxy");
     axios
       .post(`/feeding/addFeed`, {
@@ -153,6 +182,7 @@ function Feeding() {
                         min="0"
                         placeholder="Կերի քանակ"
                         onChange={(e) => {
+                          setError("");
                           addFood[index] = {
                             ...data[index],
                             ...addFood[index],
@@ -177,8 +207,15 @@ function Feeding() {
                     <td>
                       <Form.Control
                         as="select"
+                        className={
+                          addFood[index]?.count > 0 &&
+                          addFood[index]?.food == null
+                            ? error
+                            : ""
+                        }
                         placeholder="Ընտրեք կերը"
                         onChange={(e) => {
+                          setError("");
                           addFood[index] = {
                             ...data[index],
                             ...addFood[index],
@@ -203,7 +240,14 @@ function Feeding() {
                         type="number"
                         min="0"
                         placeholder="Գործակիցը"
+                        className={
+                          addFood[index]?.count > 0 &&
+                          addFood[index]?.coef == null
+                            ? error
+                            : ""
+                        }
                         onChange={(e) => {
+                          setError("");
                           addFood[index] = {
                             ...data[index],
                             ...addFood[index],
@@ -225,7 +269,11 @@ function Feeding() {
           </tbody>
         </Table>
         <div className="done_btn">
-          <Button onClick={handleSubmit} variant="primary">
+          <Button
+            onClick={handleSubmit}
+            variant="primary"
+            // disabled
+          >
             Հաստատել
           </Button>
         </div>

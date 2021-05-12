@@ -10,6 +10,7 @@ function Foods() {
   let history = useHistory();
   const [data, setData] = useState([]);
   const [coef, setCoef] = useState([]);
+  const [allWeight, setAllWeight] = useState(0);
 
   const addFood = (food) => {
     data.push(food);
@@ -50,9 +51,12 @@ function Foods() {
     const fetchData = async () => {
       const result = await axios("/info/food/getFoods");
       const coef = await axios("/pools/getPoolsAndDetails");
+      const allFoodWeight = await axios("/info/food/getFoodWeights");
+      // console.log(allFoodWeight.data.count, "2");
 
       setData(result.data.allFoods);
       setCoef(coef.data.allPools);
+      setAllWeight(allFoodWeight.data.count);
     };
 
     fetchData();
@@ -134,7 +138,7 @@ function Foods() {
         <FoodContext.Provider
           value={{ data, setData, updateFood, deleteFood, plusFood }}
         >
-          <GetFoods data={data} coef={coef} />
+          <GetFoods data={data} coef={coef} allWeight={allWeight} />
         </FoodContext.Provider>
       </div>
     </div>

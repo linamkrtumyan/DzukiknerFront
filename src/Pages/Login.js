@@ -39,7 +39,7 @@ function Login() {
     axios
       .post(`/user/login`, { mail, password, captcha })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.data.success) {
           window.location.reload();
         } else {
