@@ -94,17 +94,22 @@ export default function GetReports({ data }) {
           />
         </div>
       </div>
-      <div className="scroll">
+      <div className="scroll tableFixHead">
         <Table
           bordered
           hover
           // style={{ backgroundColor: "white" }}
           className="report-table values-of-report"
         >
-          <thead className="fix">
+          <thead>
             <tr
-              style={{ fontSize: "12px", fontWeight: "700" }}
+              style={{
+                fontSize: "12px",
+                fontWeight: "800",
+                // position: "sticky !important",
+              }}
               className="values-of-report td "
+              // className="report_title"
             >
               <th colSpan="2"></th>
               <th colSpan="3">Սկզբնական</th>
@@ -208,12 +213,13 @@ export default function GetReports({ data }) {
                             0
                           ? 0
                           : parseFloat(
-                              parseFloat(finalMijin[index].weight) +
-                                parseFloat(report.SaleWeight) -
-                                parseFloat(report.InitialWeight) +
-                                parseFloat(report.MoveWeight) +
-                                parseFloat(report.DeadWeight) -
-                                parseFloat(report.InWeight)
+                              parseFloat(report.Food) /
+                                (parseFloat(finalMijin[index].weight) +
+                                  parseFloat(report.SaleWeight) -
+                                  parseFloat(report.InitialWeight) +
+                                  parseFloat(report.MoveWeight) +
+                                  parseFloat(report.DeadWeight) -
+                                  parseFloat(report.InWeight))
                             ).toFixed(4)
                         : "-"}
                     </td>

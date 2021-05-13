@@ -71,47 +71,50 @@ function SalePool({ data, data1 }) {
   }, []);
 
   const handleSubmit = (evt) => {
-    // console.log(date);
+    // console.log(
+    //   fromPoolid,
+    //   quantity,
+    //   weight,
+    //   partnerId,
+    //   description,
+    //   date,
+    //   "********"
+    // );
     if (partnerId == null) {
       setError("form-control is-invalid ");
     } else {
-      if (data1.fishQuantity - quantity < 0) {
-        // toast.error("edqan chka");
-        errors.push("Name can't be empty");
-      } else {
-        axios
-          .post(`/pools/sales`, {
-            fromPoolid,
-            quantity,
-            weight,
-            partnerId,
-            description,
-            date,
-          })
-          .then((response) => {
-            // console.log(response);
-            if (response.data.success) {
-              const salePool = {
-                id: fromPoolid,
-                quantity: quantity,
-                weight: weight,
-                fishAvgWeight: forSend,
-                allQuantity: Number(data1.fishQuantity) - Number(quantity),
-                allWeight: Number(data1.fishWeight) - Number(weight),
-              };
-              handleClose();
+      axios
+        .post(`/pools/sales`, {
+          fromPoolid,
+          quantity,
+          weight,
+          partnerId,
+          description,
+          date,
+        })
+        .then((response) => {
+          // console.log(response);
+          if (response.data.success) {
+            const salePool = {
+              id: fromPoolid,
+              quantity: quantity,
+              weight: weight,
+              fishAvgWeight: forSend,
+              allQuantity: Number(data1.fishQuantity) - Number(quantity),
+              allWeight: Number(data1.fishWeight) - Number(weight),
+            };
+            handleClose();
 
-              pool.salePool(salePool);
-              toast.success("Կատարված է");
-              // handleClose();
-            } else {
-              toast.error(response.data.errorMessage);
-            }
-          })
-          .catch((e) => {
-            toast.error("Կատարված չէ");
-          });
-      }
+            pool.salePool(salePool);
+            toast.success("Կատարված է");
+            // handleClose();
+          } else {
+            toast.error(response.data.errorMessage);
+          }
+        })
+        .catch((e) => {
+          toast.error("Կատարված չէ");
+        });
     }
 
     // window.location.reload(false);

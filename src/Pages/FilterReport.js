@@ -11,7 +11,7 @@ function FilterReport() {
   return (
     <div
       //  className="container"
-      style={{ padding: "80px 0px" }}
+      style={{ padding: "80px 0px 0px 0px" }}
     >
       <Tabs
         // style={{ paddingTop: "50px " }}

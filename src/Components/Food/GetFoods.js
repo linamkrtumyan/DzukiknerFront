@@ -46,8 +46,8 @@ function GetFoods({ data, allWeight }) {
           )}
           {data.length > 0 ? (
             <tr style={{ fontWeight: "700" }}>
-              <td colSpan="2">Ընդհանուր</td>
-              <td>{allWeight}</td>
+              <td colSpan="2">Ընդամենը</td>
+              <td>{Math.round(allWeight * 10) / 10}</td>
             </tr>
           ) : null}
         </tbody>

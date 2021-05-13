@@ -46,7 +46,7 @@ function PoolPage() {
         id1.fishQuantity = parseInt(id1.fishQuantity) + parseInt(pool.quantity);
         id1.fishWeight = parseInt(id1.fishWeight) + parseInt(pool.weight);
         id1.fishAvgWeight =
-          parseInt(pool.allWeight) / parseInt(pool.allQuantity);
+          parseInt(pool.allWeight * 1000) / parseInt(pool.allQuantity);
         setData([...data]);
       }
     });
@@ -69,10 +69,11 @@ function PoolPage() {
         id1.fishWeight = parseInt(id1.fishWeight) - parseInt(pool.weight);
         id1.fishAvgWeight =
           parseInt(pool.allWeight) / parseInt(pool.allQuantity);
-        if (id1.fishQuantity > 0 || id1.fishWeight > 0) {
-          setData([...data]);
-        } else {
-        }
+        // if (id1.fishQuantity > 0 || id1.fishWeight > 0) {
+        //   setData([...data]);
+        // } else {
+        // }
+        setData([...data]);
       }
     });
   };

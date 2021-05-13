@@ -165,7 +165,7 @@ function Filter() {
       <div
       //  className="container"
       >
-        <div className="scroll">
+        <div className="scroll tableFixHeadFilter">
           <Table
             bordered
             hover

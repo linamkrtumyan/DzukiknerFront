@@ -110,14 +110,14 @@ visibility: visible;
 .report_input {
   width: 50px;
 }
-tbody {
+/* tbody {
   height: 100px;
   overflow-y: auto;
   overflow-x: hidden;
-}
+} */
 .scroll {
-  overflow: scroll !important;
-  max-height: 100vh;
+  /* overflow: scroll !important; */
+  /* max-height: 100vh; */
   background-color: white !important;
   /* margin-top: 80px; */
 }
@@ -125,11 +125,46 @@ tbody {
   /* position: sticky; */
 }
 
-thead th {
+/* thead th {
   position: sticky;
   top: 0;
 }
 thead tr > th {
   position: sticky;
   top: 0;
+} */
+
+/*****table fixed ******/
+.tableFixHead {
+  overflow-y: auto;
+  height: 60vh;
+  box-sizing: border-box;
+}
+/* .tableFixHead thead tr th {
+  position: sticky;
+  top: 0;
+}
+table {
+  table-layout: fixed;
+}
+thead {
+  display: table-header-group;
+  vertical-align: middle;
+}
+tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+} */
+
+thead tr:nth-child(1) th {
+  position: sticky;
+  top: 0;
+  /* border: 0 0 1px 0 solid #000; */
+}
+thead tr:nth-child(2) th {
+  position: sticky;
+  top: 54px;
+
+  /* display: inherit; */
 }

@@ -45,3 +45,21 @@
   visibility: visible !important;
   display: block !important;
 }
+
+.tableFixHeadFilter {
+  overflow-y: auto;
+  height: 60vh;
+  box-sizing: border-box;
+}
+
+.tableFixHeadFilter thead tr:nth-child(1) th {
+  position: sticky;
+  top: 0;
+  /* border: 0 0 1px 0 solid #000; */
+}
+.tableFixHeadFilter tr:nth-child(2) th {
+  position: sticky;
+  top: 42px;
+
+  /* display: inherit; */
+}

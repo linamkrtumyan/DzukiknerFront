@@ -78,3 +78,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.card {
+  /* background-color: red !important; */
+}

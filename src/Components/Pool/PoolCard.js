@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom";
 import FeedingMoveHistory from "../../Pages/FeedingMoveHistory";
 
 function PoolCard({ data, data1, fishData }) {
+  // console.log(data1);
   const history = useHistory();
   const [feeding, setFeeding] = useState(false);
 
@@ -29,7 +30,14 @@ function PoolCard({ data, data1, fishData }) {
         marginBottom: "10px",
       }}
     >
-      <Card className="pool_card">
+      <Card
+        className={
+          "pool_card " +
+          (parseFloat(data1.fishWeight) < 0 || data1.fishQuantity < 0
+            ? "warning"
+            : "")
+        }
+      >
         <Card.Body style={{ padding: "1.2rem 0.5rem" }}>
           <div style={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}>
             <Dropdown>
@@ -73,7 +81,8 @@ function PoolCard({ data, data1, fishData }) {
             </div>
             <div className="pool_card_item">
               <div style={{ textAlign: "center" }}>
-                {Math.round(data1.fishAvgWeight * 100) / 100}
+                {Math.round(data1.fishAvgWeight * 10) / 10}
+
                 <p style={{}}>Գ/Հատ</p>
               </div>
             </div>

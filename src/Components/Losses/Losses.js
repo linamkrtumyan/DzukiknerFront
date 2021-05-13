@@ -53,7 +53,7 @@ function Losses() {
   // }, [data]);
   const handleSubmit = (evt) => {
     addLosses.map((losse) => {
-      console.log(losse, "losse");
+      // console.log(losse, "losse");
       // if (
       //   (losse.wastequantity == "NaN" &&
       //     losse.profitablewastequantity != "Nan") ||
