@@ -21,7 +21,7 @@ function FilterReport() {
         <Tab eventKey="partners" title="Քաշաճ">
           <Reports />
         </Tab>
-        <Tab eventKey="fishes" title="ֆիլտր">
+        <Tab eventKey="fishes" title="Ֆիլտր">
           <Filter />
         </Tab>
       </Tabs>

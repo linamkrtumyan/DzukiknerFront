@@ -2,11 +2,11 @@ import React, { useState, useContext, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
-// import { PoolContext } from "../../Pages/PoolPage";
+import { PoolContext } from "../../Pages/PoolPage";
 import "./style.css";
 
 function Correction({ data1, fishData }) {
-  // const pool = useContext(PoolContext);
+  const pool = useContext(PoolContext);
 
   const [show, setShow] = useState(false);
   const [id, setId] = useState("");
@@ -25,7 +25,7 @@ function Correction({ data1, fishData }) {
   const handleShow = () => setShow(true);
 
   const handleSubmit = (evt) => {
-    // console.log(id, quantity, weight);
+    console.log(id, quantity, weight);
     axios
       .post(`/pools/correct`, {
         id,
@@ -33,12 +33,14 @@ function Correction({ data1, fishData }) {
         weight,
       })
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         if (response.data.success) {
-          // const updPool = {
-          //   id: id,
-          // };
-          // pool.correction(updPool);
+          const updPool = {
+            id,
+            quantity,
+            weight,
+          };
+          pool.correction(updPool);
           toast.success("Կատարված է");
         } else {
           toast.error(response.data.errorMessage);

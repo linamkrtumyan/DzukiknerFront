@@ -4,6 +4,8 @@ import axios from "axios";
 import { FoodContext } from "../../Pages/Foods";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import DatePicker from "react-datepicker";
+
 toast.configure();
 function PlusWeight({ data }) {
   const foods = useContext(FoodContext);
@@ -13,10 +15,33 @@ function PlusWeight({ data }) {
   const [partnerid, setPartnerId] = useState(null);
   const [description, setDesc] = useState(null);
   const [weight, setWeight] = useState("");
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [date, setDate] = useState(
+    selectedDate.getFullYear() +
+      "-" +
+      (selectedDate.getMonth() + 1) +
+      "-" +
+      selectedDate.getDate()
+  );
+  const ExampleCustomInput = ({ value, onClick }) => (
+    <Button className="example-custom-input" onClick={onClick}>
+      {value}
+    </Button>
+  );
 
   const newDataFunc = () => {
     setId(data.id);
   };
+
+  useEffect(() => {
+    setDate(
+      selectedDate.getFullYear() +
+        "-" +
+        (selectedDate.getMonth() + 1) +
+        "-" +
+        selectedDate.getDate()
+    );
+  }, [selectedDate]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,12 +59,14 @@ function PlusWeight({ data }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (evt) => {
+    console.log(id, weight, description, partnerid, date, "uxarkvoxnery");
     axios
       .post(`/info/food/updateWeight`, {
         id,
         weight,
         description,
         partnerid,
+        date,
       })
 
       .then((response) => {
@@ -80,6 +107,27 @@ function PlusWeight({ data }) {
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
+            <DatePicker
+              style={{
+                width: "150px",
+                margin: "10px",
+                cursor: "pointer",
+              }}
+              selected={selectedDate}
+              onChange={(date) => {
+                setSelectedDate(date);
+              }}
+              dateFormat="yyyy/MM/dd"
+              maxDate={new Date()}
+              closeOnScroll={true}
+              scrollableMonthYearDropdown
+              showMonthDropdown
+              showYearDropdown
+              customInput={<ExampleCustomInput />}
+              // placeholderText="Տարի/Ամիս/Օր        🔽"
+              mode="date"
+            />
+            <br />
             <Form.Label>Քաշ (կգ)</Form.Label>
             <Form.Control
               type="number"

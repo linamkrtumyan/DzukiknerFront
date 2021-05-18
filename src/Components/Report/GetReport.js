@@ -16,6 +16,7 @@ export default function GetReports({ data }) {
   const [reports, setReports] = useState(data);
   const [finalReport, setFinalReports] = useState([]);
   const [finalMijin, setFinalMijin] = useState([]);
+  const [isCurrentReport, setIsCurrentReport] = useState(false);
 
   useEffect(() => {
     setReports(data);
@@ -29,11 +30,29 @@ export default function GetReports({ data }) {
   }, [data]);
 
   const getPreviousReports = (date) => {
+    setIsCurrentReport(true);
     setSelectedDate(date);
+    console.log("date:::", date);
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    history.push(`/reports/report-for-month/${month}/${year}/${date}`);
-    <PreviousReports />;
+    axios
+      .post(`/reports/getReportsForMonth`, {
+        month,
+        year,
+      })
+      .then((response) => {
+        if (response.data.reports) {
+          setReports(response.data.reports);
+        } else {
+          toast.error(`${response.data.errorMessage}`);
+        }
+      })
+      .catch((e) => {
+        toast.error("Կատարված չէ");
+      });
+
+    // history.push(`/reports/report-for-month/${month}/${year}/${date}`);
+    // <PreviousReports />;
   };
 
   const confirmReport = (e) => {
@@ -91,148 +110,239 @@ export default function GetReports({ data }) {
             showMonthYearPicker
             closeOnScroll={true}
             maxDate={new Date()}
+            // excludeDates={[new Date(), subMonths(new Date(), 1)]}
           />
         </div>
       </div>
       <div className="scroll tableFixHead">
-        <Table
-          bordered
-          hover
-          // style={{ backgroundColor: "white" }}
-          className="report-table values-of-report"
-        >
-          <thead>
-            <tr
-              style={{
-                fontSize: "12px",
-                fontWeight: "800",
-                // position: "sticky !important",
-              }}
-              className="values-of-report td "
-              // className="report_title"
-            >
-              <th colSpan="2"></th>
-              <th colSpan="3">Սկզբնական</th>
-              <th colSpan="2">Մուտք</th>
-              <th colSpan="2">Վաճառք</th>
-              <th colSpan="2">Տեղափոխություն</th>
-              <th colSpan="2">Անկում</th>
-              <th colSpan="3">Վերջնական</th>
-              <th colSpan="2">Ավելցուկ/պակասորդ</th>
-              <th colSpan="1"></th>
-              <th colSpan="2"></th>
-            </tr>
-            <tr className="report_title">
-              <th>Ավազաններ</th>
-              <th>Ձկան տեսակ</th>
-              <th>միջ․քաշ /գ/</th>
-              <th>քանակ /հատ/</th>
-              <th>քաշ /կգ/</th>
-              <th>քանակ /հատ/</th>
-              <th>քաշ /կգ/</th>
-              <th>քանակ /հատ/</th>
-              <th>քաշ /կգ/</th>
-              <th>քանակ /հատ/</th>
-              <th>քաշ /կգ/</th>
-              <th>քանակ /հատ/</th>
-              <th>քաշ /կգ/</th>
-              <th>միջ․քաշ</th>
-              <th>քանակ</th>
-              <th>քաշ</th>
-              <th>քանակ /հատ/</th>
-              <th>քաշ /կգ/</th>
-              <th>Կեր</th>
-              <th>Քաշաճ</th>
-              <th>Գործակից</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reports.length > 0 ? (
-              reports.map((report, index) => {
-                return (
-                  <tr key={index} className="values-of-report">
-                    <td>{report.PoolName}</td>
-                    <td>{report.FishName}</td>
-                    <td>{report.InitialAvgWeight}</td>
-                    <td>{report.InitialQuantity}</td>
-                    <td>{parseFloat(report.InitialWeight).toFixed(1)}</td>
-                    <td>{report.InQuantity}</td>
-                    <td>{parseFloat(report.InWeight).toFixed(1)}</td>
-                    <td>{report.SaleQuantity}</td>
-                    <td>{parseFloat(report.SaleWeight).toFixed(1)}</td>
-                    <td>{report.MoveQuantity}</td>
-                    <td>{parseFloat(report.MoveWeight).toFixed(1)}</td>
-                    <td>{report.DeadQuantity}</td>
-                    <td>{parseFloat(report.DeadWeight).toFixed(1)}</td>
-                    <td>
-                      <input
-                        className="report_input"
-                        value={
-                          finalMijin[index].weight
-                            ? finalMijin[index].weight
-                            : ""
-                        }
-                        onChange={(e) => {
-                          handleSetFinalMijin(e.target.value, index);
-                        }}
-                      />
-                    </td>
-                    <td>{report.FinalQuantity}</td>
-                    <td>
-                      {finalMijin[index].weight
-                        ? parseFloat(
-                            report.FinalQuantity * finalMijin[index].weight
-                          ).toFixed(4)
-                        : "-"}
-                    </td>
-                    <td>{report.PlusOrMinusQuantity}</td>
-                    <td>{parseFloat(report.PlusOrMinusWeight).toFixed(1)}</td>
-                    <td>{parseFloat(report.Food)}</td>
-                    <td>
-                      {finalMijin[index].weight
-                        ? parseFloat(
-                            parseFloat(finalMijin[index].weight) +
-                              parseFloat(report.SaleWeight) -
-                              parseFloat(report.InitialWeight) +
-                              parseFloat(report.MoveWeight) +
-                              parseFloat(report.DeadWeight) -
-                              parseFloat(report.InWeight)
-                          ).toFixed(4)
-                        : "-"}
-                    </td>
-
-                    <td>
-                      {finalMijin[index].weight
-                        ? report.Food == 0 ||
-                          parseFloat(finalMijin[index].weight) +
-                            report.SaleWeight -
-                            report.InitialWeight +
-                            report.MoveWeight +
-                            report.DeadWeight -
-                            report.InWeight ==
-                            0
-                          ? 0
-                          : parseFloat(
-                              parseFloat(report.Food) /
-                                (parseFloat(finalMijin[index].weight) +
-                                  parseFloat(report.SaleWeight) -
-                                  parseFloat(report.InitialWeight) +
-                                  parseFloat(report.MoveWeight) +
-                                  parseFloat(report.DeadWeight) -
-                                  parseFloat(report.InWeight))
-                            ).toFixed(4)
-                        : "-"}
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
-              <tr>
-                <td colSpan="5">Տվյալներ չկան</td>
+        {!isCurrentReport ? (
+          <Table
+            bordered
+            hover
+            // style={{ backgroundColor: "white" }}
+            className="report-table values-of-report"
+          >
+            <thead>
+              <tr
+                style={{
+                  fontSize: "12px",
+                  fontWeight: "800",
+                  // position: "sticky !important",
+                }}
+                className="values-of-report td "
+                // className="report_title"
+              >
+                <th colSpan="2"></th>
+                <th colSpan="3">Սկզբնական</th>
+                <th colSpan="2">Մուտք</th>
+                <th colSpan="2">Վաճառք</th>
+                <th colSpan="2">Տեղափոխություն</th>
+                <th colSpan="2">Անկում</th>
+                <th colSpan="3">Վերջնական</th>
+                <th colSpan="2">Ավելցուկ/պակասորդ</th>
+                <th colSpan="1"></th>
+                <th colSpan="2"></th>
               </tr>
-            )}
-          </tbody>
-        </Table>
+              <tr className="report_title">
+                <th>Ավազաններ</th>
+                <th>Ձկան տեսակ</th>
+                <th>միջ․քաշ /գ/</th>
+                <th>քանակ /հատ/</th>
+                <th>քաշ /կգ/</th>
+                <th>քանակ /հատ/</th>
+                <th>քաշ /կգ/</th>
+                <th>քանակ /հատ/</th>
+                <th>քաշ /կգ/</th>
+                <th>քանակ /հատ/</th>
+                <th>քաշ /կգ/</th>
+                <th>քանակ /հատ/</th>
+                <th>քաշ /կգ/</th>
+                <th>միջ․քաշ</th>
+                <th>քանակ</th>
+                <th>քաշ</th>
+                <th>քանակ /հատ/</th>
+                <th>քաշ /կգ/</th>
+                <th>Կեր</th>
+                <th>Քաշաճ</th>
+                <th>Գործակից</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reports.length > 0 ? (
+                reports.map((report, index) => {
+                  return (
+                    <tr key={index} className="values-of-report">
+                      <td>{report.PoolName}</td>
+                      <td>{report.FishName}</td>
+                      <td>{report.InitialAvgWeight}</td>
+                      <td>{report.InitialQuantity}</td>
+                      <td>{parseFloat(report.InitialWeight).toFixed(1)}</td>
+                      <td>{report.InQuantity}</td>
+                      <td>{parseFloat(report.InWeight).toFixed(1)}</td>
+                      <td>{report.SaleQuantity}</td>
+                      <td>{parseFloat(report.SaleWeight).toFixed(1)}</td>
+                      <td>{report.MoveQuantity}</td>
+                      <td>{parseFloat(report.MoveWeight).toFixed(1)}</td>
+                      <td>{report.DeadQuantity}</td>
+                      <td>{parseFloat(report.DeadWeight).toFixed(1)}</td>
+                      <td>
+                        <input
+                          className="report_input"
+                          value={
+                            finalMijin[index].weight
+                              ? finalMijin[index].weight
+                              : ""
+                          }
+                          onChange={(e) => {
+                            handleSetFinalMijin(e.target.value, index);
+                          }}
+                        />
+                      </td>
+                      <td>{report.FinalQuantity}</td>
+                      <td>
+                        {finalMijin[index].weight
+                          ? parseFloat(
+                              report.FinalQuantity * finalMijin[index].weight
+                            ).toFixed(4)
+                          : "-"}
+                      </td>
+                      <td>{report.PlusOrMinusQuantity}</td>
+                      <td>{parseFloat(report.PlusOrMinusWeight).toFixed(1)}</td>
+                      <td>{parseFloat(report.Food)}</td>
+                      <td>
+                        {finalMijin[index].weight
+                          ? parseFloat(
+                              parseFloat(finalMijin[index].weight) +
+                                parseFloat(report.SaleWeight) -
+                                parseFloat(report.InitialWeight) +
+                                parseFloat(report.MoveWeight) +
+                                parseFloat(report.DeadWeight) -
+                                parseFloat(report.InWeight)
+                            ).toFixed(4)
+                          : "-"}
+                      </td>
+
+                      <td>
+                        {finalMijin[index].weight
+                          ? report.Food == 0 ||
+                            parseFloat(finalMijin[index].weight) +
+                              report.SaleWeight -
+                              report.InitialWeight +
+                              report.MoveWeight +
+                              report.DeadWeight -
+                              report.InWeight ==
+                              0
+                            ? 0
+                            : parseFloat(
+                                parseFloat(report.Food) /
+                                  (parseFloat(finalMijin[index].weight) +
+                                    parseFloat(report.SaleWeight) -
+                                    parseFloat(report.InitialWeight) +
+                                    parseFloat(report.MoveWeight) +
+                                    parseFloat(report.DeadWeight) -
+                                    parseFloat(report.InWeight))
+                              ).toFixed(4)
+                          : "-"}
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td colSpan="5">Տվյալներ չկան</td>
+                </tr>
+              )}
+            </tbody>
+          </Table>
+        ) : (
+          <Table
+            bordered
+            hover
+            style={{
+              backgroundColor: "white",
+              // className: "values-of-report td",
+            }}
+            // className="report-for-month-table table-wrapper-scroll-y my-custom-scrollbar"
+          >
+            <thead>
+              <tr
+                style={{ fontSize: "12px", fontWeight: "700" }}
+                className="values-of-report td"
+              >
+                <th colSpan="2"></th>
+                <th colSpan="3">Սկզբնական</th>
+                <th colSpan="2">Մուտք</th>
+                <th colSpan="2">Վաճառք</th>
+                <th colSpan="2">Տեղափոխություն</th>
+                <th colSpan="2">Անկում</th>
+                <th colSpan="3">Վերջնական</th>
+                <th colSpan="2">Ավելցուկ/պակասորդ</th>
+                <th colSpan="1"></th>
+                <th colSpan="2"></th>
+              </tr>
+              <tr className="report_title">
+                <th>Ավազաններ</th>
+                <th>Ձկան տեսակ</th>
+                <th>միջ․քաշ /գ/</th>
+                <th>քանակ /հատ/</th>
+                <th>քաշ /կգ/</th>
+                <th>քանակ /հատ/</th>
+                <th>քաշ /կգ/</th>
+                <th>քանակ /հատ/</th>
+                <th>քաշ /կգ/</th>
+                <th>քանակ /հատ/</th>
+                <th>քաշ /կգ/</th>
+                <th>քանակ /հատ/</th>
+                <th>քաշ /կգ/</th>
+                <th>միջ․քաշ</th>
+                <th>քանակ</th>
+                <th>քաշ</th>
+                <th>քանակ /հատ/</th>
+                <th>քաշ /կգ/</th>
+                <th>Կեր</th>
+                <th>Քաշաճ</th>
+                <th>Գործակից</th>
+              </tr>
+            </thead>
+            <tbody
+            // className="table-wrapper-scroll-y my-custom-scrollbar"
+            >
+              {reports.length > 0 ? (
+                reports.map((report, index) => {
+                  return (
+                    <tr key={index} className="values-of-report">
+                      <td>{report.PoolName}</td>
+                      <td>{report.FishName}</td>
+                      <td>{parseFloat(report.InitialAvgWeight).toFixed(1)}</td>
+                      <td>{report.InitialQuantity}</td>
+                      <td>{parseFloat(report.InitialWeight).toFixed(1)}</td>
+                      <td>{report.InQuantity}</td>
+                      <td>{parseFloat(report.InWeight).toFixed(1)}</td>
+                      <td>{report.SaleQuantity}</td>
+                      <td>{parseFloat(report.SaleWeight).toFixed(1)}</td>
+                      <td>{report.MoveQuantity}</td>
+                      <td>{parseFloat(report.MoveWeight).toFixed(1)}</td>
+                      <td>{report.DeadQuantity}</td>
+                      <td>{parseFloat(report.DeadWeight).toFixed(1)}</td>
+                      <td>{report.FinalAvgWeight}</td>
+                      <td>{report.FinalQuantity}</td>
+                      <td>{report.FinalWeight}</td>
+                      <td>{report.PlusOrMinusQuantity}</td>
+                      <td>{parseFloat(report.PlusOrMinusWeight).toFixed(1)}</td>
+                      <td>{report.Food}</td>
+                      <td>{parseFloat(report.WeightGrow).toFixed(1)}</td>
+                      <td>{parseFloat(report.Coefficient).toFixed(1)}</td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td colSpan="5">Տվյալներ չկան</td>
+                </tr>
+              )}
+            </tbody>
+          </Table>
+        )}
       </div>
 
       <Button onClick={confirmReport} className="confirm-btn" variant="primary">

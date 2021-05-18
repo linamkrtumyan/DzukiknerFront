@@ -82,13 +82,13 @@ function Feeding() {
       }
     }
 
-    // console.log(addFood, "uxarkvoxy");
+    console.log(addFood, "uxarkvoxy");
     axios
       .post(`/feeding/addFeed`, {
         addFood,
       })
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         if (response.data.success) {
           // setAddFood();
           toast.success("Կատարված է");

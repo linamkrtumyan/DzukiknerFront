@@ -51,17 +51,18 @@ function PoolPage() {
       }
     });
   };
-  // const correction = (pool) => {
-  //   data.map((id1) => {
-  //     if (id1.id == pool.id) {
-  //       id1.fishQuantity = 0;
-  //       id1.fishWeight = 0;
-  //       id1.fishAvgWeight = 0;
-  //       id1.fishType = "";
-  //       setData([...data]);
-  //     }
-  //   });
-  // };
+  const correction = (pool) => {
+    data.map((id1) => {
+      if (id1.id == pool.id) {
+        id1.fishQuantity -= pool.quantity;
+        id1.fishWeight -= pool.weight;
+        id1.fishAvgWeight =
+          (parseFloat(id1.fishWeight) * 1000) / parseFloat(id1.fishQuantity);
+        // id1.fishType = "";
+        setData([...data]);
+      }
+    });
+  };
   const salePool = (pool) => {
     data.map((id1) => {
       if (id1.id == pool.id) {
@@ -135,7 +136,7 @@ function PoolPage() {
           inPool,
           salePool,
           movePool,
-          // correction,
+          correction,
         }}
       >
         <Cards fishData={fishData} data={data} />
