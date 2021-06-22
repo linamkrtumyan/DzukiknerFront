@@ -152,10 +152,11 @@ function InPool({ data, data1 }) {
             <Form.Label>Քանակ (հատ)</Form.Label>
             <Form.Control
               type="number"
-              min={0}
+              // min={0}
               // max="data1.fishQuantity"
               placeholder=""
               // maxLength="10"
+              onWheel={() => document.activeElement.blur()}
               onChange={(e) => setQuantity(e.target.value)}
             />
 
@@ -163,6 +164,7 @@ function InPool({ data, data1 }) {
             <Form.Label>Քաշ (կգ)</Form.Label>
             <Form.Control
               type="number"
+              onWheel={() => document.activeElement.blur()}
               min="0"
               placeholder=""
               onChange={(e) => {
@@ -175,6 +177,7 @@ function InPool({ data, data1 }) {
             <Form.Label>Միջին քաշ (կգ)</Form.Label>
             <Form.Control
               type="number"
+              onWheel={() => document.activeElement.blur()}
               min="0"
               placeholder=""
               value={Math.round((weight / quantity) * 10000) / 10000}

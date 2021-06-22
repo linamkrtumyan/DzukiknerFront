@@ -137,6 +137,7 @@ function MovePool({ data, data1 }) {
             <Form.Label>Քանակ (հատ)</Form.Label>
             <Form.Control
               type="number"
+              onWheel={() => document.activeElement.blur()}
               min="0"
               placeholder=""
               onChange={(e) => setQuantity(e.target.value)}
@@ -145,6 +146,7 @@ function MovePool({ data, data1 }) {
             <Form.Label>Քաշ (կգ)</Form.Label>
             <Form.Control
               type="number"
+              onWheel={() => document.activeElement.blur()}
               min="0"
               placeholder=""
               onChange={(e) => {
@@ -157,6 +159,7 @@ function MovePool({ data, data1 }) {
             <Form.Label>Միջին քաշ (կգ)</Form.Label>
             <Form.Control
               type="number"
+              onWheel={() => document.activeElement.blur()}
               min="0"
               placeholder=""
               value={Math.round((weight / quantity) * 10000) / 10000}

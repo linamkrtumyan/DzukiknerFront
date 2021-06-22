@@ -64,6 +64,15 @@ function NavbarPage() {
                   Հաշվետվություններ
                 </NavLink>
               </div>
+              <div style={{ padding: "10px" }}>
+                <NavLink
+                  to="/report/feeding-move-history"
+                  className="navlink"
+                  activeClassName="activeclass"
+                >
+                  Պատմություն
+                </NavLink>
+              </div>
             </Nav>
           </Form>
           {/* <Form inline> */}

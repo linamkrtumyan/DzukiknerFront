@@ -4,11 +4,7 @@ import Select from "react-select";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// const options = [
-//   { value: "chocolate", label: "Chocolate" },
-//   { value: "strawberry", label: "Strawberry" },
-//   { value: "vanilla", label: "Vanilla" },
-// ];
+import FilterDownload from "../Components/Report/FilterDownload";
 
 function Filter() {
   const [options, setOptions] = useState([]);
@@ -30,13 +26,8 @@ function Filter() {
         // addFood,
       })
       .then((response) => {
-        // console.log("object");
-        // console.log(response, "**********");
         setReports(response.data.data);
-        // console.log(response);
         if (response.data.success) {
-          // setAddFood();
-          // toast.success("Կատարված է");
         } else {
           // toast.error(response.data.errorMessage);
         }
@@ -90,16 +81,12 @@ function Filter() {
     </Button>
   );
 
-  // console.log(send, "lyaa");
-  // console.log(pools, "pools");
-  // console.log(selectedStartDate, "selectedStartDate");
-  // console.log(selectedEndDate, "selectedEndDate");
-  // console.log(startDate, "startDate");
-  // console.log(endDate, "endDate");
-
   return (
     <>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
+        <div style={{ margin: "20px 10px" }}>
+          <FilterDownload reports={reports} />
+        </div>
         <div style={{ margin: "20px 10px" }}>
           <DatePicker
             style={{
@@ -121,6 +108,7 @@ function Filter() {
             mode="date"
           />
         </div>
+
         <div style={{ margin: "20px 10px" }}>
           <DatePicker
             style={{

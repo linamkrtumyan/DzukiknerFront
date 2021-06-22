@@ -59,7 +59,7 @@ function PlusWeight({ data }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (evt) => {
-    console.log(id, weight, description, partnerid, date, "uxarkvoxnery");
+    // console.log(id, weight, description, partnerid, date, "uxarkvoxnery");
     axios
       .post(`/info/food/updateWeight`, {
         id,
@@ -131,6 +131,7 @@ function PlusWeight({ data }) {
             <Form.Label>Քաշ (կգ)</Form.Label>
             <Form.Control
               type="number"
+              onWheel={() => document.activeElement.blur()}
               placeholder=""
               //   value={Math.round(weight * 10000) / 10000}
               //   value={weight}

@@ -53,15 +53,6 @@ function Losses() {
   // }, [data]);
   const handleSubmit = (evt) => {
     addLosses.map((losse) => {
-      // console.log(losse, "losse");
-      // if (
-      //   (losse.wastequantity == "NaN" &&
-      //     losse.profitablewastequantity != "Nan") ||
-      //   (losse.profitablewastequantity == "NaN" && losse.wastequantity == "NaN")
-      // ) {
-      //   losse.wastequantity = 0;
-      //   losse.profitablewastequantity = 0;
-      // } else {
       if (losse.profitablewastequantity) {
         losse.wastequantity = String(
           losse.wastequantity - losse.profitablewastequantity
@@ -69,19 +60,21 @@ function Losses() {
       } else {
         losse.profitablewastequantity = "0";
       }
-
-      // }
     });
-
-    // addLosses.map((losse) => console.log(losse.wastequantity));
-    // console.log(addLosses, "addLosses");
     axios
       .post(`/losses/addLosse`, {
         addLosses,
       })
       .then((response) => {
-        // console.log(response);
         if (response.data.success) {
+          let newArray = addLosses.map(function (l) {
+            delete l.profitablewastequantity;
+            delete l.wastequantity;
+            delete l.date;
+
+            return l;
+          });
+          setAddLosses(newArray);
           toast.success("Կատարված է");
         } else {
           toast.error(response.data.errorMessage);
@@ -169,7 +162,9 @@ function Losses() {
                     <td>
                       <Form.Control
                         type="number"
+                        onWheel={() => document.activeElement.blur()}
                         min="0"
+                        value={Number(addLosses[index]?.wastequantity)}
                         placeholder="Ընդհանուր (հատ)"
                         // value="0"
                         onChange={(e) => {
@@ -199,7 +194,11 @@ function Losses() {
                     <td>
                       <Form.Control
                         type="number"
+                        onWheel={() => document.activeElement.blur()}
                         min="0"
+                        value={Number(
+                          addLosses[index]?.profitablewastequantity
+                        )}
                         placeholder="Պիտանի (հատ)"
                         onChange={(e) => {
                           addLosses[index] = {

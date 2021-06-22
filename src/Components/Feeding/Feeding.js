@@ -14,6 +14,7 @@ function Feeding() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [sendDate, setSendDate] = useState("");
   const [error, setError] = useState("");
+  const [isOk, setIsOk] = useState(false);
 
   useEffect(() => {
     setSendDate(
@@ -53,25 +54,10 @@ function Feeding() {
     </Button>
   );
 
-  // useEffect(() => {
-  //   effect
-  //   return () => {
-  //     cleanup
-  //   }
-  // }, [addFood])
-
   const handleSubmit = (evt) => {
-    // console.log(addFood);
+    evt.preventDefault();
+
     for (let i = 0; i < addFood.length; i++) {
-      // console.log(addFood[i], "addFoodik");
-      // if (!addFoodik.food) {
-      //   addFoodik.food = "0";
-      // }
-
-      // if (!addFoodik.coef) {
-      //   addFoodik.coef = "0";
-      // }
-
       if (addFood[i].count && !addFood[i].coef) {
         setError("form-control is-invalid ");
         return;
@@ -82,16 +68,22 @@ function Feeding() {
       }
     }
 
-    console.log(addFood, "uxarkvoxy");
     axios
       .post(`/feeding/addFeed`, {
         addFood,
       })
       .then((response) => {
-        console.log(response);
         if (response.data.success) {
-          // setAddFood();
+          let newArray = addFood.map(function (food) {
+            delete food.count;
+            delete food.coef;
+            delete food.date;
+            delete food.food;
+            return food;
+          });
+          setAddFood(newArray);
           toast.success("Կատարված է");
+          // setIsOk(true);
         } else {
           toast.error(response.data.errorMessage);
         }
@@ -179,8 +171,9 @@ function Feeding() {
                     <td>
                       <Form.Control
                         type="number"
-                        min="0"
+                        onWheel={() => document.activeElement.blur()}
                         placeholder="Կերի քանակ"
+                        value={Number(addFood[index]?.count)}
                         onChange={(e) => {
                           setError("");
                           addFood[index] = {
@@ -213,7 +206,8 @@ function Feeding() {
                             ? error
                             : ""
                         }
-                        placeholder="Ընտրեք կերը"
+                        value={addFood[index]?.food ?? "Ընտրեք կերը"}
+                        // placeholder="Ընտրեք կերը"
                         onChange={(e) => {
                           setError("");
                           addFood[index] = {
@@ -225,7 +219,7 @@ function Feeding() {
                         }}
                       >
                         <option hidden value="">
-                          Ընտրեք կերը
+                          {addFood[index]?.food ? "Ընտրեք կերը" : "Ընտրեք կերը"}
                         </option>
                         {foods.map((food) => (
                           <option key={food.id} value={food.id}>
@@ -238,6 +232,8 @@ function Feeding() {
                     <td>
                       <Form.Control
                         type="number"
+                        value={Number(addFood[index]?.coef)}
+                        onWheel={() => document.activeElement.blur()}
                         min="0"
                         placeholder="Գործակիցը"
                         className={

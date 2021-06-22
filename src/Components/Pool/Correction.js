@@ -25,7 +25,7 @@ function Correction({ data1, fishData }) {
   const handleShow = () => setShow(true);
 
   const handleSubmit = (evt) => {
-    console.log(id, quantity, weight);
+    // console.log(id, quantity, weight);
     axios
       .post(`/pools/correct`, {
         id,
@@ -33,7 +33,7 @@ function Correction({ data1, fishData }) {
         weight,
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         if (response.data.success) {
           const updPool = {
             id,
@@ -69,6 +69,7 @@ function Correction({ data1, fishData }) {
             <Form.Label>Հատ</Form.Label>
             <Form.Control
               type="number"
+              onWheel={() => document.activeElement.blur()}
               placeholder=""
               onChange={(e) => setQuantity(e.target.value)}
             />
@@ -76,6 +77,7 @@ function Correction({ data1, fishData }) {
             <Form.Label>Կգ</Form.Label>
             <Form.Control
               type="number"
+              onWheel={() => document.activeElement.blur()}
               placeholder=""
               onChange={(e) => setWeight(e.target.value)}
             />

@@ -14,6 +14,7 @@ import Feeding from "../Components/Feeding/Feeding";
 import Losses from "../Components/Losses/Losses";
 import FeedingMoveHistory from "../Pages/FeedingMoveHistory";
 import FilterReport from "../Pages/FilterReport";
+import ReportForMoveAndFeeding from "../Pages/ReportForMoveAndFeeding";
 
 function Routes({ isLoggedIn }) {
   if (isLoggedIn) {
@@ -44,6 +45,11 @@ function Routes({ isLoggedIn }) {
           <Route
             path="/pools/feeding-move-history/:id"
             component={FeedingMoveHistory}
+            exact
+          />
+          <Route
+            path="/report/feeding-move-history"
+            component={ReportForMoveAndFeeding}
             exact
           />
           <Redirect to="/pools" />

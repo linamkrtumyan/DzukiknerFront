@@ -17,6 +17,9 @@ export default function GetReports({ data }) {
   const [finalReport, setFinalReports] = useState([]);
   const [finalMijin, setFinalMijin] = useState([]);
   const [isCurrentReport, setIsCurrentReport] = useState(false);
+  const [selected, setSelected] = useState(false);
+  const [sumExample, setSumExample] = useState(0);
+  const [sel, setSel] = useState([]);
 
   useEffect(() => {
     setReports(data);
@@ -32,7 +35,6 @@ export default function GetReports({ data }) {
   const getPreviousReports = (date) => {
     setIsCurrentReport(true);
     setSelectedDate(date);
-    console.log("date:::", date);
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     axios
@@ -87,6 +89,45 @@ export default function GetReports({ data }) {
     setFinalMijin(newarr);
   };
 
+  const handleClick = (thing) => {
+    if (!sel.some((s) => s.PoolId == thing.PoolId)) {
+      setSel([
+        ...sel,
+        {
+          PoolId: thing.PoolId,
+        },
+      ]);
+    } else {
+      setSel(sel.filter((s) => thing.PoolId !== s.PoolId));
+    }
+  };
+
+  //   a = [{ value:"4a55eff3-1e0d-4a81-9105-3ddd7521d642", display:"Jamsheer"}, { value:"644838b3-604d-4899-8b78-09e4799f586f", display:"Muhammed"}, { value:"b6ee537a-375c-45bd-b9d4-4dd84a75041d", display:"Ravi"}, { value:"e97339e1-939d-47ab-974c-1b68c9cfb536", display:"Ajmal"},  { value:"a63a6f77-c637-454e-abf2-dfb9b543af6c", display:"Ryan"}]
+  // b = [{ value:"4a55eff3-1e0d-4a81-9105-3ddd7521d642", display:"Jamsheer", $$hashKey:"008"}, { value:"644838b3-604d-4899-8b78-09e4799f586f", display:"Muhammed", $$hashKey:"009"}, { value:"b6ee537a-375c-45bd-b9d4-4dd84a75041d", display:"Ravi", $$hashKey:"00A"}, { value:"e97339e1-939d-47ab-974c-1b68c9cfb536", display:"Ajmal", $$hashKey:"00B"}]
+
+  function comparer(otherArray) {
+    return function (current) {
+      return (
+        otherArray.filter(function (other) {
+          // console.log(other, "other");
+          // console.log(
+          //   other.PoolId == current.PoolId,
+          //   " other.PoolId == current.PoolId"
+          // );
+          return other.PoolId == current.PoolId;
+        }).length == 0
+      );
+    };
+  }
+
+  // var onlyInSel = sel.filter(comparer(reports));
+  var onlyInReports = reports.filter(comparer(sel));
+  // console.log(onlyInSel, "onlyInSel");
+
+  // let result = onlyInSel.concat(onlyInReports);
+
+  // console.log(result);
+
   return (
     <div
       style={{
@@ -132,7 +173,7 @@ export default function GetReports({ data }) {
                 className="values-of-report td "
                 // className="report_title"
               >
-                <th colSpan="2"></th>
+                <th colSpan="3"></th>
                 <th colSpan="3">Սկզբնական</th>
                 <th colSpan="2">Մուտք</th>
                 <th colSpan="2">Վաճառք</th>
@@ -144,6 +185,7 @@ export default function GetReports({ data }) {
                 <th colSpan="2"></th>
               </tr>
               <tr className="report_title">
+                <th></th>
                 <th>Ավազաններ</th>
                 <th>Ձկան տեսակ</th>
                 <th>միջ․քաշ /գ/</th>
@@ -170,8 +212,21 @@ export default function GetReports({ data }) {
             <tbody>
               {reports.length > 0 ? (
                 reports.map((report, index) => {
+                  // console.log(report, "report");
                   return (
                     <tr key={index} className="values-of-report">
+                      <td>
+                        <input
+                          readOnly
+                          checked={onlyInReports.some(
+                            (s) => s.PoolId === report.PoolId
+                          )}
+                          onClick={() => {
+                            handleClick(report);
+                          }}
+                          type="checkbox"
+                        />
+                      </td>
                       <td>{report.PoolName}</td>
                       <td>{report.FishName}</td>
                       <td>{report.InitialAvgWeight}</td>
@@ -252,6 +307,111 @@ export default function GetReports({ data }) {
                   <td colSpan="5">Տվյալներ չկան</td>
                 </tr>
               )}
+              {onlyInReports.length > 0 ? (
+                <tr style={{ fontWeight: "700" }}>
+                  <td>Ընդամենը</td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.InitialAvgWeight;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {" "}
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.InitialQuantity;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {" "}
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.InitialWeight;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {" "}
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.InQuantity;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {" "}
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.InWeight;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.SaleQuantity;
+                    }, 0)}
+                  </td>
+
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.SaleWeight;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.MoveQuantity;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.MoveWeight;
+                    }, 0)}
+                  </td>
+
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.DeadQuantity;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.DeadWeight;
+                    }, 0)}
+                  </td>
+                  <td></td>
+
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.FinalQuantity;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.FinalWeight;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.PlusOrMinusQuantity;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.PlusOrMinusWeight;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.Food;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.WeightGrow;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.Coefficient;
+                    }, 0)}
+                  </td>
+                </tr>
+              ) : null}
             </tbody>
           </Table>
         ) : (
@@ -269,7 +429,7 @@ export default function GetReports({ data }) {
                 style={{ fontSize: "12px", fontWeight: "700" }}
                 className="values-of-report td"
               >
-                <th colSpan="2"></th>
+                <th colSpan="3"></th>
                 <th colSpan="3">Սկզբնական</th>
                 <th colSpan="2">Մուտք</th>
                 <th colSpan="2">Վաճառք</th>
@@ -281,6 +441,7 @@ export default function GetReports({ data }) {
                 <th colSpan="2"></th>
               </tr>
               <tr className="report_title">
+                <th></th>
                 <th>Ավազաններ</th>
                 <th>Ձկան տեսակ</th>
                 <th>միջ․քաշ /գ/</th>
@@ -311,6 +472,18 @@ export default function GetReports({ data }) {
                 reports.map((report, index) => {
                   return (
                     <tr key={index} className="values-of-report">
+                      <td>
+                        <input
+                          readOnly
+                          checked={onlyInReports.some(
+                            (s) => s.PoolId === report.PoolId
+                          )}
+                          onClick={() => {
+                            handleClick(report);
+                          }}
+                          type="checkbox"
+                        />
+                      </td>
                       <td>{report.PoolName}</td>
                       <td>{report.FishName}</td>
                       <td>{parseFloat(report.InitialAvgWeight).toFixed(1)}</td>
@@ -340,6 +513,115 @@ export default function GetReports({ data }) {
                   <td colSpan="5">Տվյալներ չկան</td>
                 </tr>
               )}
+              {onlyInReports.length > 0 ? (
+                <tr style={{ fontSize: "14px", fontWeight: "700" }}>
+                  <td>Ընդամենը</td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.InitialAvgWeight;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {" "}
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.InitialQuantity;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {" "}
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.InitialWeight;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {" "}
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.InQuantity;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {" "}
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.InWeight;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.SaleQuantity;
+                    }, 0)}
+                  </td>
+
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.SaleWeight;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.MoveQuantity;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.MoveWeight;
+                    }, 0)}
+                  </td>
+
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.DeadQuantity;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.DeadWeight;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.FinalAvgWeight;
+                    }, 0)}
+                  </td>
+
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.FinalQuantity;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.FinalWeight;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.PlusOrMinusQuantity;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.PlusOrMinusWeight;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.Food;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.WeightGrow;
+                    }, 0)}
+                  </td>
+                  <td>
+                    {onlyInReports.reduce(function (prev, current) {
+                      return prev + +current.Coefficient;
+                    }, 0)}
+                  </td>
+                </tr>
+              ) : null}
             </tbody>
           </Table>
         )}

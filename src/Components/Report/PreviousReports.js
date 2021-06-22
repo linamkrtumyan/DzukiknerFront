@@ -94,6 +94,7 @@ export default function PreviousReports(props) {
             className="values-of-report td"
           >
             <th colSpan="2"></th>
+            <th colSpan="2"></th>
             <th colSpan="3">Սկզբնական</th>
             <th colSpan="2">Մուտք</th>
             <th colSpan="2">Վաճառք</th>
@@ -105,7 +106,9 @@ export default function PreviousReports(props) {
             <th colSpan="2"></th>
           </tr>
           <tr className="report_title">
-            <th>Ավազաններ</th>
+            <th colSpan="2">a</th>
+
+            <th>Ավազաններaaaa</th>
             <th>Ձկան տեսակ</th>
             <th>միջ․քաշ /գ/</th>
             <th>քանակ /հատ/</th>

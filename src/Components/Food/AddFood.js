@@ -78,6 +78,7 @@ function AddFood() {
             <Form.Label>Քաշ</Form.Label>
             <Form.Control
               type="number"
+              onWheel={() => document.activeElement.blur()}
               placeholder=""
               onChange={(e) => setWeight(e.target.value)}
             />

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Tab, Tabs } from "react-bootstrap";
-import Feeding from "../Components/Feeding/Feeding";
-import Losses from "../Components/Losses/Losses";
-import axios from "axios";
-import PoolPage from "./PoolPage";
+
 import Reports from "./Reports";
 import Filter from "./Filter";
+import ReportForMoveAndFeeding from "./ReportForMoveAndFeeding";
 
 function FilterReport() {
   return (
@@ -24,6 +22,9 @@ function FilterReport() {
         <Tab eventKey="fishes" title="Ֆիլտր">
           <Filter />
         </Tab>
+        {/* <Tab eventKey="reports" title="Հաշվետվություններ">
+          <ReportForMoveAndFeeding />
+        </Tab> */}
       </Tabs>
     </div>
   );
