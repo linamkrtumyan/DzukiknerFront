@@ -3,10 +3,7 @@ import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
-  console.log(postsPerPage, "postsPerPage");
-  console.log(totalPosts, "totalPosts");
   const pageNumbers = [];
-  console.log(pageNumbers, "pageNumbers");
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push(i);
@@ -55,6 +52,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
               style={{ pointerEvents: "none" }}
               className="page-link"
               disabled={true}
+              to=""
             >
               {currentPage} / {pageNumbers[pageNumbers.length - 1]}
             </Link>

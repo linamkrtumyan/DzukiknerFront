@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Badge } from "react-bootstrap";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import axios from "axios";
 import Pagination from "./Pagination";
 import EditMoveReport from "./EditMoveReport";
 import DeleteMoveReport from "./DeleteMoveReport";
+export const MoveReportContext = React.createContext();
 
 function MoveTable() {
   const [currentPage, setCurrentPage] = useState(1);
-  console.log(currentPage, "currentPage");
   const [postsPerPage] = useState(10);
 
   var ourDate = new Date();
@@ -21,7 +21,7 @@ function MoveTable() {
   const [pools, setPools] = useState([]);
   const [types, setTypes] = useState([
     { value: "մուտք", label: "Մուտք" },
-    { value: "վաճառք", label: "Վաճառք" },
+    { value: "ելք", label: "Ելք" },
     { value: "տեղափոխություն", label: "Տեղափոխություն" },
     { value: "սատկ", label: "Սատկ" },
   ]);
@@ -31,6 +31,7 @@ function MoveTable() {
   const [endDate, setEndDate] = useState("");
   const [reports, setReports] = useState([]);
   const [postsCount, setPostsCount] = useState(0);
+  const [isUpdate, setIsUpdate] = useState(false);
 
   const typesForFilter = send.map((i) => i.value);
   const poolsForFilter = send1.map((s) => s.value);
@@ -45,6 +46,20 @@ function MoveTable() {
 
     fetchData();
   }, []);
+
+  const deleteMoveReport = (moveitem) => {
+    reports.map((report) => {
+      if (report.id == moveitem) {
+        const index = reports.indexOf(report);
+        reports.splice(index, 1);
+
+        setReports([...reports]);
+      }
+    });
+  };
+  const updateMoveReport = (updateitem) => {
+    setIsUpdate(!isUpdate);
+  };
 
   useEffect(() => {
     setStartDate(
@@ -69,14 +84,6 @@ function MoveTable() {
   }, [selectedEndDate]);
 
   useEffect(() => {
-    console.log(
-      poolsForFilter,
-      typesForFilter,
-      startDate,
-      endDate,
-      currentPage,
-      "uxarkvoxy"
-    );
     axios
       .post(`/reports/fishMoveHistory`, {
         poolsForFilter,
@@ -85,11 +92,10 @@ function MoveTable() {
         endDate,
         currentPage,
       })
+
       .then((response) => {
-        console.log(response, "response");
         setReports(response.data.data);
         setPostsCount(response.data.count);
-        console.log(reports, "reports");
         if (response.data.success) {
         } else {
           // toast.error(response.data.errorMessage);
@@ -98,7 +104,7 @@ function MoveTable() {
       .catch((e) => {
         // toast.error("Կատարված չէ");
       });
-  }, [send, send1, startDate, endDate, currentPage]);
+  }, [send, send1, startDate, endDate, currentPage, isUpdate]);
 
   const ExampleCustomInput = ({ value, onClick }) => (
     <Button className="example-custom-input" onClick={onClick}>
@@ -107,7 +113,14 @@ function MoveTable() {
   );
   return (
     <>
-      <div style={{ display: "flex" }}>
+      <div
+        style={{
+          display: "flex",
+          backgroundColor: "white",
+          marginBottom: "-50px",
+          padding: "0 20px",
+        }}
+      >
         <div style={{ width: "270px", margin: "20px 10px" }}>
           <Select
             placeholder={"Ընտրեք ավազաններ"}
@@ -185,27 +198,45 @@ function MoveTable() {
               <th>Ավազան (ելք)</th>
               <th>Ավազան (մուտք) </th>
               <th>Քանակ</th>
+              <th>Քաշ</th>
               <th>Գործընկեր</th>
               <th>Նկարագրություն</th>
               <th>Տիպ</th>
-              <th>Գործողություն</th>
+              <th>Ամսաթիվ</th>
+
+              <th style={{ maxWidth: "90px" }}></th>
             </tr>
           </thead>
           <tbody>
             {reports.length > 0 ? (
               reports.map((report, index) => {
-                // console.log(currentPosts, "current Posts");
                 return (
                   <tr key={index}>
                     <td>{report.fromPool}</td>
                     <td>{report.toPool}</td>
                     <td>{report.quantity}</td>
+                    <td>{report.weight}</td>
                     <td>{report.partnerName}</td>
                     <td>{report.description}</td>
                     <td>{report.type}</td>
-                    <td className="table_action_column">
-                      <EditMoveReport data={report} />
-                      <DeleteMoveReport data={report} />
+                    <td>{report.insertedDate}</td>
+
+                    <td
+                      style={{ width: "90px" }}
+                      className="table_action_column"
+                    >
+                      <MoveReportContext.Provider
+                        value={{
+                          reports,
+                          setReports,
+                          deleteMoveReport,
+                          updateMoveReport,
+                        }}
+                      >
+                        {" "}
+                        <EditMoveReport data={report} />
+                        <DeleteMoveReport data={report} />
+                      </MoveReportContext.Provider>
                     </td>
                   </tr>
                 );

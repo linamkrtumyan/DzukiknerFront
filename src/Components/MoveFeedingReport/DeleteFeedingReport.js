@@ -3,13 +3,12 @@ import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { MoveReportContext } from "./MoveTable";
+import { FeedingReportContext } from "./FeedingTable";
 
 function DeleteMoveReport({ data }) {
-  const moveReport = useContext(MoveReportContext);
+  const feedingReport = useContext(FeedingReportContext);
   const [show, setShow] = useState(false);
   const [id, setId] = useState("");
-  const [action] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -19,9 +18,9 @@ function DeleteMoveReport({ data }) {
   });
 
   const handleSubmit = (evt) => {
-    axios.post(`/pools/undoFishMoveReport`, { id, action }).then((response) => {
+    axios.post(`/reports/undoFeeding`, { id }).then((response) => {
       if (response.data.success) {
-        moveReport.deleteMoveReport(id);
+        feedingReport.deleteFeedingReport(id);
         toast.success("Կատարված է");
       } else {
         toast.error(response.data.errorMessage);

@@ -5,38 +5,31 @@ import { FoodContext } from "../../Pages/Foods";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./style.css";
-import { MoveReportContext } from "./MoveTable";
+import { FeedingReportContext } from "./FeedingTable";
 
 toast.configure();
 
 function EditMoveReport({ data }) {
-  const moveReport = useContext(MoveReportContext);
+  const feedingReport = useContext(FeedingReportContext);
+
   const [show, setShow] = useState(false);
-  const [fromPool, setFromPool] = useState("");
-  const [toPool, setToPool] = useState("");
-  const [allPartners, setAllPartners] = useState([]);
-  const useableParters = allPartners.filter(
-    (partner) => partner.id != data.partnerId
-  );
+  const [pool, setPool] = useState("");
+  const [allFoods, setAllFoods] = useState([]);
+  const useableFoods = allFoods.filter((food) => food.value != data.foodId);
 
   const [id, setId] = useState("");
-  const [type, setType] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [coef, setCoef] = useState("");
   const [weight, setWeight] = useState("");
-  const [partnerId, setPartnerId] = useState("");
-  const [description, setDescription] = useState("");
-  const [partnerName, setPartnerName] = useState("");
+  const [foodId, setFoodId] = useState("");
+  const [foodName, setFoodName] = useState("");
 
   const newDataFunc = () => {
     setId(data.id);
-    setFromPool(data.fromPool);
-    setToPool(data.toPool);
-    setType(data.type);
-    setQuantity(data.quantity);
+    setPool(data.poolName);
+    setCoef(data.coefficient);
     setWeight(data.weight);
-    setPartnerId(data.partnerId);
-    setPartnerName(data.partnerName);
-    setDescription(data.description === null ? "" : data.description);
+    setFoodId(data.foodId);
+    setFoodName(data.foodName);
   };
 
   useEffect(() => {
@@ -45,8 +38,8 @@ function EditMoveReport({ data }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios("/info/partner/getPartnerDetails");
-      setAllPartners(result.data.partners);
+      const result = await axios("/info/food/getFoodsDetails");
+      setAllFoods(result.data.foodsDetails);
     };
 
     fetchData();
@@ -55,27 +48,25 @@ function EditMoveReport({ data }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (evt) => {
+    console.log(id, foodId, weight, coef, "uxarkvoxy");
     axios
-      .post(`/reports/updateMove`, {
+      .post(`/reports/editFeeding`, {
         id,
-        type,
-        quantity,
+        foodId,
         weight,
-        partnerId,
-        description,
+        coef,
       })
 
       .then((response) => {
         if (response.data.success) {
+          console.log("8888");
           const report = {
             id,
-            type,
-            quantity,
+            foodId,
             weight,
-            partnerId,
-            description,
+            coef,
           };
-          moveReport.updateMoveReport(report);
+          feedingReport.updateFeedingReport(report);
           toast.success("Կատարված է");
         } else {
           toast.error(response.data.errorMessage);
@@ -107,20 +98,25 @@ function EditMoveReport({ data }) {
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handleSubmit}>
-            <Form.Label>Ավազան (ելք)</Form.Label>
-            <Form.Control type="text" placeholder={fromPool} disabled={true} />
+            <Form.Label>Ավազան</Form.Label>
+            <Form.Control type="text" placeholder={pool} disabled={true} />
             <br />
-            <Form.Label>Ավազան (մուտք)</Form.Label>
-            <Form.Control type="text" placeholder={toPool} disabled={true} />
-            <br />
-            <Form.Label>Քանակ</Form.Label>
+
+            <Form.Label>Կերի տեսակ</Form.Label>
             <Form.Control
-              type="number"
-              onWheel={() => document.activeElement.blur()}
-              placeholder=""
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-            />
+              as="select"
+              placeholder="Ընտրեք կերի տեսակ"
+              onChange={(e) => setFoodId(e.target.value)}
+            >
+              <option hidden value="">
+                {foodName}
+              </option>
+              {useableFoods.map((food) => (
+                <option key={food.value} value={food.value}>
+                  {food.label}
+                </option>
+              ))}
+            </Form.Control>
             <br />
             <Form.Label>Քաշ</Form.Label>
             <Form.Control
@@ -131,28 +127,13 @@ function EditMoveReport({ data }) {
               onChange={(e) => setWeight(e.target.value)}
             />
             <br />
-            <Form.Label>Գործընկեր</Form.Label>
+            <Form.Label>Գործակից</Form.Label>
             <Form.Control
-              as="select"
-              placeholder="Ընտրեք ավազանը"
-              onChange={(e) => setPartnerId(e.target.value)}
-            >
-              <option hidden value="">
-                {partnerName}{" "}
-              </option>
-              {useableParters.map((partner) => (
-                <option key={partner.id} value={partner.id}>
-                  {partner.name}
-                </option>
-              ))}
-            </Form.Control>
-            <br />
-            <Form.Label>Նկարագրություն</Form.Label>
-            <Form.Control
-              type="text"
+              type="number"
+              onWheel={() => document.activeElement.blur()}
               placeholder=""
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={coef}
+              onChange={(e) => setCoef(e.target.value)}
             />
             <br />
           </Form.Group>

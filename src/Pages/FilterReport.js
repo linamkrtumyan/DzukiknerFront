@@ -7,24 +7,14 @@ import ReportForMoveAndFeeding from "./ReportForMoveAndFeeding";
 
 function FilterReport() {
   return (
-    <div
-      //  className="container"
-      style={{ padding: "80px 0px 0px 0px" }}
-    >
-      <Tabs
-        // style={{ paddingTop: "50px " }}
-        defaultactivekey="partners"
-        id="uncontrolled-tab-example"
-      >
+    <div style={{ padding: "80px 0px 0px 0px" }}>
+      <Tabs defaultactivekey="partners" id="uncontrolled-tab-example">
         <Tab eventKey="partners" title="Քաշաճ">
           <Reports />
         </Tab>
         <Tab eventKey="fishes" title="Ֆիլտր">
           <Filter />
         </Tab>
-        {/* <Tab eventKey="reports" title="Հաշվետվություններ">
-          <ReportForMoveAndFeeding />
-        </Tab> */}
       </Tabs>
     </div>
   );
