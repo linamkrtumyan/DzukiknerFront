@@ -1,50 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Form } from "react-bootstrap";
-import GetPartners from "../Components/Partner/GetPartners";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import AddPartner from "../Components/Partner/AddPartner";
+import GetFitFishes from "../Components/FitFishes/GetFitFishes";
+import Pagination from "../Components/MoveFeedingReport/Pagination";
 
 export const DzukContext = React.createContext();
-function Partners() {
+function FitFish() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
+  const [postsCount, setPostsCount] = useState(0);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   let history = useHistory();
-  const [data, setData] = useState([]);
-
-  const addDzuk = (dzuk) => {
-    data.push(dzuk);
-    setData([...data]);
-  };
-  const updatePartner = (partner) => {
-    data.map((id1) => {
-      if (id1.id == partner.id) {
-        id1.name = partner.name;
-        id1.description = partner.description;
-        id1.phone = partner.phone;
-        setData([...data]);
-      }
-    });
-  };
-
-  const deletePartner = (partner) => {
-    data.map((id1) => {
-      if (id1.id == partner) {
-        const index = data.indexOf(id1);
-        data.splice(index, 1);
-
-        setData([...data]);
-      }
-    });
-  };
+  const [fitFishes, setFitFishes] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios("/info/partner/getPartners");
+    axios
+      .post(`/info/fish/usefulFishes`, {
+        currentPage,
+      })
 
-      setData(result.data.allPartners);
-    };
-
-    fetchData();
-  }, []);
+      .then((response) => {
+        setFitFishes(response.data.usefulFishes);
+        setPostsCount(response.data.count);
+        if (response.data.success) {
+        } else {
+          // toast.(response.data.errorMessage);
+        }
+      })
+      .catch((e) => {
+        // toast.error("Կատարված չէ");
+      });
+  }, [currentPage]);
   return (
     <div className="container" style={{ paddingTop: "130px" }}>
       <ul
@@ -53,11 +41,17 @@ function Partners() {
         id="myTab"
         role="tablist"
       >
-        <li className="nav-item cursor">
+        <li
+          className="nav-item cursor"
+          onClick={() =>
+            history.push("/information/partners", { from: "Information" })
+          }
+        >
           <a
-            className="nav-link active "
+            className="nav-link "
             id="home-tab"
             data-toggle="tab"
+            // href="#home"
             role="tab"
             aria-controls="home"
             aria-selected="true"
@@ -110,7 +104,7 @@ function Partners() {
           }
         >
           <a
-            className="nav-link"
+            className="nav-link active"
             id="contact-tab"
             data-toggle="tab"
             role="tab"
@@ -133,26 +127,27 @@ function Partners() {
       >
         <div
           style={{
-            padding: "10px 0px",
-            fontSize: "25px",
-            fontWeight: "700",
-            display: "flex",
-            justifyContent: "space-between",
-            float: "right",
+            padding: "50px 0px",
           }}
         >
-          <DzukContext.Provider value={{ data, setData, addDzuk }}>
-            <AddPartner />
-          </DzukContext.Provider>
+          <GetFitFishes data={fitFishes} />
         </div>
-        <DzukContext.Provider
+
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPosts={postsCount}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
+
+        {/* <DzukContext.Provider
           value={{ data, setData, updatePartner, deletePartner }}
         >
           <GetPartners data={data} />
-        </DzukContext.Provider>
+        </DzukContext.Provider> */}
       </div>
     </div>
   );
 }
 
-export default Partners;
+export default FitFish;

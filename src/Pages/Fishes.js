@@ -97,6 +97,25 @@ function Fishes() {
             Կերի տեսակ
           </a>
         </li>
+        <li
+          className="nav-item cursor"
+          onClick={() =>
+            history.push("/information/partners/fitFish", {
+              from: "Information",
+            })
+          }
+        >
+          <a
+            className="nav-link"
+            id="contact-tab"
+            data-toggle="tab"
+            role="tab"
+            aria-controls="contact"
+            aria-selected="false"
+          >
+            Պիտանի
+          </a>
+        </li>
       </ul>
 
       <div

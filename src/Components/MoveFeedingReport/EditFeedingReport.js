@@ -48,7 +48,6 @@ function EditMoveReport({ data }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (evt) => {
-    console.log(id, foodId, weight, coef, "uxarkvoxy");
     axios
       .post(`/reports/editFeeding`, {
         id,
@@ -59,7 +58,6 @@ function EditMoveReport({ data }) {
 
       .then((response) => {
         if (response.data.success) {
-          console.log("8888");
           const report = {
             id,
             foodId,

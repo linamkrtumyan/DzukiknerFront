@@ -15,6 +15,7 @@ import Losses from "../Components/Losses/Losses";
 import FeedingMoveHistory from "../Pages/FeedingMoveHistory";
 import FilterReport from "../Pages/FilterReport";
 import ReportForMoveAndFeeding from "../Pages/ReportForMoveAndFeeding";
+import FitFish from "../Pages/FitFish";
 
 function Routes({ isLoggedIn }) {
   if (isLoggedIn) {
@@ -36,6 +37,11 @@ function Routes({ isLoggedIn }) {
           {/* <Route path="/reports" component={Reports} exact /> */}
           <Route path="/reports" component={FilterReport} exact />
           <Route path="/information/partners/fishes" component={Fishes} exact />
+          <Route
+            path="/information/partners/fitFish"
+            component={FitFish}
+            exact
+          />
           <Route
             path="/reports/report-for-month/:month/:year/:selectedDate"
             component={PreviousReports}

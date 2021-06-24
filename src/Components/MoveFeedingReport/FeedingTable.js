@@ -39,7 +39,7 @@ function FeedingTable() {
       const foods = await axios("/info/food/getFoodsDetails");
       setPools(result.data.allPools);
       setFoods(foods.data.foodsDetails);
-      console.log(foods, "foods");
+      // console.log(foods, "foods");
     };
 
     fetchData();
@@ -82,14 +82,6 @@ function FeedingTable() {
   }, [selectedEndDate]);
 
   useEffect(() => {
-    console.log(
-      poolsForFilter,
-      foodsForFilter,
-      startDate,
-      endDate,
-      currentPage,
-      "uxarkvoxy"
-    );
     axios
       .post(`/reports/feedHistory`, {
         poolsForFilter,
@@ -100,7 +92,6 @@ function FeedingTable() {
       })
 
       .then((response) => {
-        console.log(response, "response");
         setReports(response.data.result);
         setPostsCount(response.data.count);
         if (response.data.success) {
