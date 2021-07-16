@@ -27,6 +27,7 @@ function Filter() {
       })
       .then((response) => {
         setReports(response.data.data);
+        // console.log(response.data.data, "data");
         if (response.data.success) {
         } else {
           // toast.error(response.data.errorMessage);
@@ -174,6 +175,7 @@ function Filter() {
                 {/* <th colSpan="3">Վերջնական</th> */}
                 <th colSpan="2">Ճշգրտում</th>
                 <th colSpan="1"></th>
+                <th colSpan="3">Մնացորդ</th>
                 {/* <th colSpan="2"></th> */}
               </tr>
               <tr className="report_title">
@@ -196,6 +198,11 @@ function Filter() {
                 <th>քանակ /հատ/</th>
                 <th>քաշ /կգ/</th>
                 <th>Կեր</th>
+
+                <th>քանակ /կգ/</th>
+                <th>քաշ /կգ/</th>
+                <th>միջին քաշ /կգ/</th>
+
                 {/* <th>Քաշաճ</th>
                 <th>Գործակից</th> */}
               </tr>
@@ -232,6 +239,19 @@ function Filter() {
                       <td>{parseFloat(report.CorrectionWeight).toFixed(1)}</td>
 
                       <td>{parseFloat(report.Food)}</td>
+                      <td>
+                        {report.FinalQuantity ? report.FinalQuantity : 0}{" "}
+                      </td>
+                      <td>{report.FinalWeight ? report.FinalWeight : 0}</td>
+                      <td>
+                        {parseFloat(report.FinalQuantity) /
+                        parseFloat(report.FinalWeight)
+                          ? (
+                              parseFloat(report.FinalWeight) /
+                              parseFloat(report.FinalQuantity)
+                            ).toFixed(4)
+                          : 0}
+                      </td>
 
                       {/* <td>{report.WeightGrow}</td>
                       <td>{report.Coefficient}</td> */}
